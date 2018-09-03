@@ -1,0 +1,36 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+Leer una list de vinos desde un archivo CSV:
+
+```{r}
+vinos <- read.csv("vinos.csv")
+```
+
+Imprimir el archivo de vinos:
+
+```{r}
+vinos
+```
+
+Crear un model que puede predicir la calidad de un vino con base en acides, azucar, pH, etc. usando una regresion lineal:
+
+```{r}
+modelo <- lm(quality ~ . -quality, vinos)
+plot(modelo)
+```
+
+Leear archivo con vinos de los que desconocemos su calidad:
+
+```{r}
+nuevos <- read.csv("nuevos.csv")
+nuevos
+```
+
+Usar el modelo para predicir calidad de los nuevos vinos:
+
+```{r}
+dplyr::mutate(nuevos, quality = predict(modelo, nuevos))
+```
