@@ -1,0 +1,322 @@
+---
+title: "MLflow with R"
+author: "[Javier Luraschi](https://github.com/javierluraschi)"
+date: "September 2018"
+output:
+  revealjs::revealjs_presentation:
+    css: styles/mlflow.css
+    df_print: paged
+    self_contained: true
+    center: true
+    fig_width: 6
+    fig_height: 4
+fig_width: 6 
+fig_height: 4 
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(eval = FALSE)
+knitr::opts_chunk$set(warning = FALSE)
+
+library(ggplot2)
+library(dplyr)
+```
+
+## Overview
+
+- What is MLflow?
+- What is R?
+- MLflow with R
+
+# What is MLflow?
+
+## Background
+
+Spark Summit from Andrej Karpathy at Tesla
+
+> The toolchain for the (software) 2.0 tack does not exist.
+
+![](images/spark-summit-karpathy-model-lifecycle.png)
+
+## MLflow
+
+> "Helps teams manage their machine learning lifecycle."
+
+> - <div class="highlight">**Tracking**</div>: Track experiments to record and compare params and results.
+> - <div class="highlight">**Projects**</div>: Reuse and reproduce code to share or transfer to production.
+> - <div class="highlight">**Models**</div>: Manage and deploy models from across libraries and platforms.
+
+# What is R?
+
+## R Language
+
+> R is a programming language and free software environment for statistical computing and graphics.
+
+```{r eval=TRUE, echo = FALSE, fig.cap = 'Interface language diagram by John Chambers from useR 2016.', fig.align = 'center', out.width=500, out.height=300}
+knitr::include_graphics("../../the-r-in-spark/images/01-intro-s-algorithm-interface.png")
+```
+
+## R Community
+
+Provides a rich package archive provided in [CRAN](https://cran.r-project.org/) and [Bioconductor](https://www.bioconductor.org/): [dplyr](https://CRAN.R-project.org/package=dplyr) to manipulate data, [cluster](https://CRAN.R-project.org/package=cluster) to analyze clusters,  [ggplot2](https://CRAN.R-project.org/package=ggplot2) to visualize data, etc.
+
+```{r eval=TRUE, message=FALSE, echo=FALSE, fig.cap='Daily downloads of CRAN packages.', fig.align='center'}
+downloads_csv <- "../../the-r-in-spark/data/01-intro-r-cran-downloads.csv"
+if (!file.exists(downloads_csv)) {
+  downloads <- cranlogs::cran_downloads(from = "2014-01-01", to = "2018-01-01")
+  readr::write_csv(downloads, downloads_csv)
+}
+
+cran_downloads <- readr::read_csv(downloads_csv)
+
+ggplot(cran_downloads, aes(date, count)) + 
+  geom_point(colour="black", pch = 21, size = 1) +
+  scale_x_date() +
+  xlab("") +
+  ylab("") +
+  theme_light()
+```
+
+## R Language
+
+> [cran.r-project.org/doc/manuals/R-lang.html](https://cran.r-project.org/doc/manuals/R-lang.html)
+
+<div style="text-align: left"> 
+2.1.1 Vectors
+
+2.1.4 Expression objects
+
+2.1.8 Promise objects
+
+2.1.9 Dot-dot-dot
+
+3.1.4 Operators
+</div>
+
+## Use Case
+
+Select first two columns and add 2 and 20:
+
+```{r eval=TRUE}
+mtcars
+```
+
+## R as a Software Engineering
+
+This is how I would have written code in R before knowing R:
+
+```{r}
+# Select columns subset
+data = data.frame(mtcars$cyl, mtcars$hp)
+colnames(data) = c("cyl", "hp")
+
+# Transform each row
+for (idx in 1:nrow(data)) {
+  data$cyl[idx] = data$cyl[idx] + 2
+}
+
+# One column at a time to use the CPU cache efficiently
+for (idx in 1:nrow(data)) {
+  data$hp[idx] = data$hp[idx] + 20
+}
+```
+
+## 2.1.1 Vectors
+
+Everything is a vector in R:
+
+```{r}
+# Select columns subset
+data = data.frame(mtcars$cyl, mtcars$hp)
+colnames(data) = c("cyl", "hp")
+
+# Transform each row
+data$cyl = data$cyl + 2
+
+# One column at a time to use the CPU cache efficiently
+data$hp = data$hp + 20
+```
+
+## 2.1.9 Dot-dot-dot
+
+Dynamic parameters using the `...` parameter:
+
+```{r}
+# Select columns subset
+data = data.frame(cyl = mtcars$cyl, hp = mtcars$hp)
+
+# Transform each row
+data$cyl = data$cyl + 2
+
+# One column at a time to use the CPU cache efficiently
+data$hp = data$hp + 20
+```
+
+## 2.1.4/2.1.8 Expression and Promise objects
+
+One can lazily evaluate operations and operate over expressions:
+
+```{r}
+# Select columns subset
+data = select(mtcars, cyl, hp)
+
+# Transform each row
+data = mutate(data, cyl = cyl + 2)
+
+# One column at a time to use the CPU cache efficiently
+data = mutate(data, hp = hp + 20)
+```
+
+## 3.1.4 Operators
+
+Use `<-` for assignment, or the newer `%>%` pipe:
+
+```{r}
+# Select first two columns and add 100
+data <- mtcars %>% 
+  select(mtcars, cyl, hp) %>%
+  mutate(data, cyl = cyl + 2) %>%
+  mutate(data, hp = hp + 20)
+```
+
+## Linear Models
+
+```{r}
+lm(mpg ~ cyl + hp, mtcars) %>% plot()
+```
+
+<img src="images/r-lm-residuals-vs-fitted.png" width="85%">
+
+# MLflow with R
+
+## Principles
+
+- Designed for the R user.
+- Same functionality as Python API.
+
+## Installing
+
+> Install Anaconda or miniconda.
+
+```{r eval=FALSE}
+# Soon, install from CRAN
+install.packages("mlflow")
+
+# Today, install the MLflow R package from GitHub
+devtools::install_github("mlflow/mlflow", subdir = "R/mlflow")
+
+# Install the MLFlow runtime
+mlflow_install()
+```
+
+## Tracking - Implicit
+
+Implicit MLflow run:
+
+```{r}
+library(mlflow)
+
+# Log a parameter (key-value pair)
+mlflow_log_param("param1", 5)
+
+# Log a metric; metrics can be updated throughout the run
+mlflow_log_metric("foo", 1)
+mlflow_log_metric("foo", 2)
+mlflow_log_metric("foo", 3)
+
+# Log an artifact (output file)
+writeLines("Hello world!", "output.txt")
+mlflow_log_artifact("output.txt")
+```
+
+Run terminates when the R session finishes or by running:
+
+```{r}
+mlflow_end_run()
+```
+
+Useful when sourcing files.
+
+## Tracking - Explicit
+
+Explicit MLflow run:
+
+```{r}
+library(mlflow)
+
+with(mlflow_start_run(), {
+  # Log a parameter (key-value pair)
+  mlflow_log_param("param1", 5)
+  
+  # Log a metric; metrics can be updated throughout the run
+  mlflow_log_metric("foo", 1)
+  mlflow_log_metric("foo", 2)
+  mlflow_log_metric("foo", 3)
+  
+  # Log an artifact (output file)
+  writeLines("Hello world!", "output.txt")
+  mlflow_log_artifact("output.txt")
+})
+```
+
+## Tracking - Sources
+
+Sourcing file as MLflow run:
+
+```{r}
+mlflow_run("tracking.R")
+```
+
+Or adding the following to `tracking.R` in RStudio 1.2:
+
+```{r}
+# !source mlflow::mlflow_run(entry_point = .file)
+```
+
+## Tracking UI
+
+```{r}
+mlflow_ui()
+```
+
+## Projects - Snapshots
+
+R snapshots are created with,
+
+```{r}
+mlflow_snapshot()
+```
+
+R snapshots are restored with,
+
+```{r}
+mlflow_restore_snapshot()
+```
+
+## Projects - Consuming
+
+```{r}
+mlflow_run(
+  "https://github.com/rstudio/mlflow-example",
+  "train.R",
+  param_list = list(alpha = 0.2)
+)
+```
+```
+Elasticnet model (alpha=0.2, lambda=0.5):
+  RMSE: 0.827574750159859
+  MAE: 0.632070002076146
+  R2: 0.227227498131926
+```
+
+## Models
+
+```{r}
+mlflow_rfunc_serve()
+```
+
+## Future Work
+
+Currently merged, various github issues pending:
+
+![](images/mlflow-github-r-issues.png)
