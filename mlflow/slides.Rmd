@@ -199,15 +199,25 @@ lm(mpg ~ cyl + hp, mtcars) %>% plot()
 
 > Install Anaconda or miniconda.
 
-```{r eval=FALSE}
-# Soon, install from CRAN
-install.packages("mlflow")
+Today...
 
-# Today, install the MLflow R package from GitHub
+```{bash}
+git clone https://github.com/mlflow/mlflow
+```
+
+```{r eval=FALSE}
 devtools::install_github("mlflow/mlflow", subdir = "R/mlflow")
 
-# Install the MLFlow runtime
-mlflow_install()
+mlflow::mlflow_install()
+
+reticulate::conda_install("r-mlflow", "<local github repo>", pip = TRUE)
+```
+
+Soon...
+
+```{r eval=FALSE}
+install.packages("mlflow")
+mlflow::mlflow_install()
 ```
 
 ## Tracking - Implicit
@@ -318,6 +328,32 @@ Or from bash:
 
 ```{bash}
 mlflow run --entry-point train.R https://github.com/rstudio/mlflow-exampl
+```
+
+## Models - Saving
+
+```{r}
+mlflow_save_model(model)
+```
+
+Generic functions are serialized with `crate`:
+
+```{r}
+column <- mlflow_log_param("column", 1)
+model <- lm(Sepal.Width ~ iris[[column]], iris)
+
+mlflow_save_model(
+  crate(~ stats::predict(model, .x), model, column)
+)
+```
+
+However, `mlflow_save_model()` can be extended by packages:
+
+```{r}
+#' @export
+mlflow_save_flavor.tensorflow <- function(...) {}
+mlflow_load_flavor.tensorflow <- function(...) {}
+mlflow_predict_flavor.tensorflow <- function(...) {}
 ```
 
 ## Models - Predictions
