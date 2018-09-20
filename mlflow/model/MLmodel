@@ -1,0 +1,6 @@
+flavors:
+  r_crate:
+    version: 0.1.0
+    model: r_crate.bin
+time_created: 18-09-20T00:21:28.28.54
+run_id: 18e028e24c59426d997bba33064032fe

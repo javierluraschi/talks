@@ -79,7 +79,7 @@ ggplot(cran_downloads, aes(date, count)) +
 
 ## R Language
 
-> [cran.r-project.org/doc/manuals/R-lang.html](https://cran.r-project.org/doc/manuals/R-lang.html)
+Language features I would highlighting:
 
 <div style="text-align: left"> 
 2.1.1 Vectors
@@ -93,17 +93,19 @@ ggplot(cran_downloads, aes(date, count)) +
 3.1.4 Operators
 </div>
 
+> [cran.r-project.org/doc/manuals/R-lang.html](https://cran.r-project.org/doc/manuals/R-lang.html)
+
 ## Use Case
 
-Select first two columns and add 2 and 20:
+Select the `cyl` and `hp` columns and add 2 and 20:
 
 ```{r eval=TRUE}
 mtcars
 ```
 
-## R as a Software Engineering
+## How to NOT write R code
 
-This is how I would have written code in R before knowing R:
+This is how I would have written R code as a software engineer before knowing R:
 
 ```{r}
 # Select columns subset
@@ -172,7 +174,6 @@ data = mutate(data, hp = hp + 20)
 Use `<-` for assignment, or the newer `%>%` pipe:
 
 ```{r}
-# Select first two columns and add 100
 data <- mtcars %>% 
   select(mtcars, cyl, hp) %>%
   mutate(data, cyl = cyl + 2) %>%
@@ -191,8 +192,8 @@ lm(mpg ~ cyl + hp, mtcars) %>% plot()
 
 ## Principles
 
+- Parity with Python API.
 - Designed for the R user.
-- Same functionality as Python API.
 
 ## Installing
 
@@ -261,8 +262,6 @@ with(mlflow_start_run(), {
 
 ## Tracking - Sources
 
-Sourcing file as MLflow run:
-
 ```{r}
 mlflow_run("tracking.R")
 ```
@@ -273,25 +272,31 @@ Or adding the following to `tracking.R` in RStudio 1.2:
 # !source mlflow::mlflow_run(entry_point = .file)
 ```
 
-## Tracking UI
+<img src="images/rstudio-source-mlflow-file.png" style="border: solid 1px #DDD">
+
+## Tracking - UI
 
 ```{r}
 mlflow_ui()
 ```
 
+<img src="images/rstudio-mlflow-ui.png" style="border: solid 1px #DDD">
+
 ## Projects - Snapshots
 
-R snapshots are created with,
+Create dependencies snapshot:
 
 ```{r}
 mlflow_snapshot()
 ```
 
-R snapshots are restored with,
+Then restore snapshot:
 
 ```{r}
 mlflow_restore_snapshot()
 ```
+
+![](images/r-package-packrat.png)
 
 ## Projects - Consuming
 
@@ -309,10 +314,41 @@ Elasticnet model (alpha=0.2, lambda=0.5):
   R2: 0.227227498131926
 ```
 
-## Models
+Or from bash:
+
+```{bash}
+mlflow run --entry-point train.R https://github.com/rstudio/mlflow-exampl
+```
+
+## Models - Predictions
 
 ```{r}
-mlflow_rfunc_serve()
+mlflow_rfunc_predict(
+  "model",
+  data = rbind(c(7, 0.27, 0.36, 20.7, 0.045, 45, 170, 1.001, 3, 0.45, 8.8))
+)
+```
+```
+           s0
+[1,] 5.583008
+```
+
+Or from bash,
+
+```{bash}
+mlflow rfunc predic --model-path model --input-path data.csv
+```
+
+## Models - Serving
+
+```{r}
+mlflow_rfunc_serve("model")
+```
+
+<img src="images/mlflow-r-serve.png" style="border: solid 1px #DDD">
+
+```{bash}
+mlflow rfunc serve model-path model
 ```
 
 ## Future Work
@@ -320,3 +356,11 @@ mlflow_rfunc_serve()
 Currently merged, various github issues pending:
 
 ![](images/mlflow-github-r-issues.png)
+
+## Thanks!
+
+> github.com/mlflow/mlflow
+
+> @javierluraschi
+
+> javier@rstudio.com
