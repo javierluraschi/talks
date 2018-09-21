@@ -20,6 +20,7 @@ knitr::opts_chunk$set(warning = FALSE)
 
 library(ggplot2)
 library(dplyr)
+library(mlflow)
 ```
 
 ## Overview
@@ -52,7 +53,7 @@ Spark Summit from Andrej Karpathy at Tesla
 
 > R is a programming language and free software environment for statistical computing and graphics.
 
-```{r eval=TRUE, echo = FALSE, fig.cap = 'Interface language diagram by John Chambers from useR 2016.', fig.align = 'center', out.width=500, out.height=300}
+```{r eval=TRUE, echo = FALSE, fig.cap = 'Interface language diagram by John Chambers - Rick Becker useR 2016.', fig.align = 'center', out.width=500, out.height=300}
 knitr::include_graphics("../../the-r-in-spark/images/01-intro-s-algorithm-interface.png")
 ```
 
@@ -368,8 +369,8 @@ mlflow_rfunc_predict(
 )
 ```
 ```
-           s0
-[1,] 5.583008
+       1        2 
+3.400381 3.406570
 ```
 
 Or from bash,
@@ -384,7 +385,7 @@ mlflow rfunc predic --model-path model --input-path data.csv
 mlflow_rfunc_serve("model")
 ```
 
-<img src="images/mlflow-r-serve.png" style="border: solid 1px #DDD">
+<img src="images/mlflow-r-serve.png" style="border: solid 1px #DDD" width="80%">
 
 ```{bash}
 mlflow rfunc serve model-path model
