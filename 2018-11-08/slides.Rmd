@@ -65,14 +65,6 @@ nomnoml::nomnoml("
 ```
 <img src="images/mlflow-challenge.png" style="max-width: 40%"/>
 
-## MLflow
-
-> "Helps teams manage their machine learning lifecycle."
-
-> - <div class="highlight">**Tracking**</div>: Track experiments to record and compare params and results.
-> - <div class="highlight">**Projects**</div>: Reuse and reproduce code to share or transfer to production.
-> - <div class="highlight">**Models**</div>: Manage and deploy models from across libraries and platforms.
-
 ## Solution
 
 MLflow can run models across runtimes tracking their results.
@@ -92,6 +84,14 @@ Result 1..N]
 ")
 ```
 <img src="images/mlflow-solution.png" style="max-height: 40%"/>
+
+## MLflow
+
+> "Helps teams manage their machine learning lifecycle."
+
+> - <div class="highlight">**Tracking**</div>: Track experiments to record and compare params and results.
+> - <div class="highlight">**Projects**</div>: Reuse and reproduce code to share or transfer to production.
+> - <div class="highlight">**Models**</div>: Manage and deploy models from across libraries and platforms.
 
 # MLflow with R
 
@@ -377,9 +377,19 @@ mtcars_tbl %>% spark_apply(function(x, model) model(x), context = model)
  5   17.7
 ```
 
+```{r echo=FALSE}
+spark_disconnect_all()
+```
+
 # Thanks!
 
+## Resources
+
+> mlflow.org
+
 > github.com/mlflow/mlflow
+
+> rpubs.com/jluraschi/mlflow-with-r-rusers-seattle
 
 > @javierluraschi
 

@@ -6,4 +6,4 @@ flavors:
     loader_module: mlflow.keras
     data: model.h5
     env: conda_env.yaml
-time_created: 18-11-07T00:13:04.04.78
+time_created: 18-11-09T00:55:09.09.05
