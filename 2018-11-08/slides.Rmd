@@ -389,7 +389,7 @@ spark_disconnect_all()
 
 > github.com/mlflow/mlflow
 
-> rpubs.com/jluraschi/mlflow-with-r-rusers-seattle
+> rpubs.com/jluraschi/mlflow-rseattle
 
 > @javierluraschi
 
