@@ -1,0 +1,6 @@
+name: conda_env
+channels: defaults
+dependencies:
+  pip:
+  - mlflow
+  - keras>=2.2.0
