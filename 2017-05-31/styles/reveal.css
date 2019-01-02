@@ -1,0 +1,122 @@
+.reveal .controls {
+  opacity: 0.8;
+}
+
+.reveal ul {
+  display: block;
+}
+
+.reveal .slide h3 {
+  text-align: left;
+}
+
+.reveal pre code {
+  max-height: none;
+}
+
+.reveal .description {
+  color: #FFF;
+  font-weight: 400;
+  text-transform: none;
+}
+
+.reveal h1 {
+  font-size: 80px !important;
+  background: #77abd9;
+  color: #000 !important;
+  display: inline-block;
+  padding: 0 30px 0 30px;
+  border-radius: 3px;
+}
+
+.reveal h1.subtitle {
+  font-size: 60px !important;
+  color: #FFF !important;
+  font-weight: 400 !important;
+  padding-left: 30px;
+  background: none;
+}
+
+.title-slide p {
+  font-size: 30px !important;
+  font-weight: bold !important;
+  padding-left: 30px;
+}
+
+.reveal p {
+  color: #e4e4e4;
+}
+
+.reveal .highlighted {
+  color: #FFF;
+  font-weight: bold;
+}
+
+.reveal strong {
+  color: #FFF;
+  text-transform: none;
+  font-weight: 400;
+}
+
+.reveal .slides section img {
+  border: none;
+  border-radius: 5px;
+}
+
+.reveal #s---language-for-stats-computing img {
+  background: rgba(255, 255, 255, 0.85);
+  filter: brightness(150%) saturate(0%) contrast(150%);
+}
+
+.reveal #s---language-for-stats-computing-1 img {
+  filter: saturate(0%) brightness(105%);
+}
+
+.reveal #s---language-for-stats-computing-1 blockquote {
+  width: 85%;
+}
+
+.reveal #r---design-principles img {
+  width: 200px;
+  height: 200px;
+  margin-right: 20px;
+}
+
+.reveal code.sourceCode {
+  padding: 14px 0px 14px 16px;
+}
+
+.reveal .sourceCode.r,
+.reveal .sourceCode.python,
+.reveal .sourceCode.scala {
+  margin-top: 0px;
+  margin-bottom: 10px;
+  
+  background-color: #043440;
+  border-left: solid 10px #025e75;
+}
+
+.reveal .sourceCode.r span.kw {
+  color: #77abd9;
+}
+
+.reveal .sourceCode.r span.dt {
+  color: #6eab9e;
+}
+
+.reveal .sourceCode.scala span.fu {
+  color: #c8d6f9;
+}
+
+.reveal #spark-install p {
+  font-size: 25px;
+}
+
+.reveal #livy img {
+  width: 500px;
+}
+
+img {
+  width: 650px;
+  border: solid 1px #999;
+}

@@ -1,0 +1,149 @@
+---
+title: "Importing Modern Data into R"
+author: Javier Luraschi
+date: June 29, 2016
+output: revealjs::revealjs_presentation
+---
+
+## Overview
+
+* Importing Data
+    + Tabular
+    + Hierarchical
+    + Relational
+* Importing **Modern** Data
+    + Services
+    + Distributed
+    + Binary
+    
+## Importing Data
+
+## Importing Tabular Data
+From Text, Excel, SPSS, SAS and Stata
+
+```{r}
+# Import from Text
+library(readr)
+csv <- read_csv("data/Water_Right_Applications.csv")
+
+# Import from Excel
+library(readxl)
+excel <- read_excel("data/Water_Right_Applications.xls")
+
+# Import from SPSS
+library(haven)
+sav <- read_sav("data/Child_Data.sav")
+
+# Import fomr SAS
+sas <- read_sas("data/iris.sas7bdat")
+
+# Import from STATA
+stata <- read_dta("data/Milk_Production.dta")
+```
+
+## Importing Hierarchical Data
+From XML, HTML and JSON
+
+```{r, eval=FALSE}
+# Import from JSON
+library(jsonlite)
+json <- fromJSON("data/Water_Right_Applications.json")
+json[[1]][[1]]
+
+# Import from XML
+library(xml2)
+xml <- read_xml("data/Water_Right_Applications.xml")
+xml_children(xml_children(xml))
+
+# Import from HTML
+library(rvest)
+html <- read_html("data/CRAN Packages By Name.htm")
+table <- xml_find_one(html, "//table")
+r_versions <- html_table(table, fill = TRUE)
+View(r_versions)
+```
+
+## Importing Relational Data
+From Postgres, MySQL and SQLite
+
+```{r, eval=FALSE}
+library(DBI)
+db <- dbConnect(RPostgres::Postgres(), user, pass, ...)
+
+# Connect to MySQL
+db <- dbConnect(RMySQL::MySQL(), user, pass, ...)
+
+# Connect to SQLite
+db <- dbConnect(RSQLite::SQLite(), dbname = "data/database.sqlite")
+
+# Import data from SQLite
+dbListTables(db)
+dbGetQuery(db, "SELECT * FROM packages")
+
+# Disconnect
+dbDisconnect(db)
+```
+
+## Importing Modern Data
+
+## Importing Services Data
+From twitter and oauth apis
+
+```{r, eval=FALSE}
+library(twitteR)
+# Register an application at https://aps.twitter.com
+setup_twitter_oauth(
+  consumer_key = "X38S4eTmAc9OflRxlx2f48Q3Z", consumer_secret = "C9MczgTnc6FUHJCcsCER4PwloRRSnaiL7WaRIojAoYkQcmZyjq",
+  access_token = "19675099-S3fviiHDna9ngxjUMFatu1uhV4Sx1yJDUGtAyXX1v", access_secret = "g3i540XFtPM6UEmE4nxA0DEvAmjfX2X6gZKtD9A3bTYBd")
+searchTwitter('@rstudio')
+
+library(httr)
+# Register an application at https://developers.facebook.com/apps/
+myapp <- oauth_app("facebook", "353609681364760", "1777c63343eba28359537764fab99b9a")
+token <- oauth2.0_token(oauth_endpoints("facebook"), myapp, type = "application/x-www-form-urlencoded")
+
+req <- GET("https://graph.facebook.com/me", config(token = token))
+str(content(req))
+```
+
+## Importing Distributed Data
+From Spark
+
+```{r, eval=FALSE}
+library(sparklyr)
+library(dplyr)
+
+# Install sparklyr
+install.packages("devtools")
+devtools::install_github("rstudio/sparklyr")
+spark_install()
+
+# Connect and load a dataset to Spark
+sc <- spark_connect(master = "local")
+dataset <- spark_read_parquet(sc, "iris", "data/iris.parquet")
+
+# Sample the dataset back to R
+sampled <- dataset %>% sample_n(size = 5) %>% collect
+View(sampled)
+
+spark_disconnect(sc)
+```
+
+## Importing Binary Data
+From Feather
+
+```{r, eval=FALSE}
+library(feather)
+
+system.time({
+  write_csv(nycflights13::flights, "data/flights.csv")
+  read_csv("data/flights.csv")
+})
+
+system.time({
+  write_feather(nycflights13::flights, "data/flights.feather")
+  read_feather("data/flights.feather")
+})
+```
+
+## Questions
