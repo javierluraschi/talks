@@ -228,7 +228,7 @@ Elasticnet model (alpha=0.2, lambda=0.5):
 ```{r}
 mlflow_run(
   uri = "https://github.com/mlflow/mlflow-example",
-  param_list = list(alpha = 0.2)
+  param_list = list(alpha = 0.6)
 )
 ```
 ```
