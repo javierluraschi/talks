@@ -212,12 +212,13 @@ class: panel-narrow-slide, left
 
 # Arrow on Spark
 
-> Apache Arropw is a cross-language development platform for in-memory data.
+> .small-quote[Apache Arrow is a cross-language development platform for in-memory data.]
 
 --
 
 ```{r}
 devtools::install_github("apache/arrow", subdir = "r", ref = "dc5df8f")
+devtools::install_github("rstudio/sparklyr")
 
 library(arrow)
 library(sparklyr)
