@@ -29,6 +29,9 @@ thm <- theme_bw() +
 theme_set(thm)
 
 knitr::opts_chunk$set(eval = FALSE)
+
+library(sparklyr)
+library(DBI)
 ```
 
 class: panel-wide-slide, left
@@ -64,14 +67,27 @@ cloudml::cloudml_train("train.R")
 
 ```{r}
 # Scale Out
-sparklyr::ml_linear_regression(mtcars_tbl, mpg ~ wt + cyl)
+mtcars_tbl %>% sparklyr::ml_linear_regression(mpg ~ wt + cyl)
 ```
 
 ---
 
 class: panel-narrow-slide, left
 
-# Scaling R with Spark
+# Scaling Out with R and Spark
+
+![](images/spark-scale-out-scale-up.png)
+
+```{r}
+# Scale Out
+mtcars_tbl %>% sparklyr::ml_linear_regression(mpg ~ wt + cyl)
+```
+
+---
+
+class: panel-narrow-slide, left
+
+# How to use R with Spark?
 
 ```{r}
 library(sparklyr)                                    # R Interface to Apache Spark
@@ -82,7 +98,7 @@ sc <- spark_connect(master = "local")                # Connect to Spark cluster
 --
 
 ```{r}
-cars_tbl <- spark_read_csv(sc, "cars", "input/")     # Read data in Spark
+cars_tbl <- spark_read_csv(sc, "cars", "mtcars/")     # Read data in Spark
 
 summarize(cars_tbl, n = n())                         # Count records with dplyr
 dbGetQuery(sc, "SELECT count(*) FROM cars")          # Count records with DBI
@@ -115,48 +131,96 @@ spark_apply(cars_tbl, nrow)                          # Extend sparklyr with R
 
 class: panel-narrow-slide, left
 
-# So, what's new in Spark and R?
+# What about realtime data?
 
---
-
-## - Realtime processing with structured streams.
-
---
-
-## - [XGBoost](https://github.com/rstudio/sparkxgb) on Spark.
-
---
-
-## - Faster operations with Apache Arrow.
+![](images/realtime-spark-r-twitter.png)
 
 ---
 
 class: panel-narrow-slide, left
 
-# Spark Streams
+# Spark Structured Streams
 
 ```{r}
-stream <- stream_read_csv(sc, "stream", "input/")    # Read stream in Spark
+cars_str <- stream_read_csv(sc, "cars", "mtcars/")     # Read stream in Spark
 ```
 
 --
 
 ```{r}
-summarize(stream, n = n())                           # Count records with dplyr
-dbGetQuery(sc, "SELECT count(*) FROM stream")        # Count records with DBI
+out_str <- summarize(cars_str, n = n())                # Count records with dplyr
+out_str <- dbGetQuery(sc, "SELECT count(*) FROM cars") # Count records with DBI
 ```
 
 --
 
 ```{r}
-ml_transform(fitted, stream)                         # Apply pipeline to stream
+out_str <- ml_transform(fitted, cars_str)              # Apply pipeline to stream
 ```
 
 --
 
 ```{r}
-spark_apply(stream, nrow)                            # Extend streams with R
+out_str <- spark_apply(cars_str, nrow)                 # Extend streams with R
 ```
+
+```{r}
+stream_write_csv(out_str, "output/")                   # Write as a CSV stream
+reactiveSpark(out_str)                                 # Transform into a Shiny reactive
+```
+
+---
+
+class: panel-narrow-slide, left
+
+# Streaming with Spark, Kafka and Shiny
+
+> Apache Kafka is an open-source stream-processing software platform that provides a unified, high-throughput and low-latency for handling real-time data feeds.
+
+--
+
+![](images/streaming-kafka-spark-shiny.png)
+
+---
+
+class: panel-narrow-slide, left
+
+# What's new in Spark and R?
+
+**Streams**, **MLeap**, **Kubernetes** and **RStudio 1.2** integration.
+
+--
+
+![](images/sparklur-rstudio-1.2-features.png)
+
+---
+
+class: panel-narrow-slide, left
+
+# What are we currently working on?
+
+### - Faster data transfer with Apache Arrow: [pull/1611](https://github.com/rstudio/sparklyr/pull/1611).
+
+--
+
+### - [XGBoost](https://github.com/rstudio/sparkxgb) on Spark: [rstudio/sparkxgb](https://github.com/rstudio/sparkxgb).
+
+---
+
+class: panel-narrow-slide, left
+
+# Arrow on Spark
+
+> Apache Arropw is a cross-language development platform for in-memory data.
+
+```{r}
+devtools::install_github("apache/arrow", subdir = "r", ref = "dc5df8f")
+
+library(arrow)
+library(sparklyr)
+```
+.pull-left[![](images/sparklyr-arrow-collect.png)]
+.pull-right[![](images/sparklyr-arrow-apply.png)]
 
 ---
 
@@ -164,8 +228,10 @@ class: panel-narrow-slide, left
 
 # XGBoost on Spark
 
+> sparkxgb is a sparklyr extension that provides an interface to XGBoost on Spark.
+
 ```{r}
-devtools::install_github("kevinykuo/sparkxgb")
+devtools::install_github("rstudio/sparkxgb")
 library(sparkxgb)
 ```
 
@@ -183,28 +249,17 @@ xgb_model <- xgboost_classifier(
   max_depth = 4
 )
 
-xgb_model %>%
-  ml_predict(iris_tbl) %>%
-  glimpse()
+xgb_model %>% ml_predict(iris_tbl) %>% glimpse()
 ```
 
 ---
 
-class: panel-narrow-slide, left
-
-# Arrow on Spark
-
-```{r}
-devtools::install_github("apache/arrow", subdir = "r")
-
-library(arrow)
-library(sparklyr)
-```
-.pull-left[![](images/sparklyr-arrow-collect.png)]
-.pull-right[![](images/sparklyr-arrow-apply.png)]
-
----
-
-class: blank-slide, blue, center, middle
+class: panel-wide-slide, left
 
 # Thank you!
+
+### Docs: spark.rstudio.com
+### R Help: community.rstudio.com
+### Issues: github.com/rstudio/sparklyr/issues
+### Spark Help: stackoverflow.com/tags/sparklyr
+### Chat: gitter.im/rstudio.sparklyr
