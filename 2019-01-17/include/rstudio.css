@@ -199,3 +199,7 @@ slide types:
 .white {
   color: #404040;
 }
+
+.small-note {
+  font-size: 24px;
+}

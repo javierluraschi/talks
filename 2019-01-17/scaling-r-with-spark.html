@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="author" content="Javier Luraschi" />
     <meta name="date" content="2019-01-17" />
-    <link rel="stylesheet" href="include/rstudio.css" type="text/css" />
+    <link rel="stylesheet" href="https://s3.amazonaws.com/javierluraschi/scaling-r-with-spark-rstudio-conf/include/rstudio.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
@@ -62,13 +62,16 @@ cloudml::cloudml_train("train.R")
 mtcars_tbl %&gt;% sparklyr::ml_linear_regression(mpg ~ wt + cyl)
 ```
 
+--
+.small-note[**Note:** There are many more ways to sample, scale-up and scale-out.]
+
 ---
 
 class: panel-narrow-slide, left
 
 # Scaling Out with R and Spark
 
-![](images/spark-scale-out-scale-up.png)
+![](https://s3.amazonaws.com/javierluraschi/scaling-r-with-spark-rstudio-conf/images/spark-scale-out-scale-up.png)
 
 
 ```r
@@ -93,7 +96,7 @@ sc &lt;- spark_connect(master = "local")                # Connect to Spark clust
 
 
 ```r
-cars_tbl &lt;- spark_read_csv(sc, "cars", "mtcars/")     # Read data in Spark
+cars_tbl &lt;- spark_read_csv(sc, "cars", "mtcars/")    # Read data in Spark
 
 summarize(cars_tbl, n = n())                         # Count records with dplyr
 dbGetQuery(sc, "SELECT count(*) FROM cars")          # Count records with DBI
@@ -131,7 +134,7 @@ class: panel-narrow-slide, left
 
 # What about realtime data?
 
-![](images/realtime-spark-r-twitter.png)
+![](https://s3.amazonaws.com/javierluraschi/scaling-r-with-spark-rstudio-conf/images/realtime-spark-r-twitter.png)
 
 ---
 
@@ -169,7 +172,7 @@ out_str &lt;- spark_apply(cars_str, nrow)                 # Extend streams with 
 
 ```r
 stream_write_csv(out_str, "output/")                   # Write as a CSV stream
-reactiveSpark(out_str)                                 # Transform into a Shiny reactive
+reactiveSpark(out_str)                                 # Use as a Shiny reactive
 ```
 
 ---
@@ -182,7 +185,7 @@ class: panel-narrow-slide, left
 
 --
 
-![](images/streaming-kafka-spark-shiny.png)
+![](https://s3.amazonaws.com/javierluraschi/scaling-r-with-spark-rstudio-conf/images/streaming-kafka-spark-shiny.png)
 
 ---
 
@@ -194,7 +197,7 @@ class: panel-narrow-slide, left
 
 --
 
-![](images/sparklur-rstudio-1.2-features.png)
+![](https://s3.amazonaws.com/javierluraschi/scaling-r-with-spark-rstudio-conf/images/sparklyr-rstudio-1.2-features.png)
 
 ---
 
@@ -216,6 +219,8 @@ class: panel-narrow-slide, left
 
 &gt; Apache Arropw is a cross-language development platform for in-memory data.
 
+--
+
 
 ```r
 devtools::install_github("apache/arrow", subdir = "r", ref = "dc5df8f")
@@ -223,8 +228,11 @@ devtools::install_github("apache/arrow", subdir = "r", ref = "dc5df8f")
 library(arrow)
 library(sparklyr)
 ```
-.pull-left[![](images/sparklyr-arrow-collect.png)]
-.pull-right[![](images/sparklyr-arrow-apply.png)]
+
+--
+
+.pull-left[![](https://s3.amazonaws.com/javierluraschi/scaling-r-with-spark-rstudio-conf/images/sparklyr-arrow-collect.png)]
+.pull-right[![](https://s3.amazonaws.com/javierluraschi/scaling-r-with-spark-rstudio-conf/images/sparklyr-arrow-apply.png)]
 
 ---
 
@@ -233,6 +241,8 @@ class: panel-narrow-slide, left
 # XGBoost on Spark
 
 &gt; sparkxgb is a sparklyr extension that provides an interface to XGBoost on Spark.
+
+--
 
 
 ```r
