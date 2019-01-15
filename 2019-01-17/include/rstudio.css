@@ -2,29 +2,35 @@
 @import url('https://fonts.googleapis.com/css?family=PT+Mono');
 
 body {
-  font-family: 'Source Sans Pro ExtraLight';
+  font-family: 'Source Sans Pro';
+  font-weight: 200;
 }
 
 strong {
-  font-family: 'Source Sans Pro SemiBold';
+  font-family: 'Source Sans Pro';
+  font-weight: 600;
 }
 
 p {
+  font-family: 'Source Sans Pro';
+  font-weight: 200;
   font-size: 36px;
 }
 
 h1 {
-  font-family: 'Source Sans Pro ExtraLight';
+  font-family: 'Source Sans Pro';
+  font-weight: 200;
   font-size: 75px;
-  font-weight: normal;
 }
 
 h2 {
+  font-family: 'Source Sans Pro';
   font-size: 48px;
   font-weight: normal;
 }
 
 h3 {
+  font-family: 'Source Sans Pro';
   font-size: 36px;
   font-weight: normal;
 }
@@ -36,6 +42,7 @@ a, a > code {
 }
 
 .footnote {
+  font-family: 'Source Sans Pro';
   position: absolute;
   bottom: 3em;
   padding-right: 4em;
@@ -47,6 +54,7 @@ img, video, iframe {
 }
 
 blockquote {
+  font-family: 'Source Sans Pro';
   border-left: solid 5px lightgray;
   padding-left: 1em;
 }
@@ -206,4 +214,8 @@ slide types:
 
 .small-quote {
   font-size: 30px; 
+}
+
+.resource-link {
+  background: yellow;
 }

@@ -14,6 +14,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
+rmarkdown::output_metadata$set(rsc_output_files = list.files(recursive = TRUE, full.names = TRUE))
 options(htmltools.dir.version = FALSE)
 library(ggplot2)
 
@@ -267,8 +268,9 @@ class: panel-wide-slide, left
 
 # Thank you!
 
-### Docs: spark.rstudio.com
-### R Help: community.rstudio.com
-### Issues: github.com/rstudio/sparklyr/issues
-### Spark Help: stackoverflow.com/tags/sparklyr
-### Chat: gitter.im/rstudio.sparklyr
+### **Docs**: .resource-link[spark.rstudio.com]
+### **Blog**: blog.rstudio.com/tags/sparklyr
+### **R Help**: community.rstudio.com
+### **Spark Help**: stackoverflow.com/tags/sparklyr
+### **Issues**: github.com/rstudio/sparklyr/issues
+### **Chat**: gitter.im/rstudio.sparklyr
