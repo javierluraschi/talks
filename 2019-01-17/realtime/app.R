@@ -24,7 +24,7 @@ server <- function(input, output) {
     sc,
     options = list(
       kafka.bootstrap.servers = "localhost:9092",
-      subscribe = "test")) %>%
+      subscribe = "tweets")) %>%
     transmute(value = as.character(value))
   
   twitterWords <- twitterStream %>%

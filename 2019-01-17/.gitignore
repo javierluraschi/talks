@@ -1,1 +1,3 @@
-logs
+logs/
+cloudml.json
+checkpoints/

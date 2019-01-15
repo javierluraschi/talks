@@ -6,10 +6,12 @@ author: "Javier Luraschi"
 
 ## Configuration
 
-### Kafka
+### Installing Kafka
 
 This walkthrough uses Amazon EMR and a local Kafka and Zookeper instance configured based on the [Kafka Quickstart](https://kafka.apache.org/quickstart
 ) as follows:
+
+#### Linux
 
 ```{bash}
 wget http://apache.claz.org/kafka/2.1.0/kafka_2.12-2.1.0.tgz
@@ -18,10 +20,8 @@ tar -xzf kafka_2.12-2.1.0.tgz
 bin/zookeeper-server-start.sh config/zookeeper.properties
 bin/kafka-server-start.sh config/server.properties
 
-bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic test
+bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic tweets
 bin/kafka-topics.sh --list --zookeeper localhost:2181
-
-http://dev.twitter.com
 
 sudo ln -s /usr/lib/gcc/x86_64-amazon-linux/6.4.1/libgomp.spec /usr/lib64/libgomp.spec
 sudo ln -s /usr/lib/gcc/x86_64-amazon-linux/6.4.1/libgomp.a /usr/lib64/libgomp.a
@@ -29,30 +29,67 @@ sudo ln -s /usr/lib64/libgomp.so.1.0.0 /usr/lib64/libgomp.so
 
 R CMD javareconf -e 
 
-bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test --from-beginning
-bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test
+bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic tweets --from-beginning
 ```
 
 **Note:** You can clean up a Kafka topic as follows,
 
 ```{bash}
-bin/kafka-topics.sh --zookeeper localhost:2181 --delete --topic test
-bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic test
+bin/kafka-topics.sh --zookeeper localhost:2181 --delete --topic tweets
+bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic tweets
 ```
 
-### Configuring Twitter and Kafka
+#### OS X
+
+```{bash}
+R CMD javareconf -e 
+sudo R CMD javareconf
+
+brew install kafka
+
+brew services start zookeeper
+brew services start kafka
+```
+
+```{bash}
+/usr/local/Cellar/kafka/2.1.0/bin/kafka-topics --list --zookeeper localhost:2181
+
+/usr/local/Cellar/kafka/2.1.0/bin/kafka-console-consumer --bootstrap-server localhost:9092 --topic tweets --from-beginning
+```
+
+**Note:** You can clean up a Kafka topic as follows,
+
+```{bash}
+/usr/local/Cellar/kafka/2.1.0/bin/kafka-topics --zookeeper localhost:2181 --delete --topic tweets
+```
+
+Then, to stop:
+
+```{bash}
+brew services stop kafka
+brew services stop zookeeper
+```
+
+### Configuring Kafka
 
 ```{r}
 install.packages("rJava")
-install.packages("rtweet")
 install.packages("rkafka")
 
+producer <- rkafka::rkafka.createProducer("localhost:9092", "sync")
+rkafka::rkafka.send(producer, "tweets", "localhost", "hello")
+```
+
+### Configuring Twitter
+
+```{r}
+install.packages("rtweet")
+library(dplyr)
+
+# See http://dev.twitter.com
 rtweet::create_token("appname", "", "", "", "")
 
-producer <- rkafka::rkafka.createProducer("localhost:9092", "sync")
-rkafka::rkafka.send(producer, "test", "localhost", "hello")
-
-produce_tweets <- function(search, producer, topic, last = data.frame(), iters = 1) {
+produce_tweets <- function(search, producer, topic = "tweets", last = data.frame(), iters = 1) {
     if (iters <= 0) return(last)
     
     last_id <- last[nrow(last),]$status_id
@@ -61,7 +98,8 @@ produce_tweets <- function(search, producer, topic, last = data.frame(), iters =
     tweets <- tweets[!identical(tweets$status_id, last_id),]
     
     if (nrow(tweets) > 0) {
-        tweets_subset <- tweets %>% select(
+        tweets_subset <- dplyr::select(
+            tweets,
             created_at, screen_name, text, is_retweet, favorite_count, retweet_count, media_url, location
         )
         
@@ -74,18 +112,14 @@ produce_tweets <- function(search, producer, topic, last = data.frame(), iters =
     produce_tweets(search, producer, topic, tweets, iters - 1)
 }
 
-produce_tweets("rstats", producer, "test")
+tweets <- produce_tweets("#rstats", producer, "tweets")
 ```
 
-### Configuring Google CLoud
+### Configuring Google Cloud
 
 ```{r}
 install.packages("googleAuthR")
 devtools::install_github("javierluraschi/RoogleVision")
-
-googleAuthR::gar_auth_service(scope = "https://www.googleapis.com/auth/cloud-platform", json_file="cloudml.json")
-
-image_response <- RoogleVision::getGoogleVisionResponse("https://media-cdn.tripadvisor.com/media/photo-s/02/6b/c2/19/filename-48842881-jpg.jpg")
 ```
 
 ## Connecting to Spark
@@ -105,7 +139,7 @@ sc <- spark_connect(master = "yarn", config = config)
 ## Reading from Kafka
 
 ```{r}
-read_options <- list(kafka.bootstrap.servers = "localhost:9092", subscribe = "test")
+read_options <- list(kafka.bootstrap.servers = "localhost:9092", subscribe = "tweets")
 
 stream <- stream_read_kafka(sc, options = read_options) %>%
     stream_write_memory("stream")
@@ -121,6 +155,22 @@ stream_view(stream)
 
 ```{r}
 tbl(sc, "stream") %>%
+  summarize(n = n())
+```
+
+```{r}
+tbl(sc, "stream") %>%
+  transmute(value = as.character(value))
+```
+
+```{r}
+tbl(sc, "stream") %>%
+  transmute(value = as.character(value)) %>%
+  transmute(text = get_json_object(value, '$[0].text'))
+```
+
+```{r}
+tbl(sc, "stream") %>%
   transmute(value = as.character(value)) %>%
   transmute(screen_name = get_json_object(value, '$[0].media_url[0]')) %>% filter(nchar(screen_name) > 4)
 ```
@@ -128,14 +178,19 @@ tbl(sc, "stream") %>%
 ## Using streams with R code to label an image using Google Cloud
 
 ```{r}
+googleAuthR::gar_auth_service(scope = "https://www.googleapis.com/auth/cloud-platform", json_file="cloudml.json")
+
+RoogleVision::getGoogleVisionResponse("http://pbs.twimg.com/media/DwzcM88XgAINkg-.jpg")
+```
+
+```{r}
 tbl(sc, "stream") %>% 
     transmute(value = as.character(value)) %>%
     transmute(media = get_json_object(value, '$[0].media_url[0]')) %>% filter(nchar(media) > 5) %>%
-    head(n=2) %>%
-    spark_apply(function(df, media, context) {
+    spark_apply(function(df) {
         googleAuthR::gar_auth_service(scope = "https://www.googleapis.com/auth/cloud-platform", json_file="cloudml.json")
-        RoogleVision::getGoogleVisionResponse(media)
-    }, columns = c(media = "character", lapply(image_response, class)), group_by = "media")
+        RoogleVision::getGoogleVisionResponse(df$media, download = FALSE)
+    }, columns = lapply(image_response, class))
 ```
 
 ## Using streams with modeling
@@ -147,15 +202,14 @@ tbl(sc, "stream") %>%
   filter(nchar(text) > 4) %>%
   ft_tokenizer(input_col = "text", output_col = "words") %>%
   transmute(word = explode(words)) %>%
-  filter(nchar(text) > 4) %>%
+  filter(nchar(word) > 4) %>%
   group_by(word) %>%
   summarize(total = n()) %>%
-  arrange(desc(total)) %>%
-  head(n = 10)
+  arrange(desc(total))
 ```
 
 ## Using streams with Shiny
 
 ```{r}
-runApp("realtime", display.mode = "showcase")
+shiny::runApp("realtime", display.mode = "showcase")
 ```
