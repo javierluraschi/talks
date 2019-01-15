@@ -130,11 +130,13 @@ library(shiny)
 library(sparklyr)
 library(dplyr)
 
+Sys.setenv(RJAVA_JVM_STACK_WORKAROUND = 0)
+
 config <- spark_config()
 config$sparklyr.shell.packages <- "org.apache.spark:spark-sql-kafka-0-10_2.11:2.3.2"
 config$sparklyr.shell.files <- "cloudml.json"
 
-sc <- spark_connect(master = "yarn", config = config)
+sc <- spark_connect(master = "local", config = config)
 ```
 
 ## Streaming CSVs
