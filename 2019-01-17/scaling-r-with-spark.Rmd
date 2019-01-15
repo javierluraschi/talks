@@ -144,7 +144,7 @@ class: panel-narrow-slide, left
 # Spark Structured Streams
 
 ```{r}
-cars_str <- stream_read_csv(sc, "cars", "mtcars/")     # Read stream in Spark
+cars_str <- stream_read_csv(sc, "mtcars/", "cars")     # Read stream in Spark
 ```
 
 --
