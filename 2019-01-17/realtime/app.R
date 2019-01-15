@@ -42,6 +42,7 @@ server <- function(input, output) {
     transmute(image = get_json_object(
       value, "$[0].media_url[0]")) %>%
     filter(nchar(image) > 5) %>%
+    sdf_repartition(partitions = 10) %>%
     spark_apply(
       image_labeler,
       columns = list(label = "character")) %>%
