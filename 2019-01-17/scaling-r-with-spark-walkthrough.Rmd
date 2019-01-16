@@ -94,7 +94,7 @@ produce_tweets <- function(search, producer, topic = "tweets", last = data.frame
         
         for (idx in 1:nrow(tweets_subset)) {
             capture.output(rkafka::rkafka.send(producer, topic, "localhost", jsonlite::toJSON(tweets_subset[idx,])))
-            Sys.sleep(0.1)
+            Sys.sleep(1)
         }
     }
     
