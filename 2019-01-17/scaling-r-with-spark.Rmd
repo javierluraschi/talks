@@ -166,6 +166,8 @@ out_str <- ml_transform(fitted, cars_str)              # Apply pipeline to strea
 out_str <- spark_apply(cars_str, nrow)                 # Extend streams with R
 ```
 
+--
+
 ```{r}
 stream_write_csv(out_str, "output/")                   # Write as a CSV stream
 reactiveSpark(out_str)                                 # Use as a Shiny reactive

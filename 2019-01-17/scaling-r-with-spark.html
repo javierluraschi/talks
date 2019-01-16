@@ -144,7 +144,7 @@ class: panel-narrow-slide, left
 
 
 ```r
-cars_str &lt;- stream_read_csv(sc, "cars", "mtcars/")     # Read stream in Spark
+cars_str &lt;- stream_read_csv(sc, "mtcars/", "cars")     # Read stream in Spark
 ```
 
 --
@@ -168,6 +168,8 @@ out_str &lt;- ml_transform(fitted, cars_str)              # Apply pipeline to st
 ```r
 out_str &lt;- spark_apply(cars_str, nrow)                 # Extend streams with R
 ```
+
+--
 
 
 ```r
