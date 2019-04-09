@@ -8,7 +8,7 @@ output:
     df_print: paged
     self_contained: true
     css: styles/reveal.css
-    theme: moon
+    theme: white
 ---
 
 ```{r setup, include=FALSE}
@@ -168,14 +168,8 @@ library(arrow)
 ## Copy with Arrow
 
 ```{r}
-bench::press(rows = c(10^6, 10^7), { bench::mark(
-  arrow_on = {
-    library(arrow)
-    sparklyr_df <<- copy_to(sc, data.frame(y = 1:rows), overwrite = T) },
-  arrow_off = if (rows <= 10^6) {
-    if ("arrow" %in% .packages()) detach("package:arrow")
-    sparklyr_df <<- copy_to(sc, data.frame(y = 1:rows), overwrite = T)
-  } else NULL, iterations = 4, check = FALSE) })
+library(arrow)
+copy_to(sc, data.frame(y = 1:rows), overwrite = T)
 ```
 
 ![](images/spark-r-arrow-copy-to.png)
@@ -183,14 +177,8 @@ bench::press(rows = c(10^6, 10^7), { bench::mark(
 ## Collect with Arrow
 
 ```{r}
-bench::press(rows = c(10^7, 5 * 10^7), { bench::mark(
-  arrow_on = {
-    library(arrow)
-    collected <- sdf_len(sc, rows) %>% collect() },
-  arrow_off = if (rows <= 10^7) {
-    if ("arrow" %in% .packages()) detach("package:arrow")
-    collected <- sdf_len(sc, rows) %>% collect()
-  } else NULL, iterations = 4, check = FALSE) })
+library(arrow)
+sdf_len(sc, rows) %>% collect()
 ```
 
 ![](images/spark-r-arrow-collect.png)
@@ -198,14 +186,8 @@ bench::press(rows = c(10^7, 5 * 10^7), { bench::mark(
 ## Transform with Arrow
 
 ```{r}
-bench::press(rows = c(10^5, 10^6), { bench::mark(
-  arrow_on = {
-    library(arrow)
-    sdf_len(sc, rows) %>% spark_apply(~.x/2) %>% count() %>% collect() },
-  arrow_off = if (rows <= 10^5) {
-    if ("arrow" %in% .packages()) detach("package:arrow")
-    sdf_len(sc, rows) %>% spark_apply(~.x/2) %>% count() %>% collect()
-  } else NULL, iterations = 4, check = FALSE)})
+library(arrow)
+sdf_len(sc, rows) %>% spark_apply(~.x/2) %>% count() %>% collect()
 ```
 
 ![](images/spark-r-arrow-transform.png)
@@ -214,10 +196,10 @@ bench::press(rows = c(10^5, 10^6), { bench::mark(
 
 ## Resources
 
-### **Docs**: spark.rstudio.com
-### **GitHub**: github.com/rstudio/sparklyr
-### **Blog**: blog.rstudio.com/tags/sparklyr
-### **R Help**: community.rstudio.com
-### **Spark Help**: stackoverflow.com/tags/sparklyr
-### **Issues**: github.com/rstudio/sparklyr/issues
-### **Chat**: gitter.im/rstudio.sparklyr
+- **Docs**: spark.rstudio.com
+- **GitHub**: github.com/rstudio/sparklyr
+- **Blog**: blog.rstudio.com/tags/sparklyr
+- **R Help**: community.rstudio.com
+- **Spark Help**: stackoverflow.com/tags/sparklyr
+- **Issues**: github.com/rstudio/sparklyr/issues
+- **Chat**: gitter.im/rstudio.sparklyr

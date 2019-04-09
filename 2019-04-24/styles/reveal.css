@@ -21,20 +21,25 @@
 }
 
 .reveal h1 {
-  font-size: 80px !important;
+  font-size: 80px;
   background: #77abd9;
-  color: #000 !important;
+  color: #000;
   display: inline-block;
   padding: 0 30px 0 30px;
   border-radius: 3px;
+  margin: 20px 0 20px 0;
 }
 
 .reveal h1.subtitle {
-  font-size: 60px !important;
-  color: #FFF !important;
-  font-weight: 400 !important;
+  font-size: 60px;
+  color: #FFF;
+  font-weight: 400;
   padding-left: 30px;
   background: none;
+}
+
+.reveal h2 {
+  margin: 20px 0 20px 0;
 }
 
 .title-slide p {
@@ -43,19 +48,13 @@
   padding-left: 30px;
 }
 
-.reveal p {
-  color: #e4e4e4;
-}
-
 .reveal .highlighted {
   color: #FFF;
   font-weight: bold;
 }
 
 .reveal strong {
-  color: #FFF;
-  text-transform: none;
-  font-weight: 400;
+  background-color: #e0ff00;
 }
 
 .reveal .slides section img {
@@ -119,4 +118,18 @@
 img {
   width: 650px;
   border: solid 1px #999;
+}
+
+.reveal h2.author,
+.reveal h3.date {
+  color: #FFF;
+}
+
+.slide-background {
+  background-image: url("spark-summit-background.png");
+}
+
+.slide-background.slide,
+.slide-background.stack {
+  background-image: url("spark-summit-slide.png");
 }
