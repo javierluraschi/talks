@@ -1,0 +1,6 @@
+---
+title: Running R at Scale
+subtitle: "with Apache Arrow on Spark"
+author: "Javier Luraschi"
+date: "Spark Summit 2019"
+---
