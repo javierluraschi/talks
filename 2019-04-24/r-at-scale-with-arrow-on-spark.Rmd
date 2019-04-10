@@ -20,15 +20,25 @@ knitr::opts_chunk$set(eval = FALSE)
 - Intro to R
 - R with Spark
 - Intro to Arrow
+- Arrow with R
 - Arrow on Spark
 
 # Intro to R
 
 - R Language
-- CRAN Packages
+- R Packages
 
 ## R Language
-## CRAN Packages
+
+R is a programming language for statistical computing that is: **vectorized**, **columnar** and **flexible**.
+
+![](images/s-algorithm-interface.png)
+
+## R Packages
+
+**CRAN** is R's package manager, like NPM or Maven. Thousands of packages available and usage growing every year.
+
+![](images/r-daily-cran-downloads.png)
 
 # R with Spark
 
@@ -42,21 +52,22 @@ knitr::opts_chunk$set(eval = FALSE)
 
 ## sparklyr 0.4 - Initial Release
 
+Support to **install**, **connect**, **analyze**, **model** and **extend** Spark.
+
 ```{r}
-library(sparklyr)                                    # R Interface to Apache Spark
 spark_install()                                      # Install Apache Spark
 sc <- spark_connect(master = "local")                # Connect to Spark cluster
 ```
 
 ```{r}
-cars_tbl <- spark_read_csv(sc, "cars", "mtcars/")    # Read data in Spark
+cars <- spark_read_csv(sc, "cars", "mtcars/")        # Read data in Spark
 
-summarize(cars_tbl, n = n())                         # Count records with dplyr
-dbGetQuery(sc, "SELECT count(*) FROM cars")          # Count records with DBI
+dplyr::summarize(cars, n = n())                      # Count records with dplyr
+DBI::dbGetQuery(sc, "SELECT count(*) FROM cars")     # Count records with DBI
 ```
 
 ```{r}
-ml_linear_regression(cars_tbl, mpg ~ wt + cyl)       # Perform linear regression
+ml_linear_regression(cars, mpg ~ wt + cyl)           # Perform linear regression
 ```
 
 ```{r}
@@ -65,132 +76,261 @@ spark_context(sc) %>% invoke("version")              # Extend sparklyr with Scal
 
 ## sparklyr 0.5 - Connections
 
+Support for Apache **Livy**,
+
 ```{r}
-sc <- spark_connect(method = "databricks")           # Connect to Databricks cluster
 sc <- spark_connect(master = "http://livy-server")   # Connect through Apache Livy 
 ```
 
-## sparklyr 0.6 - Distributed R
+**Databricks** connections,
 
 ```{r}
-spark_apply(cars_tbl, nrow)                          # Extend sparklyr with R
+sc <- spark_connect(method = "databricks")           # Connect to Databricks cluster
 ```
 
-## sparklyr 0.7 - Pipelines
+`dplyr` improvements, and certified with **Cloudera**.
+
+## sparklyr 0.6 - Distributed R
+
+**Distribute R** computations to execute arbitrary R code over each **partition** using your favorite **R packages**,
+
+```{r}
+spark_apply(cars, ~broom::tidy(lm(mpg ~ cyl, .x)))   # Extend sparklyr with R
+```
+```
+# Source: spark<?> [?? x 5]
+  term        estimate std.error statistic  p.value
+  <chr>          <dbl>     <dbl>     <dbl>    <dbl>
+1 (Intercept)    37.9      2.07      18.3  8.37e-18
+2 cyl            -2.88     0.322     -8.92 6.11e-10
+```
+
+and external data sources,
+
+```{r}
+spark_read_jdbc(sc, "person",  options = list(       # Read from JDBC source
+  url = "jdbc:mysql://localhost:3306/",              # MySQL server URL
+  dbtable = "person"))                               # Remote table name
+```
+
+## sparklyr 0.7 - Pipelines and Machine Learning
+
+Provide a uniform set of high-level APIs to help create, tune, and **deploy** machine learning pipelines at **scale**,
 
 ```{r}
 pipeline <- ml_pipeline(sc) %>%                      # Define Spark pipeline
   ft_r_formula(mpg ~ wt + cyl) %>%                   # Add formula transformation
   ml_linear_regression()                             # Add model to pipeline
 
-fitted <- ml_fit(pipeline, cars_tbl)                 # Fit pipeline
+fitted <- ml_fit(pipeline, cars)                     # Fit pipeline
 ```
+
+and support for **all MLlib** algorithms.
 
 ## sparklyr 0.8 - MLeap and Graphs
 
+MLeap allows you to use your Spark **pipelines** in any **Java** enabled device or service,
+
 ```{r}
-library(mleap)                                       # Install MLeap package
+library(mleap)                                       # Import MLeap package
 install_maven()                                      # Install Maven
 install_mleap()                                      # Install MLeap
 
-transformed <- ml_transform(fitted, mtcars_tbl)      # Fit pipeline with dataset
+transformed <- ml_transform(fitted, cars)            # Fit pipeline with dataset
 ml_write_bundle(fitted, transformed, "model.zip")    # Export model with MLeap
 ```
 
-```{r}
-library(graphframes)
+graphframes provides an interface to the **GraphFrames** Spark package.
 
-g <- gf_graphframe(edges = edges_tbl)
-gf_pagerank(g, tol = 0.01)
+```{r}
+library(graphframes)                                 # Import graphframes package
+
+g <- gf_graphframe(edges = edges_tbl)                # Map to graphframe
+gf_pagerank(g, tol = 0.01)                           # Compute pagerank
 ```
 
 ## sparklyr 0.9 - Streams
 
+Spark **structured streams** provide parallel and fault-tolerant data processing,
+
 ```{r}
-stream_read_text(sc, "s3a://your-s3-bucket/") %>%
-  spark_apply(
-    ~webreadr::read_s3(paste(c(.x$line, ""), collapse = "\n")),
-    columns = lapply(webreadr::read_s3("\n"), class)
-  ) %>%
-  group_by(uri) %>%
-  summarize(n = n()) %>%
-  arrange(desc(n)) %>%
-  stream_write_memory("urls_stream", mode = "complete")
+stream_read_text(sc, "s3a://your-s3-bucket/") %>%    # Define input stream
+  spark_apply(~webreadr::read_s3(.x$line),) %>%      # Transform with R
+  group_by(uri) %>%                                  # Group using dplyr
+  summarize(n = n()) %>%                             # Count using dplyr
+  arrange(desc(n)) %>%                               # Arrange using dplyr
+  stream_write_memory("urls", mode = "complete")     # Define output stream
+```
+
+enables support for **Kubernetes** and to properly interrupt long-running operations.
+
+```{r}
+sc <- spark_connect(config = spark_config_kubernetes("k8s://hostname:8443"))
 ```
 
 ## sparklyr 1.0 - Arrow
 
 - **Arrow** enables faster and larger data transfers between Spark and R.
 - **XGBoost** enables training gradient boosting models over distributed datasets.
-- **Broom** converts Spark’s models into tidy formats that you know and love.
+
+```{r}
+library(sparkxgb)
+dplyr::mutate(cars, eff = mpg > 20) %>%
+  xgboost_classifier(eff ~ ., num_class = 2)
+```
+
 - **TFRecords** writes TensorFlow records from Spark to support deep learning workflows.
+
+```{r}
+library(sparktf)
+cars %>% spark_write_tfrecord("tfrecord")
+```
 
 # Intro to Arrow
 
 - What is Arrow?
 - The Feather project
-- The Ursa project
 - The Arrow R package
 
 ## What is Arrow?
 
-> Arrow is a cross-language development platform for in-memory data.
+Apache Arrow is a **cross-language** development platform for **in-memory** data.
 
-## The Feather project
+![](images/arrow-common-data-layer.png)
 
-## The Ursa project
+: Source: arrow.apache.org
 
-## The Arrow R package
+## Memory Layout
+
+**Columnar** memory layout allows applications to avoid **unnecessary IO** and accelerate analytical processing performance on modern CPUs and GPUs.
+
+![](images/arrow-columnar-memory.png)
+
+: Source: arrow.apache.org
+
+# Arrow with R
+
+- Feather package
+- Arrow package
+
+## Feather package
+
+A **lightweight** binary columnar data **store** designed for maximum **speed**, based on Arrow's memory layout.
+
+```{r}
+library(feather)                                     # Import feather package
+
+write_feather(mtcars, "cars.feather")                # Write feather file in R
+read_feather("cars.feather")                         # Read feather file in R
+```
+
+```{python}
+import feather                                       # Import feather package
+
+df = feather.read_dataframe("cars.feather")          # Read feather file in Python
+feather.write_dataframe(df, "cars.feather")          # Write feather file in Python
+```
+
+## Arrow package
+
+Currently, install from GitHub:
+
+```{r}
+devtools::install_github("apache/arrow", subdir = "r", ref = "apache-arrow-0.13")
+```
+
+The R arrow package supports feather, parquet, streams, and more.
+
+```{r}
+library(arrow)                                       # Import arrow package
+
+read_feather("cars.feather")                         # Can still read feather file
+read_parquet("cars.parquet")                         # Can also read parquet files
+
+write_arrow(mtcars, raw())                           # Can efficiently serialize
+```
+```
+[1] 44 02 00 00 10 00 00 00 00 00 0a 00
+```
 
 # Arrow on Spark
 
-- Install
 - Copy
 - Collect
 - Transform
-
-## Install Arrow
-
-```{r}
-devtools::install_github(
-  "apache/arrow",
-  subdir = "r",
-  ref = "apache-arrow-0.13"
-)
-```
-
-Then use Arrow with Spark and R:
-
-```{r}
-library(arrow)
-```
+- Implementation
+- Requirements
 
 ## Copy with Arrow
 
+Copy **10x larger** datasets and 3x faster with Arrow and Spark.
+
 ```{r}
 library(arrow)
-copy_to(sc, data.frame(y = 1:rows), overwrite = T)
+copy_to(sc, data.frame(y = 1:10^6), overwrite = T)
 ```
 
 ![](images/spark-r-arrow-copy-to.png)
 
 ## Collect with Arrow
 
+Collect **5x larger** datasets and **3x faster** with Arrow and Spark.
+
 ```{r}
 library(arrow)
-sdf_len(sc, rows) %>% collect()
+sdf_len(sc, 10^7) %>% collect()
 ```
 
 ![](images/spark-r-arrow-collect.png)
 
 ## Transform with Arrow
 
+Transform datasets **40x faster** with R, Arrow and Spark.
+
 ```{r}
 library(arrow)
-sdf_len(sc, rows) %>% spark_apply(~.x/2) %>% count() %>% collect()
+sdf_len(sc, 10^5) %>% spark_apply(~.x/2) %>% count()
 ```
 
 ![](images/spark-r-arrow-transform.png)
+
+## Requirements
+
+To use Arrow with Spark and R you'll need:
+
+- A **Spark 2.3.0**+ cluster.
+- **Arrow 0.13**+ instealled in every node, `Arrow 0.11`+ is usable.
+- **R 3.5**+, next version is likely to support R 3.1.
+- **sparklyr 1.0**+.
+
+## Implementation
+
+R transformations in Spark **without** and **with Arrow**:
+
+```{r echo=FALSE}
+nomnoml::nomnoml("
+#direction: right
+#.left: align=left
+[Spark|[a,1,10|b,2,20|c,3,30]] -> [Transform]
+[Transform] -> [R]
+[R] -> [Transform]
+[Transform] -> [Spark]
+[R|[a,1,10|b,2,20|c,3,30] -> [Transform]
+[Transform] -> [<left>a,b,c|1,2,3|10,20,30]
+[a,b,c] -> [Transform]
+[Transform] -> [a,1,10]]", png = "images/transform-architecture.png")
+```
+```{r echo=FALSE}
+nomnoml::nomnoml("
+#direction: right
+#.left: align=left
+[Spark|[Scala|[a,1,10|b,2,20|c,3,30]] -> [Arrow|[<left>a,b,c|1,2,3|10,20,30]]
+[Arrow] -> [Scala]
+] -> [R]
+[R|[Arrow|[<left>a,b,c|1,2,3|10,20,30]]] -> [Spark]", png = "images/transform-architecture-arrow.png")
+```
+
+![](images/transform-architecture.png)![](images/transform-architecture-arrow.png)
 
 # Thank you!
 

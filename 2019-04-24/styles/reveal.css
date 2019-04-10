@@ -27,7 +27,7 @@
   display: inline-block;
   padding: 0 30px 0 30px;
   border-radius: 3px;
-  margin: 20px 0 20px 0;
+  margin: 40px 0 20px 0;
 }
 
 .reveal h1.subtitle {
@@ -39,7 +39,7 @@
 }
 
 .reveal h2 {
-  margin: 20px 0 20px 0;
+  margin: 40px 0 20px 0;
 }
 
 .title-slide p {
@@ -60,25 +60,6 @@
 .reveal .slides section img {
   border: none;
   border-radius: 5px;
-}
-
-.reveal #s---language-for-stats-computing img {
-  background: rgba(255, 255, 255, 0.85);
-  filter: brightness(150%) saturate(0%) contrast(150%);
-}
-
-.reveal #s---language-for-stats-computing-1 img {
-  filter: saturate(0%) brightness(105%);
-}
-
-.reveal #s---language-for-stats-computing-1 blockquote {
-  width: 85%;
-}
-
-.reveal #r---design-principles img {
-  width: 200px;
-  height: 200px;
-  margin-right: 20px;
 }
 
 .reveal code.sourceCode {
@@ -132,4 +113,47 @@ img {
 .slide-background.slide,
 .slide-background.stack {
   background-image: url("spark-summit-slide.png");
+}
+
+.reveal .slides {
+  font-size: 0.70em;
+}
+
+.reveal #r-language img {
+  width: 450px;
+}
+
+.reveal #r-packages img {
+  width: 550px;
+}
+
+.reveal .slides img {
+  margin: 0;
+}
+
+.reveal #copy-with-arrow img,
+.reveal #ccollect-with-arrow img,
+.reveal #transform-with-arrow img {
+  width: 600px;
+}
+
+.reveal #transform-details img {
+  width: 600px;
+}
+
+.reveal #transform-details img:nth-child(2)  {
+  width: 400px;
+  margin-top: 0;
+}
+
+.reveal #what-is-arrow img {
+  width: 900px;
+}
+
+.reveal #memory-layout img {
+  width: 500px;
+}
+
+.reveal dd {
+  color: #aaaaaa;
 }
