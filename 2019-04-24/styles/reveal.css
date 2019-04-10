@@ -137,11 +137,11 @@ img {
   width: 600px;
 }
 
-.reveal #transform-details img {
+.reveal #implementation img {
   width: 600px;
 }
 
-.reveal #transform-details img:nth-child(2)  {
+.reveal #implementation img:nth-child(2)  {
   width: 400px;
   margin-top: 0;
 }

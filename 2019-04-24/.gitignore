@@ -3,3 +3,4 @@ cloudml.json
 checkpoints/
 mtcars/
 output/
+derby.log

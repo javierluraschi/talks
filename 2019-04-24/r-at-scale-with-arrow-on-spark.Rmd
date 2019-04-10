@@ -299,8 +299,8 @@ sdf_len(sc, 10^5) %>% spark_apply(~.x/2) %>% count()
 To use Arrow with Spark and R you'll need:
 
 - A **Spark 2.3.0**+ cluster.
-- **Arrow 0.13**+ instealled in every node, `Arrow 0.11`+ is usable.
-- **R 3.5**+, next version is likely to support R 3.1.
+- **Arrow 0.13**+ instealled in every node, Arrow 0.11+ usable.
+- **R 3.5**+, next version is likely to support R 3.1+.
 - **sparklyr 1.0**+.
 
 ## Implementation
