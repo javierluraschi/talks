@@ -27,6 +27,7 @@ knitr::opts_chunk$set(eval = FALSE)
 
 - R Language
 - R Packages
+- An R Package
 
 ## R Language
 
@@ -39,6 +40,22 @@ R is a programming language for statistical computing that is: **vectorized**, *
 **CRAN** is R's package manager, like NPM or Maven. Thousands of packages available and usage growing every year.
 
 ![](images/r-daily-cran-downloads.png)
+
+## An R package
+
+One of many packages, **rayrender**: A raytracer for spheres, planes, and cubes.
+
+<div class="flow-table">
+<div class="flow-column flow-column-image">![](images/r-package-rayrender-tweet.png)![](images/r-package-rayrender-teapot.gif)</div>
+<div class="flow-column">
+```{r}
+library(rayrender)
+
+sphere(y = -1001, radius = 1000) %>%
+  add_object(teapot()) %>%
+  render_scene(scene)
+```
+![](images/r-package-rayrender-github.png)</div></div>
 
 # R with Spark
 

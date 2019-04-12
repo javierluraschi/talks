@@ -157,3 +157,18 @@ img {
 .reveal dd {
   color: #aaaaaa;
 }
+
+.reveal .flow-table {
+  display: flex;
+}
+
+.reveal .flow-column-image {
+  width: 380px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.reveal #an-r-package .flow-column div.sourceCode {
+  margin: 0 0 6px 0;
+}
