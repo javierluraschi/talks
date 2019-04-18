@@ -121,7 +121,8 @@ gcloud_install()
 gcloud_init()
 ```
 
-```
+```{r}
+# train.R
 saveRDS(lm(sale_price ~ area + beds + age, hpiR::seattle_sales), "model.rds")
 ```
 
