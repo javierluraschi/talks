@@ -52,8 +52,8 @@ One of many packages, **rayrender**: A raytracer for spheres, planes, and cubes.
 library(rayrender)
 
 sphere(y = -1001, radius = 1000) %>%
-  add_object(teapot()) %>%
-  render_scene(scene)
+  add_object(sphere()) %>%
+  render_scene()
 ```
 ![](images/r-package-rayrender-github.png)</div></div>
 
