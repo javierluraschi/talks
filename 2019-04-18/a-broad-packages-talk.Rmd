@@ -229,7 +229,7 @@ voxels::voxels(matrix(c(
 
 ## How does one classifies images?
 
-<div style="display: inline-flex;"><image src="images/history-of-deeplearning-survey-paper.png" style="width: 400px; height: 400px;"/><div style="flex-flow: column; margin-left: 20px;"><image src="images/model-of-neuron-survey-paper.png" style="width: 300px; height: 200px; margin-top: auto;"/><image src="images/convolutional-neural-network-survey-paper.png" style="width: 400px; height: 200px; margin-bottom: auto;"/></div></div>
+<div style="display: inline-flex;"><img src="images/history-deeplearning.png" style="width: 400px; height: 400px;"/><div style="flex-flow: column; margin-left: 20px;"><img src="images/model-of-neuron.png" style="width: 300px; height: 200px; margin-top: auto;"/><img src="images/convolutional-nn.png" style="width: 400px; height: 200px; margin-bottom: auto;"/></div></div>
 
 Many more applications: Speech recognition, natural language processing, self-driving cars, etc. See [arXiv:1803.01164](https://arxiv.org/abs/1803.01164).
 
