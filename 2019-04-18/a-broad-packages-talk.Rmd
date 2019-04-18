@@ -294,7 +294,7 @@ Tools for Working with Pixels in R
 ```{r}
 install.packages("pixels")
 ```
-```
+```{r}
 library(pixels)
 get_pixels()
 ```
