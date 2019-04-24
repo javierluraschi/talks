@@ -51,7 +51,7 @@ One of many packages, **rayrender**: A raytracer for spheres, planes, and cubes.
 ```{r}
 library(rayrender)
 
-sphere(y = -1001, radius = 1000) %>%
+generate_ground() %>%
   add_object(sphere()) %>%
   render_scene()
 ```
@@ -109,26 +109,30 @@ sc <- spark_connect(method = "databricks")           # Connect to Databricks clu
 
 ## sparklyr 0.6 - Distributed R
 
-**Distribute R** computations to execute arbitrary R code over each **partition** using your favorite **R packages**,
+**Distribute R** computations to execute arbitrary R code over each **partition** using your favorite **R packages**:
 
+<div class="flow-table">
+<div class="flow-column flow-column-image"><a href="https://twitter.com/javierluraschi/status/1120557693721354240">![](images/r-package-rayrender-spark-tweet.png)</a>![](images/r-package-rayrender-spark.gif)</div>
+<div class="flow-column distributed-code">
 ```{r}
-spark_apply(cars, ~broom::tidy(lm(mpg ~ cyl, .x)))   # Extend sparklyr with R
-```
-```
-# Source: spark<?> [?? x 5]
-  term        estimate std.error statistic  p.value
-  <chr>          <dbl>     <dbl>     <dbl>    <dbl>
-1 (Intercept)    37.9      2.07      18.3  8.37e-18
-2 cyl            -2.88     0.322     -8.92 6.11e-10
-```
+library(rayrender)
 
-and external data sources,
-
-```{r}
-spark_read_jdbc(sc, "person",  options = list(       # Read from JDBC source
-  url = "jdbc:mysql://localhost:3306/",              # MySQL server URL
-  dbtable = "person"))                               # Remote table name
+scene <- generate_ground() %>%
+  add_object(sphere(z = -2)) %>%
+  add_object(sphere(z = +2)) %>%
+  add_object(sphere(x = -2))
+  
+spark_apply(
+  camera,
+  function(camera, scene) {
+    rayrender::render_scene(
+      scene = scene,
+      lookfrom = camera,
+      filename = render)
+  },
+  context = scene)
 ```
+</div></div>
 
 ## sparklyr 0.7 - Pipelines and Machine Learning
 

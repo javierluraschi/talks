@@ -72,20 +72,21 @@
   margin-top: 0px;
   margin-bottom: 10px;
   
-  background-color: #043440;
-  border-left: solid 10px #025e75;
+  /* background-color: #043440; */
+  border-left: solid 10px #77abd9; /* #025e75; */
+  background-color: #fdfdfd;
 }
 
 .reveal .sourceCode.r span.kw {
-  color: #77abd9;
+  /* color: #77abd9; */
 }
 
 .reveal .sourceCode.r span.dt {
-  color: #6eab9e;
+  /* color: #6eab9e; */
 }
 
 .reveal .sourceCode.scala span.fu {
-  color: #c8d6f9;
+  /* color: #c8d6f9; */
 }
 
 .reveal #spark-install p {
@@ -171,4 +172,12 @@ img {
 
 .reveal #an-r-package .flow-column div.sourceCode {
   margin: 0 0 6px 0;
+}
+
+.reveal div.distributed-code .sourceCode {
+  margin-top: 0;
+}
+
+.reveal div.distributed-code {
+  width: 600px
 }
