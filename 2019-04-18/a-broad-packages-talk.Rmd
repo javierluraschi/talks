@@ -342,7 +342,7 @@ kartsim_play(circuit = 3)
 
 - **reticulate**: Call Python code from R.
 - **feather**: Save and load data from R and Python.
-- **arrow**: Share data in memory rom R and other languages.
+- **arrow**: Share data in memory from R and other languages.
 
 ## Feather
 
