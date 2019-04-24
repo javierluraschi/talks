@@ -112,7 +112,7 @@ sc <- spark_connect(method = "databricks")           # Connect to Databricks clu
 **Distribute R** computations to execute arbitrary R code over each **partition** using your favorite **R packages**:
 
 <div class="flow-table">
-<div class="flow-column flow-column-image"><a href="https://twitter.com/javierluraschi/status/1120557693721354240">![](images/r-package-rayrender-spark-tweet.png)</a>![](images/r-package-rayrender-spark.gif)</div>
+<div class="flow-column flow-column-image"><a href="https://twitter.com/javierluraschi/status/1120557693721354240" target="_blank">![](images/r-package-rayrender-spark-tweet.png)</a>![](images/r-package-rayrender-spark.gif)</div>
 <div class="flow-column distributed-code">
 ```{r}
 library(rayrender)
@@ -257,7 +257,7 @@ feather.write_dataframe(df, "cars.feather")          # Write feather file in Pyt
 Currently, install from GitHub:
 
 ```{r}
-devtools::install_github("apache/arrow", subdir = "r", ref = "apache-arrow-0.13")
+devtools::install_github("apache/arrow", subdir = "r", ref = "apache-arrow-0.13.0")
 ```
 
 The R arrow package supports feather, parquet, streams, and more.
