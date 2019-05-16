@@ -190,3 +190,14 @@ ifelse(x3 %*% w[3,] > 0, 1, 0)
 ```
 
 
+# Introduction to Tensorflow and Keras
+
+## JJ's Keynote
+
+[beta.rstudioconnect.com/ml-with-tensorflow-and-r](https://beta.rstudioconnect.com/ml-with-tensorflow-and-r)
+
+# Hands-on with Keras
+
+## Installing Tensorflow -- Exercise 
+
+## Installing Keras -- Exercise
