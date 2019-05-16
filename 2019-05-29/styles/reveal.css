@@ -1,0 +1,11 @@
+.reveal {
+  font-size: 2.0em;
+}
+
+.reveal img {
+  max-height: 420px;
+}
+
+.reveal code {
+  font-size: 1.6em;
+}
