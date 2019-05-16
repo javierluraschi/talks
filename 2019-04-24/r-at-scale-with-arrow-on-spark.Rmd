@@ -280,45 +280,6 @@ write_arrow(mtcars, raw())                           # Can efficiently serialize
 
 # Arrow on Spark
 
-- Copy
-- Collect
-- Transform
-- Implementation
-- Requirements
-
-## Copy with Arrow
-
-Copy **10x larger** datasets and **3x faster** with Arrow and Spark.
-
-```{r}
-library(arrow)
-copy_to(sc, data.frame(y = 1:10^6))
-```
-
-![](images/spark-r-arrow-copy-to.png)
-
-## Collect with Arrow
-
-Collect **5x larger** datasets and **3x faster** with Arrow and Spark.
-
-```{r}
-library(arrow)
-sdf_len(sc, 10^7) %>% collect()
-```
-
-![](images/spark-r-arrow-collect.png)
-
-## Transform with Arrow
-
-Transform datasets **40x faster** with R, Arrow and Spark.
-
-```{r}
-library(arrow)
-sdf_len(sc, 10^5) %>% spark_apply(~.x/2) %>% count()
-```
-
-![](images/spark-r-arrow-transform.png)
-
 ## Requirements
 
 To use Arrow with Spark and R you'll need:
@@ -356,6 +317,39 @@ nomnoml::nomnoml("
 ```
 
 ![](images/transform-architecture.png)![](images/transform-architecture-arrow.png)
+
+## Copy with Arrow
+
+Copy **10x larger** datasets and **3x faster** with Arrow and Spark.
+
+```{r}
+library(arrow)
+copy_to(sc, data.frame(y = 1:10^6))
+```
+
+![](images/spark-r-arrow-copy-to.png)
+
+## Collect with Arrow
+
+Collect **5x larger** datasets and **3x faster** with Arrow and Spark.
+
+```{r}
+library(arrow)
+sdf_len(sc, 10^7) %>% collect()
+```
+
+![](images/spark-r-arrow-collect.png)
+
+## Transform with Arrow
+
+Transform datasets **40x faster** with R, Arrow and Spark.
+
+```{r}
+library(arrow)
+sdf_len(sc, 10^5) %>% spark_apply(~.x/2) %>% count()
+```
+
+![](images/spark-r-arrow-transform.png)
 
 # Thank you!
 
