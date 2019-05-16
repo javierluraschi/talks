@@ -64,10 +64,10 @@ tt_or <- tibble(
 ```
 
 ```{r}
-w <- as.matrix(select(tt_or, a, b))
+x <- as.matrix(select(tt_or, a, b))
 
 b <- __
-x <- c(__, __)
+w <- c(__, __)
 
 ifelse(w %*% x + b > 0, 1, 0)
 ```
@@ -92,10 +92,10 @@ tt_and <- tibble(
 ```
 
 ```{r}
-w <- as.matrix(select(tt_and, a, b))
+x <- as.matrix(select(tt_and, a, b))
 
 b <- __
-x <- c(__, __)
+w <- c(__, __)
 
 ifelse(w %*% x + b > 0, 1, 0)
 ```
@@ -151,10 +151,10 @@ tt_xor <- tibble(
 ```
 
 ```{r}
-w <- as.matrix(select(tt_xor, a, b))
+x <- as.matrix(select(tt_xor, a, b))
 
 b <- __
-x <- c(__, __)
+w <- c(__, __)
 
 ifelse(w %*% x + b > 0, 1, 0)
 ```
@@ -165,5 +165,28 @@ ifelse(w %*% x + b > 0, 1, 0)
 
 ![](images/minsky-papert-multi-layer-perceptron.jpeg)
 
+## 1969: Minsky and Papert -- Solution (XOR)
+
+```{r}
+tt_xor <- tibble(
+  a = c(0, 0, 1, 1),
+  b = c(0, 1, 0, 1),
+  c = c(1, 1, 1, 1),
+  r = c(0, 1, 1, 0)
+) %>% print()
+```
+
+```{r}
+x <- as.matrix(select(tt_xor, a, b, c))
+w <- matrix(c( 0.5,  0.5,    0,
+              -0.5, -0.5,    1,
+               0.5,  0.5, -0.5), ncol = 3, byrow = T)
+              
+yh1 <- ifelse(x %*% w[1,] > 0, 1, 0)
+yh2 <- ifelse(x %*% w[2,] > 0, 1, 0)
+
+x3 <- matrix(c(yh1, yh2, c(1,1,1,1)), ncol = 3)
+ifelse(x3 %*% w[3,] > 0, 1, 0)
+```
 
 
