@@ -151,7 +151,7 @@ tt_xor <- tibble(
 ```
 
 ```{r}
-w <- as.matrix(select(tt_or, a, b))
+w <- as.matrix(select(tt_xor, a, b))
 
 b <- __
 x <- c(__, __)
