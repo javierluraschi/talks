@@ -295,4 +295,91 @@ df_w1 <- x1
 
 ## Installing Tensorflow -- Exercise 
 
+```{r}
+install.packages("tensorflow")
+install_tensorflow()
+```
+
+
 ## Installing Keras -- Exercise
+
+```{r}
+install.packages("keras")
+install_keras()
+```
+
+## Kyphosis Dataset
+
+We will use `Kyphosis` from the `rpart` package.
+
+```{r}
+download.file("https://github.com/bethatkinson/rpart/raw/master/data/kyphosis.tab.gz", "kyphosis.tab.gz")
+kyphosis <- read.table("kyphosis.tab.gz", header = T)
+```
+
+```{r}
+fit <- rpart(Kyphosis ~ Age + Number + Start, data = kyphosis)
+fit2 <- rpart(Kyphosis ~ Age + Number + Start, data = kyphosis,
+              parms = list(prior = c(0.65, 0.35), split = "information"))
+fit3 <- rpart(Kyphosis ~ Age + Number + Start, data=kyphosis,
+              control = rpart.control(cp = 0.05))
+
+```
+
+## Kyphosis Keras -- Exercise Model
+
+Original analysis by [Derrick Mwiti](https://heartbeat.fritz.ai/binary-classification-using-keras-in-r-ef3d42202aaa).
+
+```{r}
+model <- keras_model_sequential() 
+
+model %>% 
+  layer_dense(units = 256, activation = 'relu', input_shape = ncol(X_train)) %>% 
+  layer_dropout(rate = 0.4) %>% 
+  layer_dense(units = 128, activation = 'relu') %>%
+  layer_dropout(rate = 0.3) %>%
+  layer_dense(units = 2, activation = 'sigmoid')
+```
+
+## Kyphosis Keras -- Exercise Compile
+
+```{r}
+history <- model %>% compile(
+  loss = 'binary_crossentropy',
+  optimizer = 'adam',
+  metrics = c('accuracy')
+)
+```
+
+## Kyphosis Keras -- Exercise Train
+
+```{r}
+model %>% fit(
+  X_train, y_train, 
+  epochs = 100, 
+  batch_size = 5,
+  validation_split = 0.3
+)
+```
+
+## Kyphosis Keras -- Exercise Summary
+
+```{r}
+summary(model)
+```
+
+## Kyphosis Keras -- Exercise Accuracy
+
+```{r}
+model %>% evaluate(X_test, y_test)
+
+plot(history$metrics$loss, main="Model Loss", xlab = "epoch", ylab="loss", col="orange", type="l")
+lines(history$metrics$val_loss, col="skyblue")
+legend("topright", c("Training","Testing"), col=c("orange", "skyblue"), lty=c(1,1))
+```
+
+## Kyphosis Keras -- Exercise Predict
+
+```{r}
+predictions <- model %>% predict_classes(X_test)
+```
