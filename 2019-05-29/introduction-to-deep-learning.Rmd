@@ -10,6 +10,7 @@ output:
 
 ```{r setup, echo=FALSE}
 knitr::opts_chunk$set(eval = FALSE)
+library(nomnoml)
 ```
 
 # Agenda
@@ -44,6 +45,37 @@ McCulloch & Pitts show that neurons can be combined to construct a Turing machin
 [The perceptron: A probabilistic model for information storage and organization in the brain](https://citeseerx.ist.psu.edu/viewdoc/download;jsessionid=4E9CF4E9BFB2696E709F82AE0555531A?doi=10.1.1.588.3775&rep=rep1&type=pdf)
 
 ![](images/rosenblatt-perceptron-paper.png)
+
+## 1958: Rosenblatt -- The Perceptron
+
+### Perceptron Diagram
+
+```{nomnoml eval=TRUE, echo=FALSE, width='600px', height='200px'}
+#lineWidth: 1
+#fontSize: 8
+#padding: 10 
+#.fun: visual=ellipse 
+#spacing: 20
+[x1]->[w1]
+[x2]->[w2]
+[xN]->[wN]
+[w1]->[<fun> Σ]
+[w2]->[Σ]
+[wN]->[Σ]
+[b]->[Σ]
+[<sum> Σ]->[<fun>T]
+[T]->[<hidden>Next]
+```
+
+### Perceptron Model
+
+$$
+f(x) =
+\begin{cases}
+1 & \sum_{i=1}^m w_i x_i + b > 0\\
+0 & \text{otherwise}
+\end{cases}
+$$
 
 ## 1958: Rosenblatt -- Exercise (OR)
 
@@ -164,6 +196,52 @@ ifelse(w %*% x + b > 0, 1, 0)
 [It ought to be possible to devise a training algorithm to optimize the weights in this using (...) we have not investigated this](https://www.quora.com/Why-did-Minsky-incorrectly-conjecture-the-inability-of-multi-layer-perceptrons-to-learn-non-linear-functions).
 
 ![](images/minsky-papert-multi-layer-perceptron.jpeg)
+
+## 1969: Minsky and Papert -- Diagram (XOR)
+
+```{nomnoml eval=TRUE, echo=FALSE, width='800px', height='500px', fig.align='center'}
+#lineWidth: 1
+#fontSize: 8
+#padding: 10 
+#.fun: visual=ellipse 
+#spacing: 20
+[x]->[Perceptron(1)|
+  
+[x1]->[w1]
+[x2]->[w2]
+[xN]->[wN]
+[w1]->[<fun> Σ]
+[w2]->[Σ]
+[wN]->[Σ]
+[b]->[Σ]
+[<sum> Σ]->[<fun>T]
+        
+]
+[x]->[Perceptron(2) | 
+
+[x1]->[w1]
+[x2]->[w2]
+[xN]->[wN]
+[w1]->[<fun> Σ]
+[w2]->[Σ]
+[wN]->[Σ]
+[b]->[Σ]
+[<sum> Σ]->[<fun>T]
+
+]
+[Perceptron(1)]->[Perceptron(3) |
+
+[b1]->[w1]
+[b2]->[w2]
+[w1]->[<fun> Σ]
+[w2]->[Σ]
+[b]->[Σ]
+[<sum> Σ]->[<fun>T]
+                    
+]
+[Perceptron(2)]->[Perceptron(3)]
+[Perceptron(3)]->[<hidden>Next]
+```
 
 ## 1969: Minsky and Papert -- Solution (XOR)
 

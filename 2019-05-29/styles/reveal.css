@@ -2,8 +2,11 @@
   font-size: 2.0em;
 }
 
-.reveal img {
+.reveal img,
+.reveal section img {
   max-height: 420px;
+  box-shadow: none;
+  border: 0;
 }
 
 .reveal code {
