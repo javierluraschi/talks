@@ -453,13 +453,13 @@ Can then combine into very complex graphs
 
 ![](images/Karpathy-2016-complex-graph.png)
 
-# Introduction to Tensorflow and Keras
+# Introduction to Tensorflow
 
 ## JJ's Keynote
 
 [beta.rstudioconnect.com/ml-with-tensorflow-and-r](https://beta.rstudioconnect.com/ml-with-tensorflow-and-r)
 
-# Hands-on with Keras
+# Introduction to KEras
 
 ## Installing Tensorflow -- Exercise 
 
