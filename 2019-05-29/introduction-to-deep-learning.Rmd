@@ -18,9 +18,8 @@ library(nomnoml)
 ## Agenda
 
 - Introduction to Deep Learning
-- Introduction to Tensorflow and Keras
-- Hands-on with Keras
-- Advanced Deep Learning Topics
+- Introduction to Tensorflow
+- Introduction to Keras
 
 # Introduction to Deep Learning
 
@@ -271,7 +270,7 @@ ifelse(x3 %*% w[3,] > 0, 1, 0)
 
 [A Learning Algorithm for Boltzmann Machines](https://www.enterrasolutions.com/media/docs/2013/08/cogscibm.pdf)
 
-![](images/hinton-paper.png)
+![](images/hinton-1985-paper.png)
 
 ## 1985: Hinton -- [Gradient Descent Today](https://en.wikipedia.org/wiki/Gradient_descent)
 
@@ -281,9 +280,21 @@ $$
 a_{n+1} = a_n - \gamma \nabla F(a_n)
 $$
 
-![](images/hinton-gradient-descent.png)
+![](images/hinton-1985-gradient-descent.png)
 
-## 1985: Hinton -- Differentiable Functions
+## 1985: Hinton -- Gradient Descent
+
+![](images/hinton-1985-gradient-descent-algo.png)
+
+## 1985: Hinton -- Stochastic Gradient Descent
+
+![](images/hinton-1985-stochastic-gradient-descent-algo.png)
+
+## 1985: Hinton -- Back-Propagation
+
+![](images/hinton-1985-back-propagation-algo.png)
+
+## 1985: Hinton -- Exercise Differentiable
 
 Gradient descent requires differentiable functions,
 
@@ -301,7 +312,7 @@ $$
 f(x_1, x_2) = w_1 x_1 + w_2 x_2 + b
 $$
 
-## 1985: Hinton -- Differentite
+## 1985: Hinton -- Exercise Differentiate
 
 Lets differentiate L2 over a perceptron to find optimal solutions,
 
@@ -334,7 +345,7 @@ $$
 \frac{df(w_1, w_2, b)}{b} = 2 * (f(w_1, w_2, b) - y)
 $$
 
-## 1985: Hinton -- Algorithm (R)
+## 1985: Hinton -- Algorithm Exercise
 
 Initialize,
 
@@ -349,19 +360,98 @@ f <- function(w_1, w_2, b, x_1, x_2) w_1 * x_1 + w_2 * x_2 + b
 Approximate,
 
 ```{r}
-for (i in 1:1000) {
+for (i in 1:10) {
   f_1 <- f(w_1, w_2, b, tt_and$a, tt_and$b)
-  w_1 <- w_1 - sum(step * (2 * (f_1 - tt_and$r) * tt_and$a))
-  w_2 <- w_2 - sum(step * (2 * (f_1 - tt_and$r) * tt_and$b))
-  b <- b - sum(step * (2 * (f_1 - tt_and$r)))
+  w_1 <- w_1 - ___
+  w_2 <- w_2 - ___
+  b <- b - ___
 }
 ```
 
-## 1985: Hinton -- R Code
+## 1985: Hinton -- Applications
 
-```{r}
-df_w1 <- x1
+1989: [ALVINN: An Autonomous Land Vehicle in a Neural Network](https://papers.nips.cc/paper/95-alvinn-an-autonomous-land-vehicle-in-a-neural-network.pdf)
+
+![](images/hinton-1985-applciations.png)
+
+[https://www.youtube.com/watch?v=ntIczNQKfjQ](https://www.youtube.com/watch?v=ntIczNQKfjQ)
+
+## 1985: Hinton -- Deep Networks
+
+The [vanishing gradient problem](https://en.wikipedia.org/wiki/Vanishing_gradient_problem) is when the gradient will be vanishingly small, effectively preventing the weight from changing its value.
+
+```{nomnoml eval=TRUE, echo=FALSE, width='800px', height='500px', fig.align='center'}
+#spacing: 30
+#padding: 14
+#bendSize: 0.7
+#.p: visual=ellipse 
+[<hidden>x1]->[<p>P1]
+[<hidden>x2]->[<p>P2]
+[<hidden>x3]->[<p>P3]
+[P1]->[<p>P4]
+[P2]->[P4]
+[P3]->[P4]
+[P1]->[<p>P5]
+[P2]->[P5]
+[P3]->[P5]
+[P4]->[<p>P6]
+[P5]->[P6]
+[P4]->[<p>P7]
+[P5]->[P7]
+[P6]->[<p>P8]
+[P7]->[P8]
+[P6]->[<p>P9]
+[P7]->[P9]
+[P8]->[<p>P10]
+[P9]->[P10]
+[P10]->[<hidden>x]
 ```
+
+## 2006: Hinton -- Train One Layer
+
+[A fast learning algorithm for deep belief nets](https://www.cs.toronto.edu/~hinton/absps/fastnc.pdf)
+
+![](images/hinton-2006-train-one-layer.png)
+
+## 2006: Hinton -- Autoencoders
+
+[Reducing the dimensionality of data with neural networks](https://www.cs.toronto.edu/~hinton/science.pdf)
+
+![](images/hinton-2006-autoencoder.png)
+
+## 2006: Hinton -- Dimensionality
+
+[Reducing the dimensionality of data with neural networks](https://www.cs.toronto.edu/~hinton/science.pdf)
+
+![](images/hinton-2006-autoencoder-as-pca.png)
+
+## 2012: AlexNet -- 
+
+[ImageNet Classification with Deep Convolutional Neural Networks](https://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf)
+
+![](images/alexnet-2012-architecture.png)
+
+Used ReLU, dropout, augmentation, GPUs.
+
+## 2016: Karpathy -- Computational Graphs
+
+Computational graphs avoid manually computing gradients.
+
+![](images/Karpathy-2016-computation-graph.png)
+
+[CS231n Winter 2016: Lecture 4: Backpropagation, Neural Network](https://www.youtube.com/watch?v=i94OvYb6noo)
+
+## 2016: Karpathy -- Simple Graph
+
+Simple computational graph example.
+
+![](images/Karpathy-2016-simple-graph.png)
+
+## 2016: Karpathy -- Complex Graph
+
+Can then combine into very complex graphs
+
+![](images/Karpathy-2016-complex-graph.png)
 
 # Introduction to Tensorflow and Keras
 
