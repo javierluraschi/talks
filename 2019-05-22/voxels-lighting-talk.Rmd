@@ -1,6 +1,6 @@
 ---
-title: "voxels: Interactive voxel rendering using R"
-date: "5/20/2019"
+title: "Interactive Voxel Rendering"
+author: "Javier Luraschi"
 output:
   revealjs::revealjs_presentation:
     df_print: paged
@@ -11,6 +11,7 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(magrittr)
 ```
 
 # Minecraft
@@ -52,27 +53,24 @@ And maybe grow some skills?
 
 # Voxels
 
-## Definition
+## Voxels in JavaScript?
 
-Voxel: Volumetric pixel -- Read, cubes.
+**Voxel: Volumetric Pixels.**
 
-Piece of cake. Hcake hard can it be?
-
-Just, add a cube for each voxel, right?
-
-Why is my CPU on!?
-
-Calm down: [0fps.net](https://0fps.net/2012/06/30/meshing-in-a-minecraft-game/)
+- Piece of cake. How hard can it be?
+- Just, add a cube for each voxel, right?
+- Why is my CPU on fire!?
+- Keep calm and read [0fps.net](https://0fps.net/2012/06/30/meshing-in-a-minecraft-game/).
 
 ## Brute Force
 
-8*8*8*6 = 3072 quads -- Hey, look, that's me! 
+8 * 8 * 8 * 6 = 3072 quads -- Hey, look, that's me! 
 
 ![](images/0fps-brute-force.png)
 
 ## Culling
 
-8*8*8*3 = 1536 quads -- Remove inner faced, better than nothing!
+8 * 8 * 8 * 3 = 1536 quads -- Remove inner faced, better than nothing!
 
 ![](images/0fps-culling.png)
 
@@ -110,13 +108,17 @@ self.meshLongestSubset = function(pending) {
 
 ## Rendering
 
-Our greedy algorithm gets us 8*6 = 48 quads, not bad!
+Our greedy algorithm gets us 8 * 6 = 48 quads, not bad!
 
-```{r}
+```{r eval=FALSE}
 voxels::voxels(array(rep(1, 8*8*8), dim=c(8, 8, 8)), offset = c(-8, 0, -8), wireframe = T)
 ```
 
-# RayRender
+![](images/voxels-wireframe.png)
+
+# Rendering in R
+
+## RayRender
 
 ![](images/rayrender-tweet.png)
 
@@ -154,15 +156,15 @@ voxels::voxels(array(c(
 ), dim=c(19, 5, 1)), offset = c(-10, 0, 0))
 ```
 
-## Perlin Noise (1/2)
+![](images/voxels-hello.png)
 
-![](images/learning-perlin-noise-random.png)
+## Terrain Generation
 
-## Perlin Noise (2/2)
+Perlin noise would be quite awesome!
 
 ![](images/learning-perlin-noise-smooth.png)
 
-## I'm lazy!
+## But I'm lazy!
 
 No worries, R has your back :)
 
@@ -170,13 +172,17 @@ No worries, R has your back :)
 ambient::noise_perlin(c(5, 5, 1))
 ```
 
-Wait, can I just pipe them together O_o!
+Wait, could I just pipe them together O_o!
 
 ## Maybe, maybe, maybe!
 
 Yes, you can, cause R is pretty awesome!
 
 ```{r eval=FALSE}
-ceiling(ambient::noise_perlin(c(8, 8, 8)) * 10) %>%
-  voxels(offset = c(-10, 0, 0))
+ceiling(ambient::noise_perlin(c(30, 10, 30)) * 10) %>%
+  voxels::voxels(offset = c(-20, 0, -20))
+```
+```{r eval=TRUE, echo=FALSE}
+readRDS("data/perlin-interesting.rds") %>%
+  voxels::voxels(offset = c(-20, 0, -20))
 ```
