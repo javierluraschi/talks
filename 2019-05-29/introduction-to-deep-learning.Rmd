@@ -16,7 +16,10 @@ library(nomnoml)
 
 # Welcome
 
-# Welcome
+## Intros
+
+- Kevin Kuo @kevinykuo
+- Javier Luraschi @javierluraschi
 
 ## Agenda
 
@@ -24,11 +27,6 @@ library(nomnoml)
 - Introduction to Deep Learning
 - Introduction to Tensorflow
 - Introduction to Keras
-
-## Intros
-
-- Kevin Kuo @kevinykuo
-- Javier Luraschi @javierluraschi
 
 ## Local Installation
 
@@ -44,10 +42,35 @@ library(nomnoml)
 
 Why should I care about Deep Learning?
 
-## IMageNet
+## ImageNet
+
+2012: [ImageNet classification with deep convolutional neural networks]()
+
+![](images/welcome-imagenet-yanofsky.png)
+
 ## AlphaGo
+
+2016: AlphaGo wins match against Lee Sedol ranked 9-dan, one of the best players at Go.
+
+![](images/welcome-alphago.jpg)
+
+## Popularizing Deep Learning
+
+2017: HBO's Sillicon Valley show "hot dog or not" episode.
+
+![](images/welcome-hotdog-hbo.png)
+
 ## Dota
+
+2018: OpenAI Five defeats top 99.95th percentile Dota players
+
+![](images/welcome-openai-dota.jpg)
+
 ## Tesla
+
+2019: Tesla's autonomy day presents autonomous driving plan.
+
+![](images/welcome-tesla-autonomous-day.png)
 
 # Introduction to Deep Learning
 
