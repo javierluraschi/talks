@@ -1,5 +1,6 @@
 ---
 title: "Introduction to Deep Learning"
+author: "Kevin Kuo, Javier Luraschi"
 output:
   revealjs::revealjs_presentation:
     df_print: paged
@@ -13,13 +14,40 @@ knitr::opts_chunk$set(eval = FALSE)
 library(nomnoml)
 ```
 
-# Agenda
+# Welcome
+
+# Welcome
 
 ## Agenda
 
+- Welcome!
 - Introduction to Deep Learning
 - Introduction to Tensorflow
 - Introduction to Keras
+
+## Intros
+
+- Kevin Kuo @kevinykuo
+- Javier Luraschi @javierluraschi
+
+## Local Installation
+
+![](images/welcome-installation-email.png)
+
+## Workshop Notebook
+
+[github.com/javierluraschi/deeplearning-sdss-2019](https://github.com/javierluraschi/deeplearning-sdss-2019).
+
+![](images/welcome-notebook-repo.png)
+
+## Why Deep Learning?
+
+Why should I care about Deep Learning?
+
+## IMageNet
+## AlphaGo
+## Dota
+## Tesla
 
 # Introduction to Deep Learning
 
@@ -455,11 +483,19 @@ Can then combine into very complex graphs
 
 # Introduction to Tensorflow
 
-## JJ's Keynote
+## Easy Intro
 
-[beta.rstudioconnect.com/ml-with-tensorflow-and-r](https://beta.rstudioconnect.com/ml-with-tensorflow-and-r)
+## 1
 
-# Introduction to KEras
+## 2 
+
+## 3
+
+## 4
+
+## 5
+
+# Introduction to Keras
 
 ## Installing Tensorflow -- Exercise 
 
@@ -551,3 +587,8 @@ legend("topright", c("Training","Testing"), col=c("orange", "skyblue"), lty=c(1,
 ```{r}
 predictions <- model %>% predict_classes(X_test)
 ```
+
+## JJ's Keynote
+
+[beta.rstudioconnect.com/ml-with-tensorflow-and-r](https://beta.rstudioconnect.com/ml-with-tensorflow-and-r)
+
