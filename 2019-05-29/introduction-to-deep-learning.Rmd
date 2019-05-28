@@ -666,17 +666,47 @@ graph <- list(
 
 # Introduction to Tensorflow
 
-## Easy Intro
+## What is TensorFlow?
 
-## 1
+![](images/tensorflow-what-is.png)
 
-## 2 
+[Slides from JJ's rstudio::cong 2018 Keynote](https://beta.rstudioconnect.com/ml-with-tensorflow-and-r)
 
-## 3
+## Why should R users care?
 
-## 4
+- A new general purpose numerical computing library!
+  - Hardware independent
+  - Distributed execution
+  - Large datasets
+  - Automatic differentiation
+- Very general built-in optimization algorithms (SGD, Adam) that don't require that all data is in RAM
+- Robust foundation for machine learning and deep learning applications
+- TensorFlow models can be deployed with a low-latency C++ runtime
+- R has a lot to offer as an interface language for TensorFlow
 
-## 5
+## What is tensor "flow"?
+
+![](images/tensorflow-what-flows.png)
+
+## Graph is generated from Code
+
+![](images/tensorflow-code-generation.png)
+
+## What is deep learning?
+
+A simple mechanism that, once scaled, ends up looking like magic
+
+![](images/tensorflow-what-is-deeplearning.png)
+
+## Keras Adoption
+
+![](images/tensorflow-keras-adoption.png)
+
+## Keras for R cheatsheet
+
+[github.com/rstudio/cheatsheets/raw/master/keras.pdf](https://github.com/rstudio/cheatsheets/raw/master/keras.pdf)
+
+![](images/tensorflow-keras-cheatsheet.png)
 
 # Introduction to Keras
 
