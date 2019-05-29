@@ -7,74 +7,59 @@ output: html_notebook
 
 ## 1958: Rosenblatt -- Perceptron (OR)
 
-```{r}
-tt_or <- data.frame(
-  a = c(0, 0, 1, 1),
-  b = c(0, 1, 0, 1),
-  r = c(0, 1, 1, 1)
-)
-```
+Build OR gate with a perceptron,
 
 ```{r}
-x <- as.matrix(select(tt_or, a, b))
+x <- matrix(c(0, 0, 1, 1,
+              0, 1, 0, 1), nrow = 4)
+r <-        c(0, 1, 1, 1)
 
 b <- __
 w <- c(__, __)
 
-ifelse(x %*% w + b > 0, 1, 0)
+ifelse(x %*% w + b > 0, 1, 0) == r
 ```
 
 ## 1958: Rosenblatt -- Perceptron (AND)
 
-```{r}
-tt_and <- data.frame(
-  a = c(0, 0, 1, 1),
-  b = c(0, 1, 0, 1),
-  r = c(0, 0, 0, 1)
-)
-```
+Build AND gate with a perceptron,
 
 ```{r}
-x <- as.matrix(select(tt_and, a, b))
+x <- matrix(c(0, 0, 1, 1,
+              0, 1, 0, 1), nrow = 4)
+r <-        c(0, 0, 0, 1)
 
 b <- __
 w <- c(__, __)
 
-ifelse(x %*% w + b > 0, 1, 0)
+ifelse(x %*% w + b > 0, 1, 0) == r
 ```
 
 ## 1969: Minsky and Papert -- Perceptron (XOR)
 
-```{r}
-tt_xor <- data.frame(
-  a = c(0, 0, 1, 1),
-  b = c(0, 1, 0, 1),
-  r = c(0, 1, 1, 0)
-)
-```
+Build XOR gate with a perceptron,
 
 ```{r}
-x <- as.matrix(select(tt_xor, a, b))
+x <- matrix(c(0, 0, 1, 1,
+              0, 1, 0, 1), nrow = 4)
+r <-        c(0, 1, 1, 0)
 
 b <- __
 w <- c(__, __)
 
-ifelse(w %*% x + b > 0, 1, 0)
+ifelse(x %*% w + b > 0, 1, 0) == r
 ```
 
 ## 1969: Minsky and Papert -- Layered (XOR)
 
-```{r}
-tt_xor <- data.frame(
-  a = c(0, 0, 1, 1),
-  b = c(0, 1, 0, 1),
-  c = c(1, 1, 1, 1),
-  r = c(0, 1, 1, 0)
-)
-```
+Build XOR gate with two perceptrons,
 
 ```{r}
-x <- as.matrix(select(tt_xor, a, b, c))
+x <- matrix(c(0, 0, 1, 1,
+              0, 1, 0, 1,
+              1, 1, 1, 1), nrow = 4)
+r <-        c(0, 1, 1, 0)
+
 w <- matrix(c( ___,  ___,  ___,
                ___,  ___,  ___,
                ___,  ___,  ___), ncol = 3, byrow = T)
@@ -83,29 +68,32 @@ yh1 <- ifelse(x %*% w[1,] > 0, 1, 0)
 yh2 <- ifelse(x %*% w[2,] > 0, 1, 0)
 
 x3 <- matrix(c(yh1, yh2, c(1,1,1,1)), ncol = 3)
-ifelse(x3 %*% w[3,] > 0, 1, 0)
+ifelse(x3 %*% w[3,] > 0, 1, 0) == r
 ```
 
 ## 1985: Hinton -- Exercise (AND)
 
-Initialize,
+Run gradient descent for a single perceptron to train an AND gate.
 
 ```{r}
-w_1=0.1; w_2=0.2; b=0.3
-step=0.01;
+w_1=0.1; w_2=0.2; b=0.3; learn=0.1;
+x <- matrix(c(0, 0, 1, 1,
+              0, 1, 0, 1), nrow = 4)
+r <-        c(0, 0, 0, 1)
 
 f <- function(w_1, w_2, b, x_1, x_2) w_1 * x_1 + w_2 * x_2 + b
+step <- function(x) ifelse(x < 0, 0, 1)
 ```
 
-Approximate,
-
 ```{r}
-for (i in 1:100) {
-  f_1 <- f(w_1, w_2, b, tt_and$a, tt_and$b)
+for (i in 1:1000) {
+  f_1 <- f(w_1, w_2, b, x[,1], x[,2])
   w_1 <- w_1 - ___
   w_2 <- w_2 - ___
   b <- b - ___
 }
+
+(f(w_1, w_2, b, x[,1], x[,2]) > 0.01) == as.logical(r)
 ```
 
 ## 2016: Karpathy -- Exercise (Graph)
