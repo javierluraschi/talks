@@ -1,0 +1,188 @@
+---
+title: "ARTIFICIAL INTELLIGENCE SECRET BOOTCAMP"
+output: html_notebook
+---
+
+Load 'em packages!
+
+```{r}
+library(rpart)
+library(rsample)
+library(keras)
+library(recipes)
+library(tidyverse)
+library(yardstick)
+options(yardstick.event_first = FALSE)
+```
+
+Let's look at the data we're working with
+
+```{r}
+glimpse(kyphosis)
+```
+
+We're going to predict whether kyphosis is present.
+
+First, we'll perform an initial split into training/testing of the dataset.
+
+```{r}
+data_split <- initial_split(kyphosis, prop = 3/4, strata = "Kyphosis")
+training_data <- training(data_split)
+testing_data <- testing(data_split)
+```
+
+Let's build our favorite classification model!
+
+```{r}
+logreg <- glm(Kyphosis ~ Age + Number + Start, data = training_data,
+              family = binomial("logit"))
+```
+
+Create a data frame with the predictions.
+
+```{r}
+predicted <- testing_data %>% 
+  mutate(present = predict(logreg, testing_data, type = "response"))
+```
+
+Calculate AUC
+
+```{r}
+roc_auc(predicted, Kyphosis, present) # 0.719
+```
+
+## "Neural net"
+
+```{r}
+model1 <- keras_model_sequential() %>% 
+  layer_dense(2, input_shape = 3, activation = "softmax")
+
+model1 %>% 
+  compile(loss = "binary_crossentropy",
+          optimizer = optimizer_adam(lr = 0.001),
+          metrics = "accuracy")
+
+```
+
+Data prep
+
+```{r}
+x <- training_data %>% 
+  select(Age, Number, Start) %>% 
+  as.matrix()
+y <- training_data$Kyphosis %>% 
+  as.integer() %>% 
+  `-`(1) %>% 
+  to_categorical()
+```
+
+Fit the model
+
+```{r}
+model1 %>% 
+  fit(x = x, y = y, batch_size = 32, epochs = 100, verbose = 0)
+```
+
+```{r}
+predictions <- predict(model1, testing_data %>% 
+                             select(Age, Number, Start) %>% 
+                             as.matrix())
+predicted <- testing_data %>% 
+  mutate(present = predictions[,2])
+
+roc_auc(predicted, Kyphosis, present)
+```
+
+Try adding more layers to make this perform better! (Yeah we're cheating by tuning on the testing set but that's OK no one has to know.)
+
+## The data preprocessing that we should've done
+
+Neural nets are easier to train when the predictors have similar magnitudes.
+
+We'll transform our dataset using the recipes package.
+
+```{r}
+rec <- recipe(Kyphosis ~ Age + Number + Start, data = training_data) %>% 
+  step_dummy(Kyphosis) %>% 
+  step_integer(Start) %>%
+  step_center(Age, Number) %>% 
+  step_scale(Age, Number) %>% 
+  prep()
+```
+
+Note that we're going to treat `Start` as a categorical predictor here in order to demonstrate how to deal with them.
+
+```{r}
+start_num_levels <- training_data$Start %>%
+  unique() %>% 
+  length()
+
+age <- layer_input(shape = 1, name = "age")
+number <- layer_input(shape = 1, name = "number")
+start <- layer_input(shape = 1, name = "start")
+
+# `layer_embedding()` uses a lookup table to map each index
+#   to a vector, and the vector values are learned during
+#   training instead of specified beforehand. The reason for
+#   `start_num_levels + 1` is so that we accommodate novel
+#   levels in the factor at test time.
+start_embedding <- layer_embedding(start, start_num_levels + 1, 4) %>% 
+  layer_flatten()
+
+kyphosis <- layer_concatenate(list(age, number, start_embedding)) %>% 
+  layer_dense(8, activation = "relu") %>%
+  layer_dense(2, activation = "softmax", name = "kyphosis")
+
+model2 <- keras_model(
+  inputs = list(age, number, start),
+  outputs = kyphosis
+)
+```
+
+Compile as before...
+
+```{r}
+model2 %>% compile(
+  optimizer = optimizer_adam(lr = 1e-4),
+  loss = "binary_crossentropy",
+  metric = "accuracy"
+)
+```
+
+Data prep is only slightly more involved
+
+```{r}
+prep_keras_data <- function(data) {
+  list(
+    age = data[, "Age", drop = FALSE],
+    number = data[, "Number", drop = FALSE],
+    start = data[, "Start", drop = FALSE]
+  )
+}
+
+training_baked <- bake(rec, training_data, composition = "matrix")
+x <- prep_keras_data(training_baked)
+y <- training_baked[, 4] %>% to_categorical()
+```
+
+Training
+
+```{r}
+history <- model2 %>% 
+  fit(x = x, y = y, batch_size = 32, epochs = 500, verbose = 0)
+```
+
+Evaluate
+
+```{r}
+predictions <- predict(
+  model2,
+  bake(rec, testing_data, composition = "matrix") %>%
+    prep_keras_data()
+)
+
+predicted <- testing_data %>% 
+  mutate(present = predictions[,2])
+
+roc_auc(predicted, Kyphosis, present)
+```
