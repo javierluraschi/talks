@@ -10,9 +10,13 @@ output: html_notebook
 Build OR gate with a perceptron,
 
 ```{r}
-x <- matrix(c(0, 0, 1, 1,
-              0, 1, 0, 1), nrow = 4)
-r <-        c(0, 1, 1, 1)
+#             x1 x2                       r = A OR B 
+x <- matrix(c(0, 0,                       #      0
+              0, 1,                       #      1
+              1, 0,                       #      1
+              1, 1), ncol = 2, byrow = T) #      1
+
+r <- c(0, 1, 1, 1)
 
 b <- __
 w <- c(__, __)
@@ -25,9 +29,13 @@ ifelse(x %*% w + b > 0, 1, 0) == r
 Build AND gate with a perceptron,
 
 ```{r}
-x <- matrix(c(0, 0, 1, 1,
-              0, 1, 0, 1), nrow = 4)
-r <-        c(0, 0, 0, 1)
+#             x1 x2                       r = A AND B 
+x <- matrix(c(0, 0,                       #       0
+              0, 1,                       #       0
+              1, 0,                       #       0
+              1, 1), ncol = 2, byrow = T) #       1
+
+r <- c(0, 0, 0, 1)
 
 b <- __
 w <- c(__, __)
@@ -40,9 +48,13 @@ ifelse(x %*% w + b > 0, 1, 0) == r
 Build XOR gate with a perceptron,
 
 ```{r}
-x <- matrix(c(0, 0, 1, 1,
-              0, 1, 0, 1), nrow = 4)
-r <-        c(0, 1, 1, 0)
+#             A  B                        r = A XOR B 
+x <- matrix(c(0, 0,                       #       0
+              0, 1,                       #       1
+              1, 0,                       #       1
+              1, 1), ncol = 2, byrow = T) #       0
+
+r <- c(0, 1, 1, 0)
 
 b <- __
 w <- c(__, __)
@@ -55,20 +67,22 @@ ifelse(x %*% w + b > 0, 1, 0) == r
 Build XOR gate with two perceptrons,
 
 ```{r}
-x <- matrix(c(0, 0, 1, 1,
-              0, 1, 0, 1,
-              1, 1, 1, 1), nrow = 4)
-r <-        c(0, 1, 1, 0)
+#             A  B  (1 for bias)             r = A XOR B 
+x <- matrix(c(0, 0, 1,                       #       0
+              0, 1, 1,                       #       1
+              1, 0, 1,                       #       1
+              1, 1, 1), ncol = 3, byrow = T) #       0
+
+r <- c(0, 1, 1, 0)
 
 w <- matrix(c( ___,  ___,  ___,
                ___,  ___,  ___,
                ___,  ___,  ___), ncol = 3, byrow = T)
               
-yh1 <- ifelse(x %*% w[1,] > 0, 1, 0)
-yh2 <- ifelse(x %*% w[2,] > 0, 1, 0)
+yh <- ifelse(x %*% w[,1:2] > 0, 1, 0)
+x3 <- matrix(c(yh[,1], yh[,2], c(1,1,1,1)), ncol = 3)
 
-x3 <- matrix(c(yh1, yh2, c(1,1,1,1)), ncol = 3)
-ifelse(x3 %*% w[3,] > 0, 1, 0) == r
+ifelse(x3 %*% w[,3] > 0, 1, 0) == r
 ```
 
 ## 1985: Hinton -- Exercise (AND)

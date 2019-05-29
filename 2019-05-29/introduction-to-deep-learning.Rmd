@@ -140,9 +140,13 @@ f(x) =
 $$
 
 ```{r}
-x <- matrix(c(0, 0, 1, 1,
-              0, 1, 0, 1), nrow = 4)
-r <-        c(0, 1, 1, 1)
+#             x1 x2                       r = A OR B 
+x <- matrix(c(0, 0,                       #      0
+              0, 1,                       #      1
+              1, 0,                       #      1
+              1, 1), ncol = 2, byrow = T) #      1
+
+r <- c(0, 1, 1, 1)
 
 b <- __
 w <- c(__, __)
@@ -161,9 +165,13 @@ f(x) =
 $$
 
 ```{r}
-x <- matrix(c(0, 0, 1, 1,
-              0, 1, 0, 1), nrow = 4)
-r <-        c(0, 1, 1, 1)
+#             x1 x2                       r = A OR B 
+x <- matrix(c(0, 0,                       #      0
+              0, 1,                       #      1
+              1, 0,                       #      1
+              1, 1), ncol = 2, byrow = T) #      1
+
+r <- c(0, 1, 1, 1)
 
 b <- 0
 w <- c(0.5, 0.5)
@@ -182,9 +190,13 @@ f(x) =
 $$
 
 ```{r}
-x <- matrix(c(0, 0, 1, 1,
-              0, 1, 0, 1), nrow = 4)
-r <-        c(0, 0, 0, 1)
+#             x1 x2                       r = A AND B 
+x <- matrix(c(0, 0,                       #       0
+              0, 1,                       #       0
+              1, 0,                       #       0
+              1, 1), ncol = 2, byrow = T) #       1
+
+r <- c(0, 0, 0, 1)
 
 b <- __
 w <- c(__, __)
@@ -203,9 +215,13 @@ f(x) =
 $$
 
 ```{r}
-x <- matrix(c(0, 0, 1, 1,
-              0, 1, 0, 1), nrow = 4)
-r <-        c(0, 0, 0, 1)
+#             x1 x2                       r = A AND B 
+x <- matrix(c(0, 0,                       #       0
+              0, 1,                       #       0
+              1, 0,                       #       0
+              1, 1), ncol = 2, byrow = T) #       1
+
+r <- c(0, 0, 0, 1)
 
 b <- -0.5
 w <- c(0.5, 0.5)
@@ -256,9 +272,13 @@ f(x) =
 $$
 
 ```{r}
-x <- matrix(c(0, 0, 1, 1,
-              0, 1, 0, 1), nrow = 4)
-r <-        c(0, 1, 1, 0)
+#             A  B                        r = A XOR B 
+x <- matrix(c(0, 0,                       #       0
+              0, 1,                       #       1
+              1, 0,                       #       1
+              1, 1), ncol = 2, byrow = T) #       0
+
+r <- c(0, 1, 1, 0)
 
 b <- __
 w <- c(__, __)
@@ -323,10 +343,13 @@ Using multiple layered perceptrons should allow us to find a solution for the XO
 ## 1969: Minsky and Papert -- Layered (XOR)
 
 ```{r}
-x <- matrix(c(0, 0, 1, 1,
-              0, 1, 0, 1,
-              1, 1, 1, 1), nrow = 4)
-r <-        c(0, 1, 1, 0)
+#             A  B  (1 for bias)             r = A XOR B 
+x <- matrix(c(0, 0, 1,                       #       0
+              0, 1, 1,                       #       1
+              1, 0, 1,                       #       1
+              1, 1, 1), ncol = 3, byrow = T) #       0
+
+r <- c(0, 1, 1, 0)
 
 w <- matrix(c( ___,  ___,  ___,
                ___,  ___,  ___,
@@ -342,20 +365,20 @@ ifelse(x3 %*% w[3,] > 0, 1, 0) == r
 ## 1969: Minsky and Papert -- Solution (XOR)
 
 ```{r}
-x <- matrix(c(0, 0, 1, 1,
-              0, 1, 0, 1,
-              1, 1, 1, 1), nrow = 4)
-r <-        c(0, 1, 1, 0)
+#             A  B  (1 for bias)             r = A XOR B 
+x <- matrix(c(0, 0, 1,                       #       0
+              0, 1, 1,                       #       1
+              1, 0, 1,                       #       1
+              1, 1, 1), ncol = 3, byrow = T) #       0
+r <- c(0, 1, 1, 0)
 
-w <- matrix(c( 0.5,  0.5,    0,
-              -0.5, -0.5,    1,
-               0.5,  0.5, -0.5), ncol = 3, byrow = T)
+w <- matrix(c(0.5, -0.5,  0.5,
+              0.5, -0.5,  0.5,
+              0.0,  1.0, -0.5), ncol = 3, byrow = T)
               
-yh1 <- ifelse(x %*% w[1,] > 0, 1, 0)
-yh2 <- ifelse(x %*% w[2,] > 0, 1, 0)
-
-x3 <- matrix(c(yh1, yh2, c(1,1,1,1)), ncol = 3)
-ifelse(x3 %*% w[3,] > 0, 1, 0) == r
+yh <- ifelse(x %*% w[,1:2] > 0, 1, 0)
+x3 <- matrix(c(yh[,1], yh[,2], c(1,1,1,1)), ncol = 3)
+ifelse(x3 %*% w[,3] > 0, 1, 0) == r
 ```
 
 ## 1985: Hinton -- Gradient Descent
@@ -425,9 +448,13 @@ $$
 
 ```{r}
 w_1=0.1; w_2=0.2; b=0.3; learn=0.1;
-x <- matrix(c(0, 0, 1, 1,
-              0, 1, 0, 1), nrow = 4)
-r <-        c(0, 0, 0, 1)
+
+#             A  B                        r = A AND B 
+x <- matrix(c(0, 0,                       #       0
+              0, 1,                       #       0
+              1, 0,                       #       0
+              1, 1), ncol = 2, byrow = T) #       1
+r <- c(0, 0, 0, 1)
 
 f <- function(w_1, w_2, b, x_1, x_2) w_1 * x_1 + w_2 * x_2 + b
 step <- function(x) ifelse(x < 0, 0, 1)
@@ -640,6 +667,22 @@ install.packages("tensorflow")
 install_tensorflow()
 ```
 
+What version you have installed?
+
+## Installing Tensorflow -- Help!
+
+If your local environment is not working...
+
+[rstd.io/class](rstd.io/class)
+
+Also, you can fint the version with,
+
+```{r}
+tensorflow::tf_version()
+```
+```
+[1] ‘1.13’
+```
 
 ## Installing Keras -- Exercise
 
@@ -648,81 +691,214 @@ install.packages("keras")
 install_keras()
 ```
 
-## Kyphosis Dataset
+## Kyphosis -- Packages
 
-We will use `Kyphosis` from the `rpart` package.
-
-```{r}
-download.file("https://github.com/bethatkinson/rpart/raw/master/data/kyphosis.tab.gz", "kyphosis.tab.gz")
-kyphosis <- read.table("kyphosis.tab.gz", header = T)
-```
+Load 'em packages!
 
 ```{r}
-fit <- rpart(Kyphosis ~ Age + Number + Start, data = kyphosis)
-fit2 <- rpart(Kyphosis ~ Age + Number + Start, data = kyphosis,
-              parms = list(prior = c(0.65, 0.35), split = "information"))
-fit3 <- rpart(Kyphosis ~ Age + Number + Start, data=kyphosis,
-              control = rpart.control(cp = 0.05))
-
+library(rpart)
+library(rsample)
+library(keras)
+library(recipes)
+library(tidyverse)
+library(yardstick)
+options(yardstick.event_first = FALSE)
 ```
 
-## Kyphosis Keras -- Exercise Model
+## Kyphosis -- Quick View
 
-Original analysis by [Derrick Mwiti](https://heartbeat.fritz.ai/binary-classification-using-keras-in-r-ef3d42202aaa).
+Let's look at the data we're working with
 
 ```{r}
-model <- keras_model_sequential() 
-
-model %>% 
-  layer_dense(units = 256, activation = 'relu', input_shape = ncol(X_train)) %>% 
-  layer_dropout(rate = 0.4) %>% 
-  layer_dense(units = 128, activation = 'relu') %>%
-  layer_dropout(rate = 0.3) %>%
-  layer_dense(units = 2, activation = 'sigmoid')
+___(kyphosis)
 ```
 
-## Kyphosis Keras -- Exercise Compile
+## Kyphosis -- Quick View (Solution)
+
+Let's look at the data we're working with
 
 ```{r}
-history <- model %>% compile(
-  loss = 'binary_crossentropy',
-  optimizer = 'adam',
-  metrics = c('accuracy')
-)
+glimpse(kyphosis)
 ```
 
-## Kyphosis Keras -- Exercise Train
+## Kyphosis -- Split
+
+We're going to predict whether kyphosis is present.
+
+First, we'll perform an initial split into training/testing of the dataset.
 
 ```{r}
-model %>% fit(
-  X_train, y_train, 
-  epochs = 100, 
-  batch_size = 5,
-  validation_split = 0.3
-)
+data_split <- initial_split(kyphosis, prop = 3/4, strata = ___)
+training_data <- training(___)
+testing_data <- testing(___)
 ```
 
-## Kyphosis Keras -- Exercise Summary
+## Kyphosis -- Split (Solution)
+
+We're going to predict whether kyphosis is present.
+
+First, we'll perform an initial split into training/testing of the dataset.
 
 ```{r}
-summary(model)
+data_split <- initial_split(kyphosis, prop = 3/4, strata = "Kyphosis")
+training_data <- training(data_split)
+testing_data <- testing(data_split)
 ```
 
-## Kyphosis Keras -- Exercise Accuracy
+## Kyphosis -- GLM
+
+Let's build our favorite classification model!
 
 ```{r}
-model %>% evaluate(X_test, y_test)
-
-plot(history$metrics$loss, main="Model Loss", xlab = "epoch", ylab="loss", col="orange", type="l")
-lines(history$metrics$val_loss, col="skyblue")
-legend("topright", c("Training","Testing"), col=c("orange", "skyblue"), lty=c(1,1))
+logreg <- glm(___, data = training_data,
+              family = binomial("logit"))
 ```
 
-## Kyphosis Keras -- Exercise Predict
+## Kyphosis -- GLM (Solved)
+
+Let's build our favorite classification model!
 
 ```{r}
-predictions <- model %>% predict_classes(X_test)
+logreg <- glm(Kyphosis ~ Age + Number + Start, data = training_data,
+              family = binomial("logit"))
 ```
+
+## Kyphosis -- Predictions
+
+Create a data frame with the predictions.
+
+```{r}
+predicted <- testing_data %>% 
+  ___(present = predict(___, testing_data, type = "response"))
+```
+
+## Kyphosis -- Predictions (Solved)
+
+Create a data frame with the predictions.
+
+```{r}
+predicted <- testing_data %>% 
+  mutate(present = predict(logreg, testing_data, type = "response"))
+```
+
+## Kyphosis -- Calculate AUC
+
+Calculate AUC
+
+```{r}
+roc_auc(___)
+```
+
+## Kyphosis -- Calculate AUC (Solved)
+
+Calculate AUC
+
+```{r}
+roc_auc(predicted, Kyphosis, present)
+```
+```
+[1] 0.719
+```
+
+## Kyphosis -- "Neural net"
+
+```{r}
+model1 <- keras_model_sequential() %>% 
+  layer_dense(___, input_shape = ___, activation = "softmax")
+
+model1 %>% 
+  compile(loss = "binary_crossentropy",
+          optimizer = ___(lr = 0.001),
+          metrics = "accuracy")
+
+```
+
+## Kyphosis -- "Neural net" (Solution)
+
+"Neural net"
+
+```{r}
+model1 <- keras_model_sequential() %>% 
+  layer_dense(2, input_shape = 3, activation = "softmax")
+
+model1 %>% 
+  compile(loss = "binary_crossentropy",
+          optimizer = optimizer_adam(lr = 0.001),
+          metrics = "accuracy")
+
+```
+
+## Kyphosis -- Data prep
+
+Data prep
+
+```{r}
+x <- training_data %>% 
+  select(Age, Number, Start) %>% 
+  as.matrix()
+
+# As categorical: Kyphosis - 1
+y <- to_categorical(___)
+```
+
+## Kyphosis -- Data prep (Solution)
+
+Data prep
+
+```{r}
+x <- training_data %>% 
+  select(Age, Number, Start) %>% 
+  as.matrix()
+y <- training_data$Kyphosis %>% 
+  as.integer() %>% 
+  `-`(1) %>% 
+  to_categorical()
+```
+
+## Kyphosis -- Fit the model
+
+Fit the model
+
+```{r}
+model1 %>%  fit(___)
+```
+
+## Kyphosis -- Fit the model (Solution)
+
+Fit the model
+
+```{r}
+model1 %>% 
+  fit(x = x, y = y, batch_size = 32, epochs = 100, verbose = 0)
+```
+
+## Kyphosis -- Predictions and AUC
+
+```{r}
+predictions <- predict(model1, ___)
+predicted <- testing_data %>% 
+  mutate(present = predictions[,2])
+
+roc_auc(predicted, Kyphosis, present)
+```
+
+## Kyphosis -- Predictions and AUC (Solution)
+
+```{r}
+predictions <- predict(model1, testing_data %>% 
+                             select(Age, Number, Start) %>% 
+                             as.matrix())
+predicted <- testing_data %>% 
+  mutate(present = predictions[,2])
+
+roc_auc(predicted, Kyphosis, present)
+```
+
+Try adding more layers to make this perform better!
+
+## Kyphosis -- Data Preprocessing
+
+Neural nets are easier to train when the predictors have similar magnitudes, see last section from notebook.
 
 ## JJ's Keynote
 
