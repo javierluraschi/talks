@@ -1,6 +1,5 @@
 ---
-title: "Scaling Spark"
-subtitle: "with Streams and Arrow"
+title: "Scaling Spark with Streams and Arrow"
 author: "Javier Luraschi"
 date: "05/31/2019"
 output:
@@ -224,3 +223,13 @@ sdf_len(sc, 10^5) %>% spark_apply(~.x/2) %>% count()
 ```
 
 ![](../2019-04-24/images/spark-r-arrow-transform.png)
+
+# Thank You!
+
+## Resources
+
+- <div class="highlight">[therinspark.com](http://therinspark.com):</div> If you are new to Spark, this (incomplete) **booklet** will help you get up and running.
+- <div class="highlight">[spark.rstudio.com](https://spark.rstudio.com):</div> This should be your entry point to learn more about sparklyr, the **documentation** is kept up to date with examples, reference functions and many more relevant resources.
+- <div class="highlight">[github.com/rstudio/sparklyr](https://github.com/rstudio/sparklyr):</div> If you believe something needs to get fixed, open a **GitHub** issue or send us a pull request.
+- <div class="highlight">[stackoverflow.com/tags/sparklyr](https://stackoverflow.com/tags/sparklyr):</div> For general questions, **Stack Overflow** is a good place to start.
+- <div class="highlight">[gitter.im/rstudio/sparklyr](https://gitter.im/rstudio/sparklyr):</div> For urgent issues or to keep in touch you can chat with us in **Gitter**.
