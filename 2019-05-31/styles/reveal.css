@@ -1,0 +1,189 @@
+.reveal .controls {
+  opacity: 0.1;
+}
+
+.reveal ul {
+  display: block;
+}
+
+.reveal .slide h3 {
+  text-align: left;
+}
+
+.reveal pre code {
+  max-height: none;
+}
+
+.reveal .description {
+  color: #FFF;
+  font-weight: 400;
+  text-transform: none;
+}
+
+.reveal h1 {
+  font-size: 80px;
+  background: #77abd9;
+  color: #000;
+  display: inline-block;
+  padding: 0 30px 0 30px;
+  border-radius: 3px;
+  margin: 40px 0 20px 0;
+}
+
+.reveal h1.subtitle {
+  font-size: 60px;
+  color: #FFF;
+  font-weight: 400;
+  padding-left: 30px;
+  background: none;
+}
+
+.reveal h2 {
+  margin: 40px 0 20px 0;
+}
+
+.title-slide p {
+  font-size: 30px !important;
+  font-weight: bold !important;
+  padding-left: 30px;
+}
+
+.reveal .highlighted {
+  color: #FFF;
+  font-weight: bold;
+}
+
+.reveal strong {
+  background-color: #e0ff00;
+}
+
+.reveal .slides section img {
+  border: none;
+  border-radius: 5px;
+}
+
+.reveal code.sourceCode {
+  padding: 14px 0px 14px 16px;
+}
+
+.reveal .sourceCode.r,
+.reveal .sourceCode.python,
+.reveal .sourceCode.scala {
+  margin-top: 0px;
+  margin-bottom: 10px;
+  
+  /* background-color: #043440; */
+  border-left: solid 10px #77abd9; /* #025e75; */
+  background-color: #fdfdfd;
+}
+
+.reveal .sourceCode.r span.kw {
+  /* color: #77abd9; */
+}
+
+.reveal .sourceCode.r span.dt {
+  /* color: #6eab9e; */
+}
+
+.reveal .sourceCode.scala span.fu {
+  /* color: #c8d6f9; */
+}
+
+.reveal #spark-install p {
+  font-size: 25px;
+}
+
+.reveal #livy img {
+  width: 500px;
+}
+
+img {
+  width: 650px;
+  border: solid 1px #999;
+}
+
+.reveal h2.author,
+.reveal h3.date {
+  color: #FFF;
+}
+
+.slide-background {
+}
+
+.slide-background.slide,
+.slide-background.stack {
+}
+
+.reveal .slides {
+  font-size: 0.70em;
+}
+
+.reveal #r-language img {
+  width: 450px;
+}
+
+.reveal #r-packages img {
+  width: 550px;
+}
+
+.reveal .slides img {
+  margin: 0;
+}
+
+.reveal #copy-with-arrow img,
+.reveal #ccollect-with-arrow img,
+.reveal #transform-with-arrow img {
+  width: 600px;
+}
+
+.reveal #implementation img {
+  width: 600px;
+}
+
+.reveal #implementation img:nth-child(2)  {
+  width: 400px;
+  margin-top: 0;
+}
+
+.reveal #what-is-arrow img {
+  width: 900px;
+}
+
+.reveal #memory-layout img {
+  width: 500px;
+}
+
+.reveal dd {
+  color: #aaaaaa;
+}
+
+.reveal .flow-table {
+  display: flex;
+}
+
+.reveal .flow-column-image {
+  width: 380px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.reveal #an-r-package .flow-column div.sourceCode {
+  margin: 0 0 6px 0;
+}
+
+.reveal div.distributed-code .sourceCode {
+  margin-top: 0;
+}
+
+.reveal div.distributed-code {
+  width: 700px
+}
+
+#what-about-realtime-data img {
+  padding: 30px;
+}
+
+#streaming-with-spark-kafka-and-shiny img {
+  padding: 20px;
+}
