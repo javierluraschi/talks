@@ -169,6 +169,11 @@ words <- tbl(sc, "stream") %>%
 words
 ```
 
+```{r}
+wordcloud::wordcloud(collect(words)$word, collect(words)$total, scale = c(4, 0.5),
+                     min.freq = 1, max.words = 50)
+```
+
 ## Using streams with R code to label an image using Google Cloud
 
 ```{r}
@@ -189,7 +194,7 @@ knitr::include_graphics("https://pbs.twimg.com/media/D7w0B7YU8AEi2dj.jpg")
 ```
 
 ```{r}
-tbl(sc, "stream") %>% 
+tags <- tbl(sc, "stream") %>% 
   transmute(value = as.character(value)) %>%
   transmute(media = get_json_object(value, '$[0].media_url[0]')) %>% filter(nchar(media) > 5) %>%
   sdf_repartition(partitions = 10) %>%
@@ -200,14 +205,14 @@ tbl(sc, "stream") %>%
   }, columns = lapply(image_response, class)) %>%
   group_by(description) %>%
   summarize(total = n()) %>%
-  arrange(desc(total))
+  arrange(desc(total)) %>%
+  collect()
+
+tags
 ```
 
-## Realtime Word Cloud
-
 ```{r}
-collected <- words %>% collect()
-wordcloud::wordcloud(collected$word, collected$total, scale = c(4, 0.5),
+wordcloud::wordcloud(tags$word, tags$total, scale = c(4, 0.5),
                      min.freq = 1, max.words = 50)
 ```
 
