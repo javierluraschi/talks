@@ -185,12 +185,12 @@ tbl(sc, "stream") %>%
 ```{r}
 googleAuthR::gar_auth_service(scope = "https://www.googleapis.com/auth/cloud-platform", json_file="cloudml.json")
 
-image_response <- RoogleVision::getGoogleVisionResponse("https://pbs.twimg.com/media/D7w0B7YU8AEi2dj.jpg")
+image_response <- RoogleVision::getGoogleVisionResponse("https://pbs.twimg.com/media/D75h6JlU0AAkev_.jpg")
 image_response
 ```
 
 ```{r}
-knitr::include_graphics("https://pbs.twimg.com/media/D7w0B7YU8AEi2dj.jpg")
+knitr::include_graphics("https://pbs.twimg.com/media/D75h6JlU0AAkev_.jpg")
 ```
 
 ```{r}
@@ -212,7 +212,7 @@ tags
 ```
 
 ```{r}
-wordcloud::wordcloud(tags$word, tags$total, scale = c(4, 0.5),
+wordcloud::wordcloud(tags$description, tags$total, scale = c(4, 0.5),
                      min.freq = 1, max.words = 50)
 ```
 

@@ -1,6 +1,6 @@
 ---
 title: "Scaling Spark with Streams and Arrow"
-author: "Javier Luraschi"
+author: "@javierluraschi / @rstudio"
 date: "05/31/2019"
 output:
   revealjs::revealjs_presentation:
@@ -229,6 +229,9 @@ sdf_len(sc, 10^5) %>% spark_apply(~.x/2) %>% count()
 ## Resources
 
 - <div class="highlight">[spark.rstudio.com](https://spark.rstudio.com):</div> Main **documentation** site with examples and reference functions.
-- <div class="highlight">[github.com/rstudio/sparklyr](https://github.com/rstudio/sparklyr):</div> Issues? Open a **GitHub** issue.
+- <div class="highlight">[community.rstudio.com](https://community.rstudio.com/search?q=sparklyr):</div> sparklyr questions? Use the the **RStudio Community**.
+- <div class="highlight">[github.com/rstudio/sparklyr](https://github.com/rstudio/sparklyr):</div> Something needs fixing? Open a **GitHub** issue.
 - <div class="highlight">[stackoverflow.com/tags/sparklyr](https://stackoverflow.com/tags/sparklyr):</div> General questions? **Stack Overflow** is a good place to start.
-- <div class="highlight">[gitter.im/rstudio/sparklyr](https://gitter.im/rstudio/sparklyr):</div> Urgent issues? Chat with us in **Gitter**.
+- <div class="highlight">[gitter.im/rstudio/sparklyr](https://gitter.im/rstudio/sparklyr):</div> Anything urgent? Chat with us in **Gitter**!
+- <div class="highlight">[rpubs.com/jluraschi](http://rpubs.com/jluraschi/sdss-2019-spark):</div> Want to review these **slides**?
+- <div class="highlight">[github.com/javierluraschi/talks](https://github.com/javierluraschi/talks/tree/master/2019-05-31):</div> Want to run this **R Notebook** yourself?
