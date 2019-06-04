@@ -40,6 +40,8 @@
 
 .reveal h2 {
   margin: 40px 0 20px 0;
+  background: #77abd9;
+  border-radius: 3px;
 }
 
 .title-slide p {
@@ -71,10 +73,8 @@
 .reveal .sourceCode.scala {
   margin-top: 0px;
   margin-bottom: 10px;
-  
-  /* background-color: #043440; */
-  border-left: solid 10px #77abd9; /* #025e75; */
-  background-color: #fdfdfd;
+  border-left: solid 10px #3f6384;
+  background-color: #fbfbff;
 }
 
 .reveal .sourceCode.r span.kw {

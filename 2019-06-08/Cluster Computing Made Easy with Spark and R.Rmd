@@ -13,6 +13,51 @@ output:
 knitr::opts_chunk$set(eval = FALSE)
 ```
 
+# Overview
+
+## Technology Periods
+
+![](images/intro-technology-periods.png)
+
+## Stone Age: 3.4M BC - 5000 BC {data-background="images/intro-stone-age.jpeg"}
+
+## Ancient History: 5000 BC - 500 {data-background="images/intro-ancient-history.jpg"}
+
+## Machine Age: 1880 – 1945 {data-background="images/intro-machine-age.jpg"}
+
+## Space Age: 1957 - Present {data-background="images/intro-space-age.jpg"}
+
+## Selfie Age: 1970 - Present {data-background="images/intro-selfie-age.jpeg"}
+
+## Information Age: 1970 - Present {data-background="images/intro-katie-bouman.jpg"}
+
+## Information Age: Present {data-background="images/intro-katie-bouman-disks.png"}
+
+## World's Capacity to Store Information
+
+![](images/intro-world-store-capacity.png)
+
+## Hadoop and Map Reduce
+
+![](images/intro-simple-map-reduce-example.png)
+
+## Intro Spark
+
+![](images/intro-hadoop-spark-logistic-regression.png)
+
+## Spark Record Sorting
+
+|                  | Hadoop Record | Spark Record  |
+|------------------|---------------|---------------|
+| Data Size        | 102.5 TB      | 100 TB        |
+| Elapsed Time     | 72 mins       | 23 mins       |
+| Nodes            | 2100          | 206           |
+| Cores            | 50400         | 6592          |
+| Disk             | 3150 GB/s     | 618 GB/s      |
+| Network          | 10Gbps        | 10Gbps        |
+| Sort rate        | 1.42 TB/min   | 4.27 TB/min   |
+| Sort rate / node | 0.67 GB/min   | 20.7 GB/min   |
+
 # Intro
 
 ## What to do when code is slow?
@@ -21,22 +66,22 @@ knitr::opts_chunk$set(eval = FALSE)
 mtcars %>% lm(mpg ~ wt + cyl, .)
 ```
 
-```{r}
+```{r class.source='fragment'}
 # Sample
 mtcars %>% dplyr::sample_n(10) %>% lm(mpg ~ wt + cyl, .)
 ```
 
-```{r}
+```{r class.source='fragment'}
 # Profile
 profvis::profvis(mtcars %>% lm(mpg ~ wt + cyl, .))
 ```
 
-```{r}
+```{r class.source='fragment'}
 # Scale Up
 cloudml::cloudml_train("train.R")
 ```
 
-```{r}
+```{r class.source='fragment'}
 # Scale Out
 mtcars_tbl %>% sparklyr::ml_linear_regression(mpg ~ wt + cyl)
 ```
@@ -57,23 +102,23 @@ install.packages("sparklyr")                         # R interface to Spark
 library(sparklyr)
 ```
 
-```{r}
+```{r class.source='fragment'}
 spark_install()                                      # Install Apache Spark
 sc <- spark_connect(master = "local")                # Connect to Spark cluster
 ```
 
-```{r}
+```{r class.source='fragment'}
 cars <- spark_read_csv(sc, "cars", "mtcars/")        # Read data in Spark
 
 dplyr::summarize(cars, n = n())                      # Count records with dplyr
 DBI::dbGetQuery(sc, "SELECT count(*) FROM cars")     # Count records with DBI
 ```
 
-```{r}
+```{r class.source='fragment'}
 ml_linear_regression(cars, mpg ~ wt + cyl)           # Perform linear regression
 ```
 
-```{r}
+```{r class.source='fragment'}
 spark_context(sc) %>% invoke("version")              # Extend sparklyr with Scala
 ```
 
@@ -102,21 +147,21 @@ stream_read_text(sc, "s3a://your-s3-bucket/") %>%    # Define input stream
 cars_str <- stream_read_csv(sc, "mtcars/", "cars")     # Read stream in Spark
 ```
 
-```{r}
+```{r class.source='fragment'}
 out_str <- summarize(cars_str, n = n())                # Count records with dplyr
 out_str <- dbGetQuery(sc, "SELECT count(*) FROM cars") # Count records with DBI
 ```
 
-```{r}
+```{r class.source='fragment'}
 out_str <- ml_transform(fitted, cars_str)              # Transform stream with model
 ```
 
-```{r}
+```{r class.source='fragment'}
 out_str <- spark_apply(cars_str, nrow)                 # Extend streams with R
 ```
 
 
-```{r}
+```{r class.source='fragment'}
 stream_write_csv(out_str, "output/")                   # Write as a CSV stream
 reactiveSpark(out_str)                                 # Use as a Shiny reactive
 ```
