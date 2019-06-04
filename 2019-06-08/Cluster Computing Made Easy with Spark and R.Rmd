@@ -19,19 +19,19 @@ knitr::opts_chunk$set(eval = FALSE)
 
 ![](images/intro-technology-periods.png)
 
-## Stone Age: 3.4M BC - 5000 BC {data-background="images/intro-stone-age.jpeg"}
+## Stone Age: 3.4M BC - 5000 BC {data-background="https://javierluraschi.s3.amazonaws.com/cascadiar-2019/intro-stone-age.jpeg"}
 
-## Ancient History: 5000 BC - 500 {data-background="images/intro-ancient-history.jpg"}
+## Ancient History: 5000 BC - 500 {data-background="https://javierluraschi.s3.amazonaws.com/cascadiar-2019/intro-ancient-history.jpg"}
 
-## Machine Age: 1880 – 1945 {data-background="images/intro-machine-age.jpg"}
+## Machine Age: 1880 – 1945 {data-background="https://javierluraschi.s3.amazonaws.com/cascadiar-2019/intro-machine-age.jpg"}
 
-## Space Age: 1957 - Present {data-background="images/intro-space-age.jpg"}
+## Space Age: 1957 - Present {data-background="https://javierluraschi.s3.amazonaws.com/cascadiar-2019/intro-space-age.jpg"}
 
-## Selfie Age: 1970 - Present {data-background="images/intro-selfie-age.jpeg"}
+## Selfie Age: 1970 - Present {data-background="https://javierluraschi.s3.amazonaws.com/cascadiar-2019/intro-selfie-age.jpeg"}
 
-## Information Age: 1970 - Present {data-background="images/intro-katie-bouman.jpg"}
+## Information Age: 1970 - Present {data-background="https://javierluraschi.s3.amazonaws.com/cascadiar-2019/intro-katie-bouman.jpg"}
 
-## Information Age: Present {data-background="images/intro-katie-bouman-disks.png"}
+## Information Age: Present {data-background="https://javierluraschi.s3.amazonaws.com/cascadiar-2019/intro-katie-bouman-disks.png"}
 
 ## World's Capacity to Store Information
 
