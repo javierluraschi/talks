@@ -58,6 +58,16 @@ knitr::opts_chunk$set(eval = FALSE)
 | Sort rate        | 1.42 TB/min   | 4.27 TB/min   |
 | Sort rate / node | 0.67 GB/min   | 20.7 GB/min   |
 
+## What can I do with cluster computing? {data-background="https://javierluraschi.s3.amazonaws.com/cascadiar-2019/intro-hotdog-hbo.png"}
+
+## AlphaGo {data-background="https://javierluraschi.s3.amazonaws.com/cascadiar-2019/intro-alphago.jpg"}
+
+## OpenAI Dota {data-background="https://javierluraschi.s3.amazonaws.com/cascadiar-2019/intro-openai-dota.jpg"}
+
+## Distributed Training
+
+![](images/intro-distributed-training.png)
+
 # Intro
 
 ## What to do when code is slow?
@@ -173,6 +183,18 @@ reactiveSpark(out_str)                                 # Use as a Shiny reactive
 --
 
 ![](https://s3.amazonaws.com/javierluraschi/scaling-r-with-spark-rstudio-conf/images/streaming-kafka-spark-shiny.png)
+
+# RMarkdown
+
+## Donald Knuth {data-background="https://javierluraschi.s3.amazonaws.com/cascadiar-2019/literate-donald-knuth.jpg"}
+
+## The Art of Computer Programming {data-background="https://javierluraschi.s3.amazonaws.com/cascadiar-2019/literate-art-of-computer-programming.jpg"}
+
+## Literate Programming {data-background="https://javierluraschi.s3.amazonaws.com/cascadiar-2019/literate-literate-programming.jpg"}
+
+<span style="color: #FFF">I believe that the time is ripe for significantly better documentation of programs, and that we can best achieve this by considering programs to be works of literature. Hence, my title: "Literate Programming."</span>
+
+## R Markdown and R Notebooks {data-background="https://javierluraschi.s3.amazonaws.com/cascadiar-2019/literate-r-markdown.png"}
 
 # Thank You!
 
