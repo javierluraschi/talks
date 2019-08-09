@@ -184,7 +184,7 @@ reactiveSpark(out_str)                                 # Use as a Shiny reactive
 
 ![](https://s3.amazonaws.com/javierluraschi/scaling-r-with-spark-rstudio-conf/images/streaming-kafka-spark-shiny.png)
 
-# RMarkdown
+# R Markdown
 
 ## Donald Knuth {data-background="https://javierluraschi.s3.amazonaws.com/cascadiar-2019/literate-donald-knuth.jpg"}
 
@@ -205,5 +205,5 @@ reactiveSpark(out_str)                                 # Use as a Shiny reactive
 - <div class="highlight">[github.com/rstudio/sparklyr](https://github.com/rstudio/sparklyr):</div> Something needs fixing? Open a **GitHub** issue.
 - <div class="highlight">[stackoverflow.com/tags/sparklyr](https://stackoverflow.com/tags/sparklyr):</div> General questions? **Stack Overflow** is a good place to start.
 - <div class="highlight">[gitter.im/rstudio/sparklyr](https://gitter.im/rstudio/sparklyr):</div> Anything urgent? Chat with us in **Gitter**!
-- <div class="highlight">[rpubs.com/jluraschi](http://rpubs.com/jluraschi/sdss-2019-spark):</div> Want to review these **slides**?
+- <div class="highlight">[rpubs.com/jluraschi](http://rpubs.com/jluraschi/cascadiar-2019):</div> Want to review these **slides**?
 - <div class="highlight">[github.com/javierluraschi/talks](https://github.com/javierluraschi/talks/tree/master/2019-05-31):</div> Want to run this **R Notebook** yourself?

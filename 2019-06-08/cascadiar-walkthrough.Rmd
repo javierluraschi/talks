@@ -101,7 +101,7 @@ produce_tweets <- function(search, producer, topic = "tweets", last = data.frame
     produce_tweets(search, producer, topic, tweets, iters - 1)
 }
 
-tweets <- produce_tweets("#SDSS2019", producer, "tweets")
+tweets <- produce_tweets("#cascadiarconf", producer, "tweets")
 ```
 
 ### Configuring Google Cloud
@@ -185,12 +185,12 @@ tbl(sc, "stream") %>%
 ```{r}
 googleAuthR::gar_auth_service(scope = "https://www.googleapis.com/auth/cloud-platform", json_file="cloudml.json")
 
-image_response <- RoogleVision::getGoogleVisionResponse("https://pbs.twimg.com/media/D75h6JlU0AAkev_.jpg")
+image_response <- RoogleVision::getGoogleVisionResponse("http://pbs.twimg.com/media/D8kH_MsVsAA7WLM.jpg", numResults = 10)
 image_response
 ```
 
 ```{r}
-knitr::include_graphics("https://pbs.twimg.com/media/D75h6JlU0AAkev_.jpg")
+knitr::include_graphics("http://pbs.twimg.com/media/D8kH_MsVsAA7WLM.jpg")
 ```
 
 ```{r}
@@ -214,17 +214,6 @@ tags
 ```{r}
 wordcloud::wordcloud(tags$description, tags$total, scale = c(4, 0.5),
                      min.freq = 1, max.words = 50)
-```
-
-## Using Arrow with Spark
-
-```{r}
-system.time(sdf_len(sc, 10^4) %>% spark_apply(nrow) %>% sdf_collect())
-```
-
-```{r}
-library(arrow)
-system.time(sdf_len(sc, 10^6) %>% spark_apply(nrow) %>% sdf_collect())
 ```
 
 ## Cleanup
