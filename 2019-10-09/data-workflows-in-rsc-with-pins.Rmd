@@ -1,0 +1,37 @@
+---
+title: "Data workflows in RStudio Connect using pins"
+author: "@javierluraschi / @rstudio"
+date: "09/10/2019"
+output:
+  revealjs::revealjs_presentation:
+    self_contained: true
+    theme: white
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(eval = FALSE)
+```
+
+# Today
+
+## mlflow
+
+![](images/csv-mlflow.png)
+
+## r2d3
+
+![](images/csv-r2d3.png)
+
+## readr
+
+![](images/csv-readr.png)
+
+# Pins
+
+# Boards
+
+# RStudio Connect
+
+
+
+
