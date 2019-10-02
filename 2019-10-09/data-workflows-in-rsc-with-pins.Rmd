@@ -5,6 +5,7 @@ date: "09/10/2019"
 output:
   revealjs::revealjs_presentation:
     self_contained: true
+    css: styles/reveal.css
     theme: white
 ---
 
@@ -28,60 +29,44 @@ The `r2d2` package docs require downloading `flare.csv`.
 
 ## readr
 
-The `readr` package docs require downloading `challenge.csv`.
+The `readr` package defines `readr_example()` to avoid downloads.
 
 ![](images/today-readr.png)
+
+## R4DS
+
+"R for Data Science" contains "data/heights.csv" in data import.
+
+![](images/today-r4ds.png)
 
 ## Reproducible?
 
 ![](images/today-reproducuble.jpg)
 
-# Workarounds
-
-## Download File
+## Workarounds
 
 ```{r}
 data_url <- paste0("https://raw.githubusercontent.com/",
                    "rstudio/r2d3/master/vignettes/gallery/",
                    "bubbles/flare.csv")
 
+# automatically download
 download.file(data_url)
 ```
 
-## Avoid Redownloading?
-
 ```{r}
-if (!file.exists("flare.csv")) {
+# automatically download only once
+if (!file.exists("flare.csv"))
   download.file(data_url, "flare.csv")
-}
 ```
 
-## Support URL's in all packages?
-
-```{r}
-readr::read_csv(data_url)
-```
-```
-# A tibble: 252 x 2
-   id                                           value
-   <chr>                                        <dbl>
- 4 flare.analytics.cluster.AgglomerativeCluster  3938
- 5 flare.analytics.cluster.CommunityStructure    3812
- 6 flare.analytics.cluster.HierarchicalCluster   6714
- ```
-
-## Is that enough?
-
-- Add to `.gitignore`?
-- Share across projects?
-- Detect upstream changes?
-- Update or share datasets?
+Add to .gitignore? Upstream changes? Share across projects?
 
 # Pins
 
-## Cache
+## Caching with Pins
 
-With `pins` we can easily cache resource,
+With `pins` we can easily cache resources,
 
 ```{r}
 pins::pin(data_url)
@@ -90,7 +75,7 @@ pins::pin(data_url)
 "/Users/javierluraschi/Library/Caches/pins/local/flare/flare.csv"
 ```
 
-But wait, there is more!
+But wait, there is more...
 
 ## Intro
 
@@ -110,14 +95,23 @@ You can use the pins package to:
 Anything!
 
 ```{r}
+# pin a remote file
 pins::pin(data_url)
 ```
 
 ```{r}
+# pin a local file
+writeLines("Hello World!", "data.txt")
+pins::pin("data.txt")
+```
+
+```{r}
+# pin a data frame
 pins::pin(mtcars)
 ```
 
 ```{r}
+# pin a regression model
 pins::pin(lm(mpg ~ ., mtcars))
 ```
 
@@ -138,9 +132,25 @@ A storage location, like your local file systems, GitHub, Kaggle or RStudio Conn
 
 ![](images/pins-board-interface.png)
 
-# RStudio Connect
+# RStudio
 
 ## Pin
+
+```{r}
+pins::pin(iris, board = "rsconnect")
+```
+
+## Authentication
+
+```{r}
+library(pins)
+
+# register from RStudio
+board_register_rsconnect(server = "https://my-rsc.com", account = "my-user")
+
+# register from RStudio Connect
+board_register_rsconnect(server = "https://my-rsc.com", key = Sys.getenv("RSC_API"))
+```
 
 ## Discover
 
