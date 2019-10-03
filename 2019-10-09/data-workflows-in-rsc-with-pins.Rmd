@@ -140,6 +140,8 @@ A storage location, like your local file systems, GitHub, Kaggle or RStudio Conn
 pins::pin(iris, board = "rsconnect")
 ```
 
+![](images/rstudio-pin.png)
+
 ## Authentication
 
 ```{r}
@@ -152,11 +154,53 @@ board_register_rsconnect(server = "https://my-rsc.com", account = "my-user")
 board_register_rsconnect(server = "https://my-rsc.com", key = Sys.getenv("RSC_API"))
 ```
 
+![](images/rstudio-authenticate.png)
+
 ## Discover
+
+```{r}
+pin_find("iris", board = "rsconnect")
+```
+
+![](images/rstudio-discover.png)
 
 ## Share
 
+```{r}
+# pin a remote file
+pins::pin(data_url, board = "rsconnect")
+```
+
+```{r}
+# pin a local file
+pins::pin("data.txt", board = "rsconnect")
+```
+
+```{r}
+# pin a data frame
+pins::pin(mtcars, board = "rsconnect")
+```
+
+```{r}
+# pin a regression model
+pins::pin(lm(mpg ~ ., mtcars), board = "rsconnect")
+```
+
 ## Resources
+
+A pin can be anything,
+
+```{r}
+pins::pin(lm(mpg ~ ., mtcars), board = "rsconnect")
+```
+
+![](images/rstudio-resources.png)
+
+## Extensions
+
+A pin can also be extended!
+
+![](images/rstudio-resources-model.png)
 
 ## Automation
 
