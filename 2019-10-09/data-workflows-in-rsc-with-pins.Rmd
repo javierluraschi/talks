@@ -1,12 +1,16 @@
 ---
-title: "Data workflows in RStudio Connect using pins"
-author: "@javierluraschi / @rstudio"
+title: "Data workflows in RStudio Connect"
+author: "@javierluraschi"
 date: "09/10/2019"
 output:
   revealjs::revealjs_presentation:
     self_contained: true
     css: styles/reveal.css
-    theme: white
+    theme: simple
+    reveal_options:
+      width: 100%
+      height: 100%
+      margin: 0
 ---
 
 ```{r setup, include=FALSE}
@@ -39,9 +43,7 @@ The `readr` package defines `readr_example()` to avoid downloads.
 
 ![](images/today-r4ds.png)
 
-## Reproducible?
-
-![](images/today-reproducuble.jpg)
+## Is this reproducible? {data-background="images/today-reproducuble.jpg"}
 
 ## Workarounds
 
@@ -202,5 +204,10 @@ A pin can also be extended!
 
 ![](images/rstudio-resources-model.png)
 
-## Automation
+## Use Cases
 
+There are many interesting use cases available for pins, from caching remote resources to creating data pipelines.
+
+![](images/pins-use-cases.png)
+
+See [rstudio.github.io/pins/articles/use-cases](https://deploy-preview-70--rstudio-pins-website.netlify.com/articles/use-cases.html).

@@ -21,11 +21,12 @@
 }
 
 .reveal h1 {
-  font-size: 80px;
-  background: #77abd9;
+  max-width: 70%;
+  font-size: 60px;
+  background: #75aadb;
   color: #000;
   display: inline-block;
-  padding: 0 30px 0 30px;
+  padding: 0 30px 20px 30px;
   border-radius: 3px;
   margin: 40px 0 20px 0;
 }
@@ -39,9 +40,11 @@
 }
 
 .reveal h2 {
-  margin: 40px 0 20px 0;
-  background: #77abd9;
+  max-width: 70%;
+  margin: 40px auto 20px auto;
+  background: #75aadb;
   border-radius: 3px;
+  padding-bottom: 10px;
 }
 
 .title-slide p {
@@ -77,8 +80,12 @@
   background-color: #fbfbff;
 }
 
-img {
+.reveal img {
   border: solid 1px #999;
+}
+
+.reveal .author {
+  background: none;
 }
 
 .reveal h2.author,
@@ -87,6 +94,13 @@ img {
 }
 
 .slide-background {
+}
+
+.reveal ul,
+.reveal p {
+  max-width: 70%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .slide-background.slide,
