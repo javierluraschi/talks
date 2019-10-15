@@ -315,4 +315,29 @@ Start with [mlflow.org/docs/latest/index.html](https://mlflow.org/docs/latest/in
 - Cloud Deployment Targets
 - Keras Autolog
 
+# Demo  <img src="images/spark-tensorflow-mlflow-demo.png" class="noshadow"/>
+
+## Spark Resources
+
+[spark.rstudio.com](https://spark.rstudio.com)
+
+<img src="images/mastering-spark-with-r.png" style="float: left; width: 40%;"/>
+<img src="images/spark-with-r-site.png" style="width: 55%;"/>
+
+## TensorFlow Resources
+
+[tensorflow.rstudio.com](https://tensorflow.rstudio.com)
+
+<img src="images/deep-learning-with-r.png" style="float: left; width: 40%;"/>
+<img src="images/tensorflow-with-r-site.png" style="width: 58%;"/>
+
+## Multiverse Resources
+
+[youtube.com/c/mlverse](https://youtube.com/c/mlverse)
+
+![](images/youtube-mlverse.png)
+
+## Thanks!
+
+<img src="images/amsterdam.jpg" style="width: 70%;"/>
 
