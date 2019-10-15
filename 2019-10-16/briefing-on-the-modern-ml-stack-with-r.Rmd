@@ -293,3 +293,26 @@ members to participate in Schulte Int'l's Connect the World.
 ## What’s next? - TF Distributed
 
 ![](images/tensorflow-distributed.png)
+
+# MLflow <img src="images/mlflow-logo.png" class="noshadow"/>
+
+## Getting Started
+
+Start with [mlflow.org/docs/latest/index.html](https://mlflow.org/docs/latest/index.html). docs site at a par with Python!
+
+![](images/mlflow-docs.png)
+
+## Timeline
+
+`mlflow` has been available on CRAN since v0.7.0.
+
+<img src="images/mlflow-cran.png" style="float: left; width: 60%;"/>
+<img src="images/mlflow-cran-versions.png" style="width: 38%;"/>
+
+## What's next?
+
+- renv (packrat successor)
+- Cloud Deployment Targets
+- Keras Autolog
+
+
