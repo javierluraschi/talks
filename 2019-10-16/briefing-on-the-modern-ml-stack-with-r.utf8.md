@@ -9,9 +9,7 @@ output:
     theme: white
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(eval = FALSE)
-```
+
 
 # Overview <img src="images/spark-ai.jpeg" style="width: 60%; margin: auto; display: block;">
 
@@ -25,7 +23,8 @@ knitr::opts_chunk$set(eval = FALSE)
 
 <img src="images/hex-tidyverse.png" style="float: left; width: 150px; box-shadow: none;"/>
 
-```{r}
+
+```r
 library(tidyverse)
 library(nycflights13)
 
@@ -57,7 +56,8 @@ In an ideal world, all R packages work with Spark, like magic. Such is the case 
 
 <img src="images/hex-sparklyr.svg" style="float: left; width: 150px; box-shadow: none;"/>
 
-```{r}
+
+```r
 library(sparklyr)
 library(nycflights13)
 
@@ -67,7 +67,8 @@ flights <- copy_to(sc, flights)
 
 <img src="images/hex-tidyverse.png" style="float: left; width: 150px; box-shadow: none;"/>
 
-```{r}
+
+```r
 library(tidyverse)
 library(nycflights13)
 
@@ -88,7 +89,8 @@ flights %>%
 
 ## What’s new? - Arrow
 
-```{r}
+
+```r
 install.packages("arrow")
 library(arrow)
 library(sparklyr)
@@ -101,7 +103,8 @@ library(sparklyr)
 
 [sparkxgb](https://github.com/rstudio/sparkxgb) is a new sparklyr extension that can be used to train [XGBoost](https://xgboost.ai/) models in Spark.
 
-```{r}
+
+```r
 library(sparkxgb)
 iris <- copy_to(sc, iris)
 
@@ -125,7 +128,8 @@ xgb_model %>% ml_predict(iris) %>%
 
 [broom](https://broom.tidyverse.org/) summarizes key information about models as data frames, the last `sparklyr` release marks the completion of all modeling functions.
 
-```{r}
+
+```r
 movies <- data.frame(user   = c(1, 2, 0, 1, 2, 0),
                      item   = c(1, 1, 1, 2, 2, 0),
                      rating = c(3, 1, 2, 4, 5, 4))
@@ -150,7 +154,8 @@ copy_to(sc, movies) %>%
 
 [sparktf](https://github.com/rstudio/sparktf) is a new sparklyr extension allowing you to write TensorFlow records in Spark. This can be used to preprocess large amounts of data before processing them in GPU instances with Keras or TensorFlow.
 
-```{r}
+
+```r
 library(sparktf)
 library(sparklyr)
 
@@ -170,7 +175,8 @@ copy_to(sc, iris) %>%
 
 <img src="images/variantspark-ggplot2.png" style="width: 300px; float: right"/>
 
-```{r}
+
+```r
 library(sparklyr)
 library(variantspark)
 
@@ -188,7 +194,8 @@ vs_importance_analysis(vsc, hipster, labels, n_trees = 100)
 
 <img src="images/sparkhail-ggplot2.png" style="width: 300px; float: right"/>
 
-```{r}
+
+```r
 library(sparkhail)
 sc <- spark_connect(master = "local",
                     version = "2.4",
@@ -222,7 +229,8 @@ Spark NLP: State of the Art Natural Language Processing. The first production gr
 
 [tfdatasets](https://github.com/rstudio/tfdatasets) now supports feature specs:
 
-```{r}
+
+```r
 ft_spec <- training %>%
   select(-id) %>%
   feature_spec(target ~ .) %>%
@@ -242,7 +250,8 @@ ft_spec <- training %>%
 
 Allows you to combine probabilistic models and deep learning on modern hardware.
 
-```{r}
+
+```r
 # create a binomial distribution with n = 7 and p = 0.3
 d <- tfd_binomial(total_count = 7, probs = 0.3)
 # compute mean
@@ -270,7 +279,8 @@ New [github.com/r-tensorflow](https://github.com/r-tensorflow) organization to s
 
 For instance, easily run Open AI's GPT-2 model in R:
 
-```{r}
+
+```r
 remotes::install_github("r-tensorflow/gpt2")
 gpt2::install_gpt2(method = "conda", envname = "r-gpt2")
 
