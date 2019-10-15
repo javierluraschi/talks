@@ -1,0 +1,27 @@
+---
+title: "Briefing on the Modern ML Stack with R"
+author: "Javier Luraschi, RStudio"
+output:
+  revealjs::revealjs_presentation:
+    df_print: paged
+    self_contained: true
+    css: styles/reveal.css
+    theme: white
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(eval = FALSE)
+```
+
+## Overview
+
+- Overview
+- Apache Spark
+- TensorFlow
+- MLflow
+- Demos
+
+## Why R?
+
+![](images/why-r.png)
+
