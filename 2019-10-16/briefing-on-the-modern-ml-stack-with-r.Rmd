@@ -13,15 +13,25 @@ output:
 knitr::opts_chunk$set(eval = FALSE)
 ```
 
-## Overview
-
-- Overview
-- Apache Spark
-- TensorFlow
-- MLflow
-- Demos
+# Overview
 
 ## Why R?
 
 ![](images/why-r.png)
+
+## Modern R
+
+> The tidyverse is an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures.
+
+<img src="images/hex-tidyverse.png" style="float: left; width: 150px; box-shadow: none;"/>
+
+```{r}
+library(tidyverse)
+library(nycflights13)
+
+flights %>%
+  group_by(month, day) %>%
+  summarise(count = n(), avg_delay = mean(dep_delay, na.rm = TRUE)) %>%
+  filter(count > 1000)
+```
 

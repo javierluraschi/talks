@@ -12,6 +12,7 @@
 
 .reveal pre code {
   max-height: none;
+  line-height: 1.6em;
 }
 
 .reveal .description {
@@ -73,33 +74,11 @@
   margin-top: 0px;
   margin-bottom: 10px;
   
-  /* background-color: #043440; */
-  border-left: solid 10px #77abd9; /* #025e75; */
   background-color: #fdfdfd;
 }
 
-.reveal .sourceCode.r span.kw {
-  /* color: #77abd9; */
-}
-
-.reveal .sourceCode.r span.dt {
-  /* color: #6eab9e; */
-}
-
-.reveal .sourceCode.scala span.fu {
-  /* color: #c8d6f9; */
-}
-
-.reveal #spark-install p {
-  font-size: 25px;
-}
-
-.reveal #livy img {
-  width: 500px;
-}
-
 img {
-  width: 650px;
+  width: 100%;
   border: solid 1px #999;
 }
 
@@ -121,39 +100,8 @@ img {
   font-size: 0.70em;
 }
 
-.reveal #r-language img {
-  width: 450px;
-}
-
-.reveal #r-packages img {
-  width: 550px;
-}
-
 .reveal .slides img {
   margin: 0;
-}
-
-.reveal #copy-with-arrow img,
-.reveal #ccollect-with-arrow img,
-.reveal #transform-with-arrow img {
-  width: 600px;
-}
-
-.reveal #implementation img {
-  width: 600px;
-}
-
-.reveal #implementation img:nth-child(2)  {
-  width: 400px;
-  margin-top: 0;
-}
-
-.reveal #what-is-arrow img {
-  width: 900px;
-}
-
-.reveal #memory-layout img {
-  width: 500px;
 }
 
 .reveal dd {
@@ -171,14 +119,8 @@ img {
   margin-right: auto;
 }
 
-.reveal #an-r-package .flow-column div.sourceCode {
-  margin: 0 0 6px 0;
-}
-
-.reveal div.distributed-code .sourceCode {
-  margin-top: 0;
-}
-
-.reveal div.distributed-code {
-  width: 700px
+.reveal blockquote {
+  color: #5d5d5d;
+  font-style: inherit;
+  box-shadow: none;
 }
