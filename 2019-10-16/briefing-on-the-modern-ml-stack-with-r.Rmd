@@ -13,7 +13,7 @@ output:
 knitr::opts_chunk$set(eval = FALSE)
 ```
 
-# Overview
+# Overview <img src="images/spark-ai.jpeg" style="width: 60%; margin: auto; display: block;">
 
 ## Why R?
 
@@ -35,3 +35,179 @@ flights %>%
   filter(count > 1000)
 ```
 
+## About RStudio
+
+![](images/about-rstudio.png)
+
+## RStudio's Multiverse Team
+
+Authors of R packages to support Apache Spark, TensorFlow and MLflow. Contributors to tidyverse and Apache Arrow.
+
+![](images/multiverse-team.png)
+
+## The Modern ML Stack with R
+
+![](images/modern-ml-stack-r.png)
+
+# Spark <img src="images/spark-logo.png" class="noshadow"/>
+
+## Motivation
+
+In an ideal world, all R packages work with Spark, like magic. Such is the case for `dplyr` and `sparklyr`.
+
+<img src="images/hex-sparklyr.svg" style="float: left; width: 150px; box-shadow: none;"/>
+
+```{r}
+library(sparklyr)
+library(nycflights13)
+
+sc <- spark_connect(master = "local|yarn|mesos|spark|livy")
+flights <- copy_to(sc, flights)
+```
+
+<img src="images/hex-tidyverse.png" style="float: left; width: 150px; box-shadow: none;"/>
+
+```{r}
+library(tidyverse)
+library(nycflights13)
+
+flights %>%
+  group_by(month, day) %>%
+  summarise(count = n(), avg_delay = mean(dep_delay, na.rm = TRUE)) %>%
+  filter(count > 1000)
+```
+
+## Timeline
+
+<img src="images/spark-with-r-timeline.png" class="noshadow"/>
+
+## Master Spark with R
+
+<img src="images/master-spark-with-r.png" style="float: left; width: 70%;"/>
+<img src="images/master-spark-with-r-cover.png" style="width: 25%;"/>
+
+## What’s new? - Arrow
+
+```{r}
+install.packages("arrow")
+library(arrow)
+library(sparklyr)
+```
+
+<img src="images/arrow-performance.png" style="float: left; width: 65%;"/>
+<img src="images/arrow-cran.png" style="width: 30%;"/>
+
+## What’s new? - XGBoost
+
+[sparkxgb](https://github.com/rstudio/sparkxgb) is a new sparklyr extension that can be used to train [XGBoost](https://xgboost.ai/) models in Spark.
+
+```{r}
+library(sparkxgb)
+iris <- copy_to(sc, iris)
+
+xgb_model <- xgboost_classifier(iris, Species ~ ., num_class = 3, num_round = 50, max_depth = 4)
+
+xgb_model %>% ml_predict(iris) %>%
+  select(Species, predicted_label, starts_with("probability_")) %>% glimpse()
+```
+```
+#> Observations: ??
+#> Variables: 5
+#> Database: spark_connection
+#> $ Species                <chr> "setosa", "setosa", "setosa", "setosa", "…
+#> $ predicted_label        <chr> "setosa", "setosa", "setosa", "setosa", "…
+#> $ probability_versicolor <dbl> 0.003566429, 0.003564076, 0.003566429, 0.…
+#> $ probability_virginica  <dbl> 0.001423170, 0.002082058, 0.001423170, 0.…
+#> $ probability_setosa     <dbl> 0.9950104, 0.9943539, 0.9950104, 0.995010…
+```
+
+## What’s new? - Broom
+
+[broom](https://broom.tidyverse.org/) summarizes key information about models as data frames, the last `sparklyr` release marks the completion of all modeling functions.
+
+```{r}
+movies <- data.frame(user   = c(1, 2, 0, 1, 2, 0),
+                     item   = c(1, 1, 1, 2, 2, 0),
+                     rating = c(3, 1, 2, 4, 5, 4))
+
+copy_to(sc, movies) %>%
+  ml_als(rating ~ user + item) %>%
+  augment()
+```
+```
+# Source: spark<?> [?? x 4]
+   user  item rating .prediction
+  <dbl> <dbl>  <dbl>       <dbl>
+1     2     2      5        4.86
+2     1     2      4        3.98
+3     0     0      4        3.88
+4     2     1      1        1.08
+5     0     1      2        2.00
+6     1     1      3        2.80
+```
+
+## What’s new? - TF Records
+
+[sparktf](https://github.com/rstudio/sparktf) is a new sparklyr extension allowing you to write TensorFlow records in Spark. This can be used to preprocess large amounts of data before processing them in GPU instances with Keras or TensorFlow.
+
+```{r}
+library(sparktf)
+library(sparklyr)
+
+sc <- spark_connect(master = "local")
+
+copy_to(sc, iris) %>%
+  ft_string_indexer_model(
+    "Species", "label",
+    labels = c("setosa", "versicolor", "virginica")
+  ) %>%
+  spark_write_tfrecord(path = "tfrecord")
+```
+
+## What’s new? - VariantSpark
+
+[VariantSpark](https://github.com/aehrc/VariantSpark) is a framework based on scala and spark to analyze genome datasets. It is being developed by [CSIRO Bioinformatics](https://bioinformatics.csiro.au/) team in Australia. VariantSpark was tested on datasets with 3000 samples each one containing 80 million features in either unsupervised clustering approaches and supervised applications, like classification and regression.
+
+<img src="images/variantspark-ggplot2.png" style="width: 300px; float: right"/>
+
+```{r}
+library(sparklyr)
+library(variantspark)
+
+sc <- spark_connect(master = "local")
+vsc <- vs_connect(sc)
+hipster <- vs_read_vcf(vsc, "inst/extdata/hipster.vcf.bz2")
+labels <- vs_read_labels(vsc, "inst/extdata/hipster_labels.txt")
+
+vs_importance_analysis(vsc, hipster, labels, n_trees = 100)
+```
+
+## What’s new? - SparkHail
+
+[Hail](https://hail.is/) is an open-source, general-purpose, Python-based data analysis tool with additional data types and methods for working with genomic data. Hail is built to scale and has first-class support for multi-dimensional structured data, like the genomic data in a genome-wide association study (GWAS).
+
+<img src="images/sparkhail-ggplot2.png" style="width: 300px; float: right"/>
+
+```{r}
+library(sparkhail)
+sc <- spark_connect(master = "local",
+                    version = "2.4",
+                    config = hail_config())
+
+hl <- hail_context(sc)
+mt <- hail_read_matrix(hl, system.file("extdata/1kg.mt", package = "sparkhail"))
+
+hail_dataframe(mt)
+```
+
+## What’s new? - GitHub
+
+New [github.com/r-spark](https://github.com/r-spark) organization to support ecosystem of Spark and R extensions.
+
+![](images/github-org-spark.png)
+
+## What’s next? - SparkNLP
+
+Spark NLP: State of the Art Natural Language Processing. The first production grade versions of the latest deep learning NLP research.
+
+![](images/sparknpl-langing.png)

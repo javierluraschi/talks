@@ -124,3 +124,11 @@ img {
   font-style: inherit;
   box-shadow: none;
 }
+
+.reveal img.noshadow {
+  box-shadow: none;
+}
+
+.reveal #overview > h1 {
+  color: #000;
+}
