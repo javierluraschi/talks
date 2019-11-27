@@ -133,7 +133,7 @@ img {
   color: #000;
 }
 
-.reveal .sourceCode > pre {
+#sparklyr-r-interface-for-apache-spark > .sourceCode > pre {
   background-color: #f9fcff;
   border-left: solid 20px #4287c7;
   margin: 0;
