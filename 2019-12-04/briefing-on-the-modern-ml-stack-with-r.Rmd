@@ -29,7 +29,48 @@ Authors of R packages to support Apache Spark, TensorFlow and MLflow. Contributo
 
 ![](images/modern-ml-stack-r.png)
 
-## Motivation
+## What is Spark?
+
+> "Apache Spark™ is a unified analytics engine for large-scale data processing."
+
+> - **Unified**: Spark supports many libraries, clusters technologies and storage systems.
+> - **Analytics**: Analytics is the discovery and interpretation of data to produce and communicate information.
+> - **Engine**: Spark is expected to be efficient and generic.
+> - **Large-Scale**: One can interpret large-scale as cluster-scale, a set of connected computers working together.
+
+## Why Spark?
+
+Information grows at exponential rates.
+
+![](images/intro-information-growth.png)
+
+## What's next?
+
+We see Spark supporting multiple projects: TensorFlow, MLFlow, Modeling, etc.
+
+![](images/intro-clusters-deep-learning.png)
+
+## Why R?
+
+![](images/why-r.png)
+
+## Modern R
+
+> The tidyverse is an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures.
+
+<img src="images/hex-tidyverse.png" style="float: left; width: 150px; box-shadow: none;"/>
+
+```{r}
+library(tidyverse)
+library(nycflights13)
+
+flights %>%
+  group_by(month, day) %>%
+  summarise(count = n(), avg_delay = mean(dep_delay, na.rm = TRUE)) %>%
+  filter(count > 1000)
+```
+
+## Spark and R
 
 In an ideal world, all R packages work with Spark, like magic. Such is the case for `dplyr` and `sparklyr`.
 
@@ -55,29 +96,13 @@ flights %>%
   filter(count > 1000)
 ```
 
-## Why R?
+# Timeline
 
-![](images/why-r.png)
-
-## Modern R
-
-> The tidyverse is an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures.
-
-<img src="images/hex-tidyverse.png" style="float: left; width: 150px; box-shadow: none;"/>
-
-```{r}
-library(tidyverse)
-library(nycflights13)
-
-flights %>%
-  group_by(month, day) %>%
-  summarise(count = n(), avg_delay = mean(dep_delay, na.rm = TRUE)) %>%
-  filter(count > 1000)
-```
-
-## Timeline
+## 2016-2019
 
 <img src="images/spark-with-r-timeline.png" class="noshadow"/>
+
+## Beyond 2020
 
 # Use Cases
 

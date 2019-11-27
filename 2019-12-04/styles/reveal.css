@@ -16,7 +16,7 @@
 }
 
 .reveal .description {
-  color: #FFF;
+  color: #000;
   font-weight: 400;
   text-transform: none;
 }
@@ -27,14 +27,14 @@
   padding: 0 30px 0 30px;
   border-radius: 3px;
   margin: 40px 0 0 0;
-  color: #FFF;
+  color: #000;
   background: none;
   width: 100%;
 }
 
 .reveal h1.subtitle {
   font-size: 60px;
-  color: #FFF;
+  color: #000;
   font-weight: 400;
   padding-left: 30px;
   background: none;
@@ -51,7 +51,7 @@
 }
 
 .reveal .highlighted {
-  color: #FFF;
+  color: #000;
   font-weight: bold;
 }
 
@@ -84,7 +84,7 @@ img {
 
 .reveal h2.author,
 .reveal h3.date {
-  color: #FFF;
+  color: #000;
 }
 
 .slide-background {
