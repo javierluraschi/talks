@@ -269,6 +269,24 @@ predictions %>%
 
 # Community
 
+## Extensions
+
+About ~20 community extensions developed for sparklyr in the [r-spark](https://github.com/r-spark) repo.
+
+![](images/sparklyr-community-extensions.png)
+
+## Past Contributors
+
+Over 50+ contributors to the sparklyr repo.
+
+![](images/sparklyr-past-contributions.png)
+
+## Current Contributors
+
+6+ organizations contributing in the last 3 months.
+
+![](images/sparklyr-recent-contributions.png)
+
 # Technical
 
 ## Thanks!
