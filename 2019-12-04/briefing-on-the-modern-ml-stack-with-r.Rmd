@@ -1,0 +1,90 @@
+---
+title: "Briefing on the Modern ML Stack with R"
+author: "Javier Luraschi, RStudio"
+output:
+  revealjs::revealjs_presentation:
+    df_print: paged
+    self_contained: true
+    css: styles/reveal.css
+    theme: white
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(eval = FALSE)
+```
+
+# Overview
+
+## About RStudio
+
+![](images/about-rstudio.png)
+
+## RStudio's Multiverse Team
+
+Authors of R packages to support Apache Spark, TensorFlow and MLflow. Contributors to tidyverse and Apache Arrow.
+
+![](images/multiverse-team.png)
+
+## The Modern ML Stack with R
+
+![](images/modern-ml-stack-r.png)
+
+## Motivation
+
+In an ideal world, all R packages work with Spark, like magic. Such is the case for `dplyr` and `sparklyr`.
+
+<img src="images/hex-sparklyr.svg" style="float: left; width: 150px; box-shadow: none;"/>
+
+```{r}
+library(sparklyr)
+library(nycflights13)
+
+sc <- spark_connect(master = "local|yarn|mesos|spark|livy")
+flights <- copy_to(sc, flights)
+```
+
+<img src="images/hex-tidyverse.png" style="float: left; width: 150px; box-shadow: none;"/>
+
+```{r}
+library(tidyverse)
+library(nycflights13)
+
+flights %>%
+  group_by(month, day) %>%
+  summarise(count = n(), avg_delay = mean(dep_delay, na.rm = TRUE)) %>%
+  filter(count > 1000)
+```
+
+## Why R?
+
+![](images/why-r.png)
+
+## Modern R
+
+> The tidyverse is an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures.
+
+<img src="images/hex-tidyverse.png" style="float: left; width: 150px; box-shadow: none;"/>
+
+```{r}
+library(tidyverse)
+library(nycflights13)
+
+flights %>%
+  group_by(month, day) %>%
+  summarise(count = n(), avg_delay = mean(dep_delay, na.rm = TRUE)) %>%
+  filter(count > 1000)
+```
+
+## Timeline
+
+<img src="images/spark-with-r-timeline.png" class="noshadow"/>
+
+# Use Cases
+
+# Technical
+
+# Community
+
+## Thanks!
+
+

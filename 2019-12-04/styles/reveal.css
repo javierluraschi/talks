@@ -1,0 +1,134 @@
+.reveal .controls {
+  opacity: 0.1;
+}
+
+.reveal ul {
+  display: block;
+}
+
+.reveal .slide h3 {
+  text-align: left;
+}
+
+.reveal pre code {
+  max-height: none;
+  line-height: 1.6em;
+}
+
+.reveal .description {
+  color: #FFF;
+  font-weight: 400;
+  text-transform: none;
+}
+
+.reveal h1 {
+  font-size: 80px;
+  display: inline-block;
+  padding: 0 30px 0 30px;
+  border-radius: 3px;
+  margin: 40px 0 0 0;
+  color: #FFF;
+  background: none;
+  width: 100%;
+}
+
+.reveal h1.subtitle {
+  font-size: 60px;
+  color: #FFF;
+  font-weight: 400;
+  padding-left: 30px;
+  background: none;
+}
+
+.reveal h2 {
+  margin: 40px 0 20px 0;
+}
+
+.title-slide p {
+  font-size: 30px !important;
+  font-weight: bold !important;
+  padding-left: 30px;
+}
+
+.reveal .highlighted {
+  color: #FFF;
+  font-weight: bold;
+}
+
+.reveal strong {
+  background-color: #e0ff00;
+}
+
+.reveal .slides section img {
+  border: none;
+  border-radius: 5px;
+}
+
+.reveal code.sourceCode {
+  padding: 14px 0px 14px 16px;
+}
+
+.reveal .sourceCode.r,
+.reveal .sourceCode.python,
+.reveal .sourceCode.scala {
+  margin-top: 0px;
+  margin-bottom: 10px;
+  
+  background-color: #fdfdfd;
+}
+
+img {
+  width: 100%;
+  border: solid 1px #999;
+}
+
+.reveal h2.author,
+.reveal h3.date {
+  color: #FFF;
+}
+
+.slide-background {
+
+}
+
+.slide-background.slide,
+.slide-background.stack {
+
+}
+
+.reveal .slides {
+  font-size: 0.70em;
+}
+
+.reveal .slides img {
+  margin: 0;
+}
+
+.reveal dd {
+  color: #aaaaaa;
+}
+
+.reveal .flow-table {
+  display: flex;
+}
+
+.reveal .flow-column-image {
+  width: 380px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.reveal blockquote {
+  color: #5d5d5d;
+  font-style: inherit;
+  box-shadow: none;
+}
+
+.reveal img.noshadow {
+  box-shadow: none;
+}
+
+.reveal #overview > h1 {
+  color: #000;
+}
