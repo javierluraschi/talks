@@ -1,5 +1,5 @@
 ---
-title: "Briefing on the Modern ML Stack with R"
+title: "Linux Foundation and sparklyr"
 author: "Javier Luraschi, RStudio"
 output:
   revealjs::revealjs_presentation:
@@ -21,11 +21,13 @@ knitr::opts_chunk$set(eval = FALSE)
 
 ## RStudio's Multiverse Team
 
-Authors of R packages to support Apache Spark, TensorFlow and MLflow. Contributors to tidyverse and Apache Arrow.
+Authors of R packages to support Apache Spark, TensorFlow and MLflow.
 
 ![](images/multiverse-team.png)
 
-## The Modern ML Stack with R
+## Multiverse Timeline
+
+The multiverse team focuses on bringing relevant machine learning technologies to R users to empower and simplify data science workflows.
 
 ![](images/modern-ml-stack-r.png)
 
@@ -46,7 +48,7 @@ Information grows at exponential rates.
 
 ## What's next?
 
-We see Spark supporting multiple projects: TensorFlow, MLFlow, Modeling, etc.
+We see Spark supporting multiple projects: TensorFlow, MLFlow, Tuning, etc.
 
 ![](images/intro-clusters-deep-learning.png)
 
@@ -100,9 +102,15 @@ flights %>%
 
 ## 2016-2019
 
+From launch to sparklyr 1.0.
+
 <img src="images/spark-with-r-timeline.png" class="noshadow"/>
 
 ## Beyond 2020
+
+Aspirational direction beyond 2020.
+
+<img src="images/spark-with-r-future.png" class="noshadow"/>
 
 # Use Cases
 
