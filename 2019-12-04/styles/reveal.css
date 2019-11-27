@@ -132,3 +132,27 @@ img {
 .reveal #overview > h1 {
   color: #000;
 }
+
+.reveal .sourceCode > pre {
+  background-color: #f9fcff;
+  border-left: solid 20px #4287c7;
+  margin: 0;
+}
+
+#sparklyr-r-interface-for-apache-spark > .sourceCode {
+  margin: 0;
+}
+
+.reveal .compactTable {
+  font-size: 20px;
+}
+
+.reveal .compactTable th,
+.reveal .compactTable table,
+.reveal .compactTable td {
+  border: none;
+}
+
+.reveal .compactTable td:nth-of-type(2) {
+  color: #888;
+}

@@ -2,3 +2,7 @@
 .Rhistory
 .RData
 .Ruserdata
+logs/
+spark-warehouse/
+input/
+output/
