@@ -23,6 +23,24 @@
         text-transform: uppercase;
       }
     </style>
+    <style>
+      .reveal .slide-background {
+        filter: blur(8px);
+        -webkit-filter: blur(8px);
+      }
+      .reveal code {
+        background: #e4863580;
+        border-left: solid 20px #b5642f;
+        margin: auto;
+        padding: 20px !important;
+        font-size: 40px;
+        line-height: 60px;
+      }
+      .reveal pre {
+        box-shadow: none !important;
+        margin-bottom: 0;
+      }
+    </style>
   </head>
 <body style="background: #000">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/js/reveal.js"></script>
@@ -90,21 +108,33 @@
           </svg>
         </section>
         <section data-background="images/stranger-things-board.png">
-          <h1>We want Data Science to be reproducible</h1>
-          <img src="images/rmarkdown-website.png" width="40%">
-          <img src="images/jupyter-website.png" width="40%">
+          <h2>We want Data Science to be reproducible</h2>
+          <img src="images/rmarkdown-website.png" width="34%">
+          <img src="images/jupyter-website.png" width="34%">
         </section>
         <section data-background="images/stranger-things-upsidedown.png">
-          <h1>But data is often strangely downloaded</h1>
-          <img src="images/mlflow-website.png" width="50%">
+          <h2>But data is often strangely downloaded</h2>
+          <img src="images/mlflow-website.png" width="50%" style="float: left; margin-left: 10%;">
         </section>
         <section data-background="images/stranger-things-closing-gate.png">
-          <h1>pins: Pin, Discover and Share Resources</h1>
-          <code>
-            pins::pins("https://domain/to/awesome/dataset.csv")
+          <h2>Use 'pins' to download data</h2>
+            <pre>
+              <code>pins::pin("http://source/wine.csv") %>%
+    read.csv()</code>
+            </pre>
           </code>
-          <br>
-          <img src="images/pins-cloud-boards.png" width="30%">
+        </section>
+        <section data-background="images/stranger-things-arcade-friends.jpg">
+          <h2>And share it with your friends</h2>
+          <pre>
+            <code>pins::pin_get("wine", board = "local") %>%
+  pins::pin(board = "s3") %>%
+  pins::pin(board = "rsconnect")</code>
+          </pre>
+          <img src="images/pins-cloud-boards.png" width="50%">
+          <p style="text-align: right; margin-right: 5%">
+            Learn more at pins.rstudio.com
+          </p>
         </section>
       </div>
     </div>
