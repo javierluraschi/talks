@@ -1,0 +1,60 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+You can use `pins` to download and cache remote resources:
+
+```{r}
+library(mlflow)
+library(glmnet)
+library(carrier)
+
+# Read the wine-quality csv file
+wines <- read.csv("wine-quality.csv")
+wines
+```
+
+You can also share, but first need to register some boards:
+
+```{r}
+library(pins)
+
+board_register(board = "kaggle")
+
+board_register(board = "github", repo = "javierluraschi/datasets", branch = "rsconf")
+
+board_register(board = "rsconnect")
+
+board_register(board = "s3",
+               bucket = "rpins-video",
+               key = "AKIASEBKRIFXEFEPNGPL",
+               secret = rstudioapi::askForSecret("s3_token", "S3 Token", "S3 Token"))
+
+board_register(board = "gcloud", bucket = "pinsstorage")
+
+board_register(board = "azure",
+               container = "test",
+               account = "rpins",
+               key = rstudioapi::askForSecret("azure_secret", "Azure Secret", "Azure Secret"))
+```
+
+We can now share our dataset across any board, or all of them!
+
+```{r}
+wines %>%
+  pin(name = "wines", board = "github") %>%
+  pin(name = "wines", board = "s3") %>%
+  pin(name = "wines", board = "gcloud") %>%
+  pin(name = "wines", board = "azure") %>%
+  pin(name = "wines", board = "kaggle") %>%
+  pin(name = "wines", board = "rsconnect")
+  
+```
+
+
+
+
+
+
+

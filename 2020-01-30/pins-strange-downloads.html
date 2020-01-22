@@ -26,7 +26,7 @@
       }
     </style>
     <style>
-      .reveal .slide-background {
+      .reveal .blurred.slide-background {
         filter: blur(8px);
         -webkit-filter: blur(8px);
       }
@@ -41,6 +41,9 @@
       .reveal pre {
         box-shadow: none !important;
         margin-bottom: 0;
+      }
+      .reveal .controls {
+        opacity: 0.2;
       }
     </style>
     <style>
@@ -124,35 +127,35 @@
             </g>
           </svg>
         </section>
-        <section data-background="images/stranger-things-board.png">
+        <section class="blurred" data-background="https://github.com/javierluraschi/talks/raw/master/2020-01-30/images/stranger-things-board.png">
           <h2>We want Data Science to be reproducible</h2>
-          <img src="images/rmarkdown-website.png" width="34%">
-          <img src="images/jupyter-website.png" width="34%">
+          <img src="https://github.com/javierluraschi/talks/raw/master/2020-01-30/images/rmarkdown-website.png" width="34%">
+          <img src="https://github.com/javierluraschi/talks/raw/master/2020-01-30/images/jupyter-website.png" width="34%">
         </section>
-        <section data-background="images/stranger-things-upsidedown.png">
+        <section class="blurred" data-background="https://github.com/javierluraschi/talks/raw/master/2020-01-30/images/stranger-things-upsidedown.png">
           <h2>But data is often strangely downloaded</h2>
-          <img src="images/mlflow-website.png" width="50%" style="float: left; margin-left: 10%;">
+          <img src="https://github.com/javierluraschi/talks/raw/master/2020-01-30/images/mlflow-website.png" width="50%" style="float: left; margin-left: 10%;">
         </section>
-        <section data-background="images/stranger-things-closing-gate.png">
+        <section class="blurred" data-background="https://github.com/javierluraschi/talks/raw/master/2020-01-30/images/stranger-things-closing-gate.png">
           <h2>Use 'pins' to download data</h2>
             <pre>
-              <code class="language-r">pins::pin("http://source/wine.csv") %>%
-    read.csv()</code>
+              <code class="language-r">library(pins)
+wines <- read.csv(pin("http://source/wines.csv"))</code>
             </pre>
           </code>
         </section>
-        <section data-background="images/stranger-things-arcade-friends.jpg">
-          <h2>And share it with your friends</h2>
+        <section class="blurred" data-background="https://github.com/javierluraschi/talks/raw/master/2020-01-30/images/stranger-things-arcade-friends.jpg" data-transition="slide-in none">
+          <h2>And share data with your friends</h2>
           <pre>
             <code class="language-r">library(pins)
-pin_get("wine", board = "local") %>%
-  pin(board = "s3") %>%
-  pin(board = "rsconnect")</code>
+pin(wines, board = "kaggle")</code>
           </pre>
-          <img src="images/pins-cloud-boards.png" width="50%">
+          <img src="https://github.com/javierluraschi/talks/raw/master/2020-01-30/images/pins-cloud-boards.png" width="50%">
           <p style="text-align: right; margin-right: 5%">
             Learn more at pins.rstudio.com
           </p>
+        </section>
+        <section data-transition="none" data-background-video="https://github.com/javierluraschi/talks/raw/master/2020-01-30/videos/pins-demo.mp4">
         </section>
       </div>
     </div>
@@ -162,6 +165,7 @@ pin_get("wine", board = "local") %>%
       Reveal.initialize({
         width: '100%',
         height: '100%',
+        progress: false,
         dependencies: [
           { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.8.0/plugin/highlight/highlight.js', async: true }
         ]
