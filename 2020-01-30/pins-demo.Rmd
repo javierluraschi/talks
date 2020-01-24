@@ -11,7 +11,7 @@ library(glmnet)
 library(carrier)
 
 # Read the wine-quality csv file
-wines <- read.csv("wine-quality.csv")
+wines <- read.csv(pins::pin("https://github.com/mlflow/mlflow/raw/master/examples/r_wine/wine-quality.csv"))
 wines
 ```
 
