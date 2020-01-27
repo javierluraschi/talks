@@ -1,0 +1,275 @@
+---
+title: "Updates on Spark, MLflow, and the broader ML ecosystem"
+author: "Javier Luraschi"
+output:
+  revealjs::revealjs_presentation:
+    df_print: paged
+    self_contained: true
+    css: styles/reveal.css
+    theme: white
+    reveal_options:
+      width: 100%
+      height: 80%
+      margin: 0
+fig_width: 6 
+fig_height: 3
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(eval = FALSE)
+```
+
+# Spark
+
+## Introduction
+
+- World Bank report finds out data is growing exponentially.
+- We can distribute data across multiple machines using Hadoop storage.
+- Apache Spark improves over Hadoop speed and flexibility.
+
+<img src="images/intro-data-hadoop-spark.png" style="margin-left: auto; margin-right: auto;">
+
+## sparklyr
+
+R Interface to Apache Spark compatible with `dplyr`, `broom`, `rlang`, `DBI`, etc.
+
+<!--<img src="images/hex-sparklyr.svg" style="float: left; width: 70px; box-shadow: none;"/>-->
+```{r}
+library(sparklyr)
+sc <- spark_connect(master = "local|yarn|mesos|spark|livy")
+flights <- copy_to(sc, flights)
+```
+<!--<img src="images/hex-dplyr.png" style="float: left; width: 70px; box-shadow: none;"/>-->
+```{r}
+library(dplyr)
+flights %>%
+  group_by(month, day) %>%
+  summarise(count = n(), avg_delay = mean(dep_delay, na.rm = TRUE)) %>%
+  filter(count > 1000)
+```
+
+## Usage
+
+
+```{r echo=FALSE, message=FALSE}
+library(sparklyr)                                    # Load sparklyr
+library(dplyr)                                       # Load dplyr
+library(DBI)                                         # Load DBI
+
+dir.create("input")                                  # Create cars folder
+write.csv(mtcars, "input/cars.csv")                  # Write data in R
+```
+
+```{r}
+spark_install()                                      # Install local Spark
+sc <- spark_connect(master = "local")                # Connect to Spark cluster
+```
+
+```{r class.source='fragment'}
+cars <- spark_read_csv(sc, "cars", "input/")         # Read data in Spark
+```
+
+```{r class.source='fragment'}
+summarize(cars, n = n())                             # Count records with dplyr
+dbGetQuery(sc, "SELECT count(*) FROM cars")          # Count records with DBI
+```
+
+```{r class.source='fragment'}
+ml_linear_regression(cars, mpg ~ wt + cyl)           # Perform linear regression
+```
+
+```{r class.source='fragment'}
+ml_pipeline(sc) %>%                                  # Define Spark pipeline
+  ft_r_formula(mpg ~ wt + cyl) %>%                   # Add formula transformation
+  ml_linear_regression()                             # Add model to pipeline
+```
+
+```{r class.source='fragment'}
+spark_context(sc) %>% invoke("version")              # Extend sparklyr with Scala
+spark_apply(cars, nrow)                              # Extend sparklyr with R
+```
+
+```{r class.source='fragment'}
+stream_read_csv(sc, "input/") %>%                    # Define Spark stream
+  filter(mpg > 30) %>%                               # Add dplyr transformation
+  stream_write_json("output/")                       # Start processing stream
+```
+
+## Timeline
+
+<img src="images/sparklyr-timeline.png" style="margin-left: auto; margin-right: auto;">
+
+## Delta Lake
+
+Delta Lake is an open-source storage layer that brings ACID transactions to Apache Spark™ and big data workloads.
+
+<img src="images/delta-lake-diagram.png" style="width: 70%; margin-left: auto; margin-right: auto;">
+
+Enables time-travel, mixing streams with data frames and better consistency.
+
+## Delta Lake
+
+To use Delta Lake add set the new packages parameter to delta and use the new `spark_read/write_delta()` and `stream_read/write_delta()` functions.
+
+```{r}
+library(sparklyr)
+sc <- spark_connect(master = "local", version = "2.4", packages = "delta")
+
+sdf_len(sc, 5) %>% spark_write_delta(path = "/tmp/delta-1")
+sdf_len(sc, 2) %>% spark_write_delta(path = "/tmp/delta-1", mode = "overwrite")
+
+spark_read_delta(sc, "/tmp/delta-1")
+```
+```{text class.source='sourceCode'}
+# Source: spark<delta1> [?? x 1]
+     id
+  <int>
+1     1
+2     2
+```
+
+```{r}
+spark_read_delta(sc, "/tmp/delta-1", version = 0L)
+```
+```{text class.source='sourceCode'}
+# Source: spark<delta1> [?? x 1]
+     id
+  <int>
+1     1
+2     2
+3     3
+4     4
+5     5
+```
+
+## Spark 3.0 Preview
+
+- Scala 2.12 and JDK 11
+- GPU scheduling
+- Headers in Kafka streaming
+- Binary Files
+- Performance Improvements
+
+```{r}
+library(sparklyr)
+spark_install("3.0.0-preview")
+sc <- spark_connect(master = "local", version = "3.0.0-preview")
+
+tiny_imagenet <- pins::pin("http://cs231n.stanford.edu/tiny-imagenet-200.zip")
+spark_read_source(sc, dirname(tiny_imagenet[1]), source = "binaryFile")
+```
+```
+# Source: spark<images> [?? x 4]
+   path                       modificationTime    length content   
+   <chr>                      <dttm>               <dbl> <list>    
+ 1 file:images/test_2009.JPEG 2020-01-08 20:36:41   3138 < [3,138]>
+ 2 file:images/test_8245.JPEG 2020-01-08 20:36:43   3066 < [3,066]>
+ 3 file:images/test_4186.JPEG 2020-01-08 20:36:42   2998 < [2,998]>
+# … with more rows
+```
+
+## Extensions
+
+- **VariantSpark** is a scalable toolkit for genome-wide association studies.
+- **Hail** is an open-source library for working with genomic data.
+- **Spark NLP** is an open-source text processing library for advanced natural language processing.
+
+<img src="images/sparklyr-1-1-extensions.png" style="width: 70%; margin-left: auto; margin-right: auto;">
+
+Learn more at [github.com/r-spark](https://github.com/r-spark).
+
+## Qubole
+
+sparklyr 1.1 adds support for Qubole connections, similar to existing Databricks connections method.
+
+```{r}
+library(sparklyr)
+sc <- spark_connect(method = "qubole")
+```
+
+<img src="images/clusters-qubole-sparklyr.png" style="width: 70%; margin-left: auto; margin-right: auto;">
+
+## Barrier Execution
+
+Enables proper embedding of distributed training jobs from AI frameworks as Spark jobs.
+
+```{r}
+library(sparklyr)
+sc <- spark_connect(master = "local", version = "2.4")
+
+sdf_len(sc, 1, repartition = 1) %>%
+  spark_apply(~ .y$address, barrier = TRUE, columns = c(address = "character")) %>%
+  collect()
+```
+```
+# A tibble: 1 x 1
+  address        
+  <chr>          
+1 localhost:50693
+```
+
+<img src="images/barrier-execution.png" style="width: 70%; margin-left: auto; margin-right: auto;">
+
+# MLflow
+
+## Introduction
+
+The toolchain for the (software) 2.0 stack does not exist -- Andrej Karpathy
+
+<img src="images/mlflow-tesla-example.png" style="width: 70%; margin-left: auto; margin-right: auto;">
+
+MLflow is an open source platform to manage the ML lifecycle, including experimentation, reproducibility and deployment.
+
+## Usage
+
+```{r}
+library(mlflow)
+with(mlflow_start_run(), {
+  # set experiments tags
+  mlflow_set_tag("project", "wines")
+
+  # log parameters
+  mlflow_log_param("lambda", 0.5)
+  
+  # compute model
+  lm(train, quality ~ .)
+ 
+  # log metrics
+  mlflow_log_metric("aic", metrics$aic())
+})
+```
+
+# Demo
+
+## Mastering Spark with R
+
+Published new Spark with R book with O’Reilly media and also free-to-use online.
+
+<img src="images/mastering-spark-with-r.png" style="width: 70%; margin-left: auto; margin-right: auto;">
+
+Learn more at [therinspark.com](https://therinspark.com)
+
+## Community
+
+Need to scale the sparklyr community:
+- About ~20 community extensions developed in the r-spark repo.
+- Over 50+ contributors to the sparklyr repo.
+- 6+ organizations contributing in the last 3 months.
+
+<img src="images/sparklyr-community.png" style="width: 70%; margin-left: auto; margin-right: auto;">
+
+## Linux Foundation
+
+Today, **sparklyr becomes an incubation project** in LF AI within the Linux Foundation, a neutral entity to hold the project assets and open governance, and join projects like Linux, Kubernetes, Delta Lake, Horovod and many others.
+
+<img src="images/sparklyr-linux-foundation.png" style="width: 70%; margin-left: auto; margin-right: auto;">
+
+Learn more at [sparklyr.ai](htts://sparklyr.org)
+
+# Thanks!
+
+
+
+
+
+

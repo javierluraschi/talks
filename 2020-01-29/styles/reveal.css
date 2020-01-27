@@ -1,0 +1,86 @@
+.reveal .controls {
+  opacity: 0.1;
+}
+
+.reveal section.has-dark-background h1.title,
+.reveal section.has-dark-background h2.author,
+.reveal section.has-dark-background h3.date {
+  color: #FFF;
+  font-size: 0.7em;
+}
+
+.reveal section.has-dark-background h1.title {
+  margin-top: 12%;
+  font-size: 1em;
+}
+
+.reveal img {
+  border: none;
+}
+
+.reveal .slide-background {
+  background-color: #000;
+  background-image: url("../theme/rsconf-cover.png");
+  background-size: contain;
+  background-repeat:   no-repeat;
+  background-position: center center;
+}
+
+.reveal .level1.slide-background {
+  background-image: url("../theme/rsconf-topic.png");
+}
+
+.reveal .level2.slide-background {
+  background-image: url("../theme/rsconf-details.png");
+}
+
+.reveal .slide-blank.slide-background {
+  background-image: url("../theme/rsconf-blank.png");
+}
+
+.reveal section.has-dark-background,
+.reveal section.has-dark-background h1,
+.reveal section.has-dark-background h2,
+.reveal section.has-dark-background h3,
+.reveal section.has-dark-background h4,
+.reveal section.has-dark-background h5,
+.reveal section.has-dark-background h6 {
+  color: #444;
+}
+
+.reveal section img {
+  border: none;
+  margin-left: 10%;
+  margin-right: 20px;
+  background: none;
+  box-shadow: none;
+}
+
+.reveal pre.sourceCode {
+
+}
+
+.reveal .sourceCode,
+.reveal code {
+  margin: 0;
+  font-size: 20px;
+  box-shadow: none;
+}
+
+.reveal section p {
+  font-size: 0.6em;
+}
+
+.reveal ul {
+  margin-left: 30px;
+}
+
+.reveal li {
+  font-size: 0.6em;
+}
+
+.reveal .slides > section.present, .reveal .slides > section > section.present {
+  margin-left: 10%;
+  width: 86%;
+  text-align: left;
+}
