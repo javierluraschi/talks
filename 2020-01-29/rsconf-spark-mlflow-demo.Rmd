@@ -26,7 +26,8 @@ And load data into Delta Lake:
 
 ```{r}
 wine_file <- pins::pin("https://raw.githubusercontent.com/rstudio/mlflow-example/master/wine-quality.csv")
-spark_write_delta(train, "test", mode = "overwrite")
+train <- spark_read_csv(sc, wine_file)
+spark_write_delta(train, "delta", mode = "overwrite")
 ```
 
 We can now use MLflow to track our training parameters, metrics, and version of the data being used:
@@ -39,10 +40,10 @@ with(mlflow_start_run(), {
   mlflow_set_tag("project", "wines")
   
   # log data version
-  mlflow_log_param("delta", delta_version(sc, "test"))
+  mlflow_log_param("delta", delta_version(sc, "delta"))
 
   # log parameters
-  lambda <- mlflow_log_param("lambda", 0.5) %>% as.numeric()
+  lambda <- mlflow_log_param("lambda", 0.6) %>% as.numeric()
   
   # build model
   model <- ml_generalized_linear_regression(train, quality ~ ., reg_param = lambda)

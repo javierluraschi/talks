@@ -33,13 +33,16 @@ knitr::opts_chunk$set(eval = FALSE)
 
 R Interface to Apache Spark compatible with dplyr, broom, rlang, DBI, etc.
 
-<!--<img src="images/hex-sparklyr.svg" style="float: left; width: 70px; box-shadow: none;"/>-->
-```{r class.source='fragment'}
+<div class="fragment">
+<img src="images/hex-sparklyr.svg" style="float: left; width: 70px; box-shadow: none; margin-top: 5px;"/>
+```{r}
 library(sparklyr)
 sc <- spark_connect(master = "local|yarn|mesos|spark|livy")
 flights <- copy_to(sc, flights)
 ```
-<!--<img src="images/hex-dplyr.png" style="float: left; width: 70px; box-shadow: none;"/>-->
+</div>
+<div>
+<img src="images/hex-dplyr.png" style="float: left; width: 70px; box-shadow: none; margin-top: 5px;"/>
 ```{r}
 library(dplyr)
 flights %>%
@@ -47,6 +50,7 @@ flights %>%
   summarise(count = n(), avg_delay = mean(dep_delay)) %>%
   filter(count > 1000)
 ```
+</div>
 
 ## Usage
 
@@ -139,6 +143,27 @@ spark_read_delta(sc, "/tmp/delta-1", version = 0L)
 3     3
 ```
 
+## Extensions
+
+- **VariantSpark** is a scalable toolkit for genome-wide association studies.
+- **Hail** is an open-source library for working with genomic data.
+- **Spark NLP** is an open-source text processing library for advanced natural language processing.
+
+<img src="images/sparklyr-1-1-extensions.png" style="width: 70%;">
+
+Learn more at [github.com/r-spark](https://github.com/r-spark).
+
+## Qubole
+
+sparklyr 1.1 adds support for Qubole connections, similar to existing Databricks connections method.
+
+```{r}
+library(sparklyr)
+sc <- spark_connect(method = "qubole")
+```
+
+<img src="images/clusters-qubole-sparklyr.png" style="width: 90%; margin-left:0;">
+
 ## Spark 3.0 Preview
 
 - Scala 2.12 and JDK 11
@@ -164,27 +189,6 @@ spark_read_source(sc, dirname(tiny_imagenet[1]), source = "binaryFile")
  3 file:images/test_4186.JPEG 2020-01-08 20:36:42   2998 < [2,998]>
 # … with more rows
 ```
-
-## Extensions
-
-- **VariantSpark** is a scalable toolkit for genome-wide association studies.
-- **Hail** is an open-source library for working with genomic data.
-- **Spark NLP** is an open-source text processing library for advanced natural language processing.
-
-<img src="images/sparklyr-1-1-extensions.png" style="width: 70%;">
-
-Learn more at [github.com/r-spark](https://github.com/r-spark).
-
-## Qubole
-
-sparklyr 1.1 adds support for Qubole connections, similar to existing Databricks connections method.
-
-```{r}
-library(sparklyr)
-sc <- spark_connect(method = "qubole")
-```
-
-<img src="images/clusters-qubole-sparklyr.png" style="width: 90%; margin-left:0;">
 
 ## Barrier Execution
 
