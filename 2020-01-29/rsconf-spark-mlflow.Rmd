@@ -217,15 +217,52 @@ sdf_len(sc, 1, repartition = 1) %>%
 
 The toolchain for the (software) 2.0 stack does not exist -- Andrej Karpathy
 
-<img src="images/mlflow-tesla-example.png" style="width: 70%;">
+```{r echo=FALSE, eval=TRUE}
+knitr::raw_html('
+<div style="display: flex; flex-direction: column; width:900px; height: 400px;">
+    <div style="flex-direction: row; display: flex; width: 100%; height: 25%;">
+        <div style="width: 30%; align-items: center;justify-content: center;display: flex;">
+            <img src="images/data-engine-sources.png" style="height: 90%;">
+        </div>
+        <div style="width: 40%; align-items: center;justify-content: center;display: flex;" class="fragment" data-fragment-index=1>
+            <img src="images/data-engine-train.png" style="width: 80%;">
+        </div>
+        <div style="width: 30%; align-items: center;justify-content: center;display: flex;" class="fragment" data-fragment-index=1>
+            <img src="images/data-engine-model.png" style="height: 90%;">
+        </div>
+    </div>
+    <div style="flex-direction: row; display: flex; height: 50%;">
+        <div style="width: 30%; align-items: center;justify-content: center;display: flex;" class="fragment" data-fragment-index=4>
+            <img src="images/data-engine-tidy.png" style="width: 30%">
+        </div>
+        <div style="width: 40%; align-items: center;justify-content: center;display: flex;" class="fragment" data-fragment-index=4>
+        </div>
+        <div style="width: 30%; align-items: center;justify-content: center;display: flex;" class="fragment" data-fragment-index=2>
+            <img src="images/data-engine-deploy.png" style="width: 50%">
+        </div>
+    </div>
+    <div style="flex-direction: row; display: flex; width: 100%; height: 25%;">
+        <div style="width: 30%; align-items: center;justify-content: center;display: flex;" class="fragment" data-fragment-index=3>
+            <img src="images/data-engine-edit.png" style="height: 90%; padding: 5%">
+        </div>
+        <div style="width: 40%; align-items: center;justify-content: center;display: flex;" class="fragment" data-fragment-index=3>
+            <img src="images/data-engine-collect.png" style="width: 80%; padding: 10%;">
+        </div>
+        <div style="width: 30%; align-items: center;justify-content: center;display: flex;" class="fragment" data-fragment-index=2>
+            <img src="images/data-engine-devices.png" style="height: 90%; padding: 5%">
+        </div>
+    </div>
+</div>
+')
+```
 
-MLflow is an open source platform to manage the ML lifecycle, including experimentation, reproducibility and deployment.
+<p class="fragment">MLflow is an open source platform to manage the ML lifecycle, including experimentation, reproducibility and deployment.</p>
 
 ## Usage
 
-- Track experiments to record and compare parameters and results.
-- Package code as projects to share and deploy to production.
-- Manage and deploy models to serving and inference platforms.
+- **Track** experiments to record and compare parameters and results.
+- Package code as **projects** to share and deploy to production.
+- Manage and deploy **models** to serving and inference platforms.
 
 ```{r}
 library(mlflow)
