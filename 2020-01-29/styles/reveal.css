@@ -6,12 +6,12 @@
 .reveal section.has-dark-background h2.author,
 .reveal section.has-dark-background h3.date {
   color: #FFF;
-  font-size: 0.7em;
+  font-size: 40px;
 }
 
 .reveal section.has-dark-background h1.title {
   margin-top: 12%;
-  font-size: 1em;
+  font-size: 60px;
 }
 
 .reveal img {
@@ -57,30 +57,33 @@
 }
 
 .reveal pre.sourceCode {
-
+  border-left: solid 8px #5692cc;
+  padding-left: 12px;
+  margin-bottom: 8px;
 }
 
 .reveal .sourceCode,
 .reveal code {
   margin: 0;
-  font-size: 20px;
+  font-size: 22px;
   box-shadow: none;
 }
 
 .reveal section p {
-  font-size: 0.6em;
+  font-size: 30px;
 }
 
 .reveal ul {
   margin-left: 30px;
+  padding-bottom: 22px;
 }
 
 .reveal li {
-  font-size: 0.6em;
+  font-size: 30px;
 }
 
 .reveal .slides > section.present, .reveal .slides > section > section.present {
-  margin-left: 10%;
-  width: 86%;
+  margin-left: 8%;
+  width: 90%;
   text-align: left;
 }

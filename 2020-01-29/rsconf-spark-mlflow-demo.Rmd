@@ -15,19 +15,21 @@ delta_version <- function(sc, path) {
 }
 ```
 
-Then we connect to Spark and load Delta Lake,
+Then we connect to Spark and load Delta Lake:
 
 ```{r}
 library(sparklyr)
 sc <- spark_connect(master = "local", version = "2.4", package = "delta")
 ```
 
-```{r}
-library(glmnet)
+And load data into Delta Lake:
 
+```{r}
 wine_file <- pins::pin("https://raw.githubusercontent.com/rstudio/mlflow-example/master/wine-quality.csv")
 spark_write_delta(train, "test", mode = "overwrite")
 ```
+
+We can now use MLflow to track our training parameters, metrics, and version of the data being used:
 
 ```{r}
 library(mlflow)
@@ -52,6 +54,8 @@ with(mlflow_start_run(), {
   mlflow_log_metric("dispersion", metrics$dispersion())
 })
 ```
+
+Finally, we can use MLflow's web interface to explore previous runs, etc.
 
 ```{r}
 mlflow_ui()
