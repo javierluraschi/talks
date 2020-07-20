@@ -1,0 +1,55 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r echo=FALSE, message=FALSE}
+library(sparklyr)                                # Load sparklyr
+library(dplyr)                                   # Load dplyr
+library(DBI)                                     # Load DBI
+dir.create("input")                              # Create cars folder
+write.csv(mtcars, "input/cars.csv")              # Write data in R
+ggplot2::theme_set(ggplot2::theme_minimal())     # Make plot pretty
+```
+
+```{r}
+spark_install()                                  # Install local Spark
+sc <- spark_connect(master = "local")            # Connect to Spark cluster
+```
+
+```{r class.source='fragment'}
+cars <- spark_read_csv(sc, "cars", "input/")     # Read data in Spark
+```
+
+```{r class.source='fragment'}
+summarize(cars, n = n())                         # Count records with dplyr
+dbGetQuery(sc, "SELECT count(*) FROM cars")      # Count records with DBI
+```
+
+```{r}
+library(ggplot2)
+sample_frac(cars, 0.9) %>%                       # Sample dataset into R
+  ggplot(aes(x = wt, y = mpg, shape = cyl)) +    # Use ggplot2 to plot
+  geom_point() + scale_shape_identity()          # A scatter plot
+```
+
+```{r}
+ml_linear_regression(cars, mpg ~ wt + cyl)       # Perform linear regression
+```
+
+```{r class.source='fragment'}
+ml_pipeline(sc) %>%                              # Define Spark pipeline
+  ft_r_formula(mpg ~ wt + cyl) %>%               # Add formula transformation
+  ml_linear_regression()                         # Add model to pipeline
+```
+
+```{r class.source='fragment'}
+spark_context(sc) %>% invoke("version")          # Extend sparklyr with Scala
+spark_apply(cars, nrow)                          # Extend sparklyr with R
+```
+
+```{r class.source='fragment'}
+stream_read_csv(sc, "input/") %>%                # Define Spark stream
+  filter(mpg > 30) %>%                           # Add dplyr transformation
+  stream_write_json("output/")                   # Start processing stream
+```
