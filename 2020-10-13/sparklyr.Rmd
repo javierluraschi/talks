@@ -1,0 +1,51 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+## sparklyr - R interface for Spark
+
+```{r}
+library(sparklyr)                       # Load sparklyr
+```
+
+```{r eval=F}
+# spark_install()                       # Install Apache Spark
+```
+
+```{r}
+sc <- spark_connect(method = "qubole")  # Connect to cluster
+```
+
+```{r messages=F}
+library(dplyr)                          # Data Manipulation Grammar
+mtcars <- cbind(                        # Copy mtcars
+  data.frame(model = rownames(mtcars)),
+  data.frame(mtcars, row.names = NULL)
+) %>%
+  copy_to(sc, ., overwrite = TRUE)
+```
+
+```{r}
+count(mtcars_tbl)                       # Count records
+```
+
+```{r}
+ml_linear_regression(mtcars_tbl,        # Perform linear regression
+  response = "mpg",                     # Response vector
+  features = c("wt", "cyl"))            # Features for the model fit
+```
+
+```{r}
+library(DBI)                            # R Database Interface
+dbGetQuery(sc, "SELECT * FROM mtcars")  # Run SQL query in Spark
+```
+
+```{r}
+invoke(spark_context(sc), "version")    # Run sc.version in Scala
+```
+
+```{r}
+library(tidyr)
+pivot_longer(mtcars, cols = -model, names_to = "key", values_to = "value")
+```
