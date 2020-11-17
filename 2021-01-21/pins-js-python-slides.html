@@ -20,21 +20,373 @@
 </style>
 
 		<meta name="csrf-param" content="authenticity_token" />
-<meta name="csrf-token" content="0l7p1sX9u2J+sFoHFx01oB1+rzirHsLiDtyaDg/ck+eOwqhXALUfPtD7ziSi9q5YHI5i1dcAVZglFEKpsqXBFg==" />
+<meta name="csrf-token" content="XFrP/j7SDepcmwF53qPsZXAO3C5x1dDi3ocwo+hyNfcAxo5/+5qptvLQlVprSHedcf4Rww3LR5j1T+gEVQtnBg==" />
 		<style id="user-css-output" type="text/css"></style>
 	</head>
-	<body class="reveal-viewport theme-font-montserrat theme-color-white-blue"">
+	<body class="reveal-viewport theme-font-opensans theme-color-white-blue"">
 		<div class="reveal">
 			<div class="slides">
-				<section data-id="5862f2d7a7fab1e7ce428765f8994322"><div class="sl-block" data-block-type="code" data-name="code-07f3e4" data-block-id="e87ca5922cc88c2523062e92b9141fab" style="width: 720px; height: 280px; left: 240px; top: 220px;"><div class="sl-block-content notranslate" data-highlight-theme="monokai" data-code-frame="none" style="z-index: 11;"><pre style="font-size: 16px; line-height: 19px;"><code data-line-numbers="">&lt;html&gt;
-  &lt;head&gt;&lt;/head&gt;
-&lt;/html&gt;</code></pre></div></div></section>
+				<section data-id="19e46d9a2e2cab0bab84de6a3349ec05"><div class="sl-block" data-block-type="text" style="width: 1076px; left: 102px; top: 194px; height: auto;" data-block-id="22923e71ff9ba200789b5cfb1a1c79b0"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 10;">
+<h1>Using pins with Python and JavaScript</h1>
+</div></div>
+<div class="sl-block" data-block-type="text" style="width: 646.175px; left: 553.825px; top: 512.632px; height: auto;" data-block-id="7ba73602b50af9dd215bb2f2b0db5c6a"><div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Subtitle" style="z-index: 11;">
+<h2 style="text-align:right"><span style="font-size:0.7em"><span style="color:#000000">Javier Luraschi</span></span></h2>
+</div></div>
+<div class="sl-block" data-block-type="text" style="width: 646.175px; left: 556.913px; top: 586.632px; height: auto;" data-block-id="c78ed4c446bca0bffd75964535cbaba2" data-name="text-ff2571"><div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Subtitle" style="z-index: 12;">
+<h2 style="text-align:right">rstudio::global</h2>
+</div></div></section><section class="stack" data-id="d6fd372f5e7b926c576d95ad9ce500d4"><section data-id="e476451839384a470cb60518fffad354"><div class="sl-block" data-block-type="text" style="width: 1173.33px; left: 80px; top: 35px; height: auto;" data-block-id="cf417ddc00bcfd43c80a9ee49c6e9763">
+    <div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text" style="text-align: left; z-index: 10;">
+        <h2>Python and JavaScript for Data Science?</h2>
+    </div>
+</div>
+<div class="sl-block" data-block-type="text" style="width: 663.579px; left: 80px; top: 144px; height: auto;" data-block-id="7ca2073d0317b6d1df3afdf5a3aa870c">
+    <div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin urna odio, aliquam vulputate faucibus id, elementum lobortis felis. Mauris urna dolor, placerat ac sagittis quis." style="text-align: left; z-index: 11;">
+        <p>We all know R is great for Data Science, but...</p>
+    </div>
+</div>
+<div class="sl-block" data-block-type="text" data-name="text-8162b5" data-block-id="9586601f8f4a7cf73b8e9c89b1b87896" style="height: auto; width: 620.912px; left: 320px; top: 245.333px;">
+    <div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 12; font-size: 200%;">
+        <pre>JavaScript 67.7%
+HTML/CSS   63.1%
+SQL        54.7%
+Python     44.1%
+Java       40.2%</pre>
+    </div>
+</div>
+<div class="sl-block" data-block-type="text" data-name="text-ab15ef" data-block-id="4481f803c210df3cd78e7a1c7e7a660f" style="height: auto; width: 908.772px; left: 371.228px; top: 648px;"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 13;">
+<p style="text-align:right"><span><span style="color:rgb(89, 89, 89)">Most Popular Technologies, Stack Overflow 2020 Survey</span></span></p>
+</div></div></section><section data-id="19ca0d6eded067ef2c78235ca3299b42"><div class="sl-block" data-block-type="text" style="width: 1173.33px; left: 80px; top: 35px; height: auto;" data-block-id="4c8e5031fa0300ccd70b60e214c567dc">
+    <div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text" style="text-align: left; z-index: 10;">
+<h2>But first, 3 Data Problems worth solving</h2>
+</div>
+</div>
+<div class="sl-block" data-block-type="text" style="width: 663.579px; left: 80px; top: 144px; height: auto;" data-block-id="a7cda83a4935e0dde1c1222c406e1862">
+    <div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin urna odio, aliquam vulputate faucibus id, elementum lobortis felis. Mauris urna dolor, placerat ac sagittis quis." style="text-align: left; z-index: 11;">
+<ol>
+	<li class="fragment" data-fragment-index="0">Beyond iris</li>
+	<li class="fragment" data-fragment-index="1">Lost datasets</li>
+	<li class="fragment" data-fragment-index="2">Manual downloads</li>
+</ol>
+</div>
+</div>
+<div class="sl-block" data-block-type="image" data-name="image-739480" data-block-id="5753c076645cc2bffa9d6c04315425a4" style="width: 423.579px; height: 302.153px; left: 56.4205px; top: 288px; min-width: 1px; min-height: 1px;"><div class="sl-block-content fragment" style="z-index: 12;" data-fragment-index="0"><img style="" data-natural-width="900" data-natural-height="642" data-lazy-loaded="" data-src="https://s3.amazonaws.com/media-p.slid.es/uploads/1485002/images/7940936/pasted-from-clipboard.png"></div></div>
+<div class="sl-block" data-block-type="image" data-name="image-69f5c0" data-block-id="6db478c3342104d722936a172af12101" style="width: 475.265px; height: 257.778px; left: 324.735px; top: 349.46px; min-width: 1px; min-height: 1px;"><div class="sl-block-content fragment" style="z-index: 13;" data-fragment-index="0"><img data-natural-width="1156" data-natural-height="627" style="" data-lazy-loaded="" data-src="https://s3.amazonaws.com/media-p.slid.es/uploads/1485002/images/7940938/pasted-from-clipboard.png"></div></div>
+<div class="sl-block" data-block-type="code" data-name="code-95bb5e" data-block-id="8eeb763c1cf8aaa07e99468c1d64e665" style="width: 1167.16px; height: 70.0496px; left: 79.998px; top: 636.897px;"><div class="sl-block-content notranslate fragment" data-highlight-theme="a11y-dark" data-code-frame="none" style="z-index: 14; border-style: solid; border-radius: 5px;" data-fragment-index="2"><pre class="r" style="font-size: 24px; line-height: 29px;"><code data-line-numbers=""># https://www.data.gouv.fr/fr/datasets/donnees-hospitalieres-relatives-a-lepidemie-de-covid-19/
+fichier_covid &lt;- "donnees/covid.csv"</code></pre></div></div>
+<div class="sl-block" data-block-type="code" style="width: 414.317px; height: 73.4186px; left: 832.841px; top: 288px;" data-block-id="855ec60f9dd26cd54503772d9a224a70" data-name="code-51c17b"><div class="sl-block-content notranslate fragment" data-highlight-theme="a11y-dark" data-code-frame="none" style="z-index: 15; border-style: solid; border-radius: 5px;" data-fragment-index="1"><pre class="r" style="font-size: 24px; line-height: 29px;"><code data-line-numbers="">log_info("Loading data")
+mydat = fread(data_path)</code></pre></div></div></section><section data-id="07729fe9718496a4f68ba1e5f77b7576"><div class="sl-block" data-block-type="text" style="width: 1173.33px; left: 80px; top: 35px; height: auto;" data-block-id="28be40909efe1b2d73459b11c29f45b3">
+    <div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text" style="text-align: left; z-index: 10;">
+<h2>What is the             package?</h2>
+</div>
+</div>
+
+<div class="sl-block" data-block-type="code" data-name="code-95bb5e" style="width: 800.706px; height: 135.018px; left: 79.294px; top: 504px;" data-block-id="9e4297557139e53f46cb15a78fdf526f"><div class="sl-block-content notranslate fragment" data-highlight-theme="a11y-dark" data-code-frame="none" style="z-index: 11; border-style: solid; border-radius: 5px;" data-fragment-index="2"><pre class="r" style="font-size: 24px; line-height: 29px;"><code data-line-numbers="">library(pins)
+
+pin("https://mywebsite.com/mydata.json") %&gt;%
+  jsonlite::read_json()</code></pre></div></div>
+<div class="sl-block" data-block-type="text" data-name="text-07e989" data-block-id="1c1c87dfe99d58c49ab07aa93156afd7" style="height: auto; width: 800.706px; left: 79.294px; top: 184.43px;"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 12;">
+<ul>
+	<li>
+<strong>Pin</strong> remote resources locally with pin(), work offline and cache results.</li>
+	<li class="fragment" data-fragment-index="0">
+<strong>Discover</strong> new resources across different boards using pin_find().</li>
+	<li class="fragment" data-fragment-index="1">
+<strong>Share</strong> resources in local folders, GitHub, Kaggle, and RStudio Connect by registering new boards with board_register().</li>
+</ul>
+</div></div>
+<div class="sl-block" data-block-type="image" data-name="image-8ac629" data-block-id="a78e186b82f8f0c80c7c7950491a6d0a" style="width: 335.769px; height: 717.229px; left: 944.23px; top: -5.68434e-14px; min-width: 1px; min-height: 1px;"><div class="sl-block-content" style="z-index: 13;"><img data-natural-width="632" data-natural-height="1350" style="" data-lazy-loaded="" data-src="https://s3.amazonaws.com/media-p.slid.es/uploads/1485002/images/7941072/Screen_Shot_2020-11-16_at_2.22.42_PM.png"></div></div>
+<div class="sl-block" data-block-type="image" data-name="image-f90213" data-block-id="5ea90cbc2a44943bebf4c564d597698f" style="width: 132.148px; height: 153.291px; left: 435.168px; top: 0px; min-width: 1px; min-height: 1px;"><div class="sl-block-content" style="z-index: 14;"><img data-natural-width="400" data-natural-height="464" style="" data-lazy-loaded="" data-src="https://s3.amazonaws.com/media-p.slid.es/uploads/1485002/images/7941074/pasted-from-clipboard.png"></div></div></section><section data-id="db41edec3958bfee467571a13cd0ae1b"><div class="sl-block" data-block-type="text" style="width: 1173.33px; left: 80px; top: 35px; height: auto;" data-block-id="a3eea978768449c082c06d5e932f5cee">
+    <div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text" style="text-align: left; z-index: 10;">
+<h2>How does sharing work?</h2>
+</div>
+</div>
+
+<div class="sl-block" data-block-type="code" data-name="code-95bb5e" style="width: 880px; height: 44.3652px; left: 80px; top: 419.354px;" data-block-id="78417d95cabecbfba20e936d603b1ad7"><div class="sl-block-content notranslate" data-highlight-theme="a11y-dark" data-code-frame="none" style="z-index: 11; border-style: solid; border-radius: 5px;"><pre class="r" style="font-size: 24px; line-height: 29px;"><code data-line-numbers="">board_register("______")</code></pre></div></div>
+<div class="sl-block" data-block-type="image" data-name="image-aa4f32" data-block-id="db3dfb1be89297d773574b0d97940312" style="width: 392.075px; height: 163.772px; left: 738.165px; top: 233.114px; min-width: 1px; min-height: 1px;"><div class="sl-block-content" style="z-index: 12;"><img style="" data-natural-width="1604" data-natural-height="670" data-lazy-loaded="" data-src="https://s3.amazonaws.com/media-p.slid.es/uploads/1485002/images/7941061/Screen_Shot_2020-11-16_at_2.20.09_PM.png"></div></div>
+<div class="sl-block" data-block-type="text" style="width: 1040px; left: 80px; top: 144px; height: auto;" data-block-id="abf34b9c3ad146d49ea6de0b86184cb2" data-name="text-2cd3bd">
+    <div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin urna odio, aliquam vulputate faucibus id, elementum lobortis felis. Mauris urna dolor, placerat ac sagittis quis." style="text-align: left; z-index: 13;">
+<p>Boards empower you to share across many storage services and switch between them, with the same ease of use as working locally.</p>
+
+<p> </p>
+
+<p>In the following examples replace _______ with:</p>
+</div>
+</div>
+<div class="sl-block" data-block-type="code" style="width: 880px; height: 72.4353px; left: 80px; top: 477.661px;" data-block-id="1b09a7b6b619187e61a0cd6976b0df6b" data-name="code-345d9a"><div class="sl-block-content notranslate fragment" data-highlight-theme="a11y-dark" data-code-frame="none" style="z-index: 14; border-style: solid; border-radius: 5px;" data-fragment-index="0"><pre class="r" style="font-size: 24px; line-height: 29px;"><code data-line-numbers="">pin(1:10, name = "numbers", board = "______")
+pin_get("numbers")</code></pre></div></div>
+<div class="sl-block" data-block-type="code" style="width: 880px; height: 100.506px; left: 80px; top: 563.354px;" data-block-id="6bf3ed998c3ab8da8d9319451af4db15" data-name="code-d927f1"><div class="sl-block-content notranslate fragment" data-highlight-theme="a11y-dark" data-code-frame="none" style="z-index: 15; border-style: solid; border-radius: 5px;" data-fragment-index="1"><pre class="r" style="font-size: 24px; line-height: 29px;"><code data-line-numbers="">pin("http://cs231n.stanford.edu/tiny-imagenet-200.zip",
+    name = "tinyimagenet", board = "______")
+pin_get("tinyimagenet")</code></pre></div></div>
+<div class="sl-block" data-block-type="code" style="width: 880px; height: 45.193px; left: 80px; top: 674.807px;" data-block-id="10e15e1c1b808d335da4db36ebde14dc" data-name="code-8b2a6b"><div class="sl-block-content notranslate fragment" data-highlight-theme="a11y-dark" data-code-frame="none" style="z-index: 16; border-style: solid; border-radius: 5px;" data-fragment-index="2"><pre class="r" style="font-size: 24px; line-height: 29px;"><code data-line-numbers="">pin_find()</code></pre></div></div></section></section><section class="stack" data-id="44d52aaccf4fa16a3c80b1a8565e3974"><section data-id="6a8963cf5a6d60d41cfca229f2b016c8"><div class="sl-block" data-block-type="text" style="width: 1173.33px; left: 80px; top: 35px; height: auto;" data-block-id="6c97be2157188a7d11cc279d79d8c99a">
+    <div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text" style="text-align: left; z-index: 10;">
+<h2>What about Python and JavaScript?</h2>
+</div>
+</div>
+
+<div class="sl-block" data-block-type="image" data-name="image-6c1cd8" data-block-id="cd231968971333118adc393d5be36433" style="width: 798.675px; height: 532.8px; left: 241.325px; top: 151.863px; min-width: 1px; min-height: 1px;"><div class="sl-block-content" style="z-index: 11;"><img style="" data-natural-width="760" data-natural-height="507" data-lazy-loaded="" data-src="https://s3.amazonaws.com/media-p.slid.es/uploads/1485002/images/7941662/pasted-from-clipboard.png"></div></div></section><section data-id="3bb58629f4375a46d411f1ec08b1eecc"><div class="sl-block" data-block-type="text" style="width: 1173.33px; left: 80px; top: 35px; height: auto;" data-block-id="aaf960b5eef3cf816cd1ecd486b32cfb">
+    <div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text" style="text-align: left; z-index: 10;">
+<h2>Introducing pins for JS and Python!</h2>
+</div>
+</div>
+
+<div class="sl-block" data-block-type="image" data-name="image-eafc0b" style="width: 1010.77px; height: 576px; left: 80px; top: 146px; min-width: 1px; min-height: 1px;" data-block-id="b4ed1543fd9a9608d070084ec725552d"><div class="sl-block-content" style="z-index: 11;"><img data-natural-width="2369" data-natural-height="1350" style="" data-lazy-loaded="" data-src="https://s3.amazonaws.com/media-p.slid.es/uploads/1485002/images/7940736/Screen_Shot_2020-11-16_at_12.43.39_PM.png"></div></div></section><section data-id="489a93a35b2810d83106ac2c5bb815ab"><div class="sl-block" data-block-type="text" style="width: 1142.46px; left: 64px; top: 35px; height: auto;" data-block-id="5691a4824e799ebdc9c45c0612e76a52">
+    <div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text" style="text-align: left; z-index: 10;">
+<h2>Use pins.js to pin from JavaScript</h2>
+</div>
+</div>
+
+<div class="sl-block" data-block-type="code" data-name="code-95bb5e" style="width: 1120px; height: 521.965px; left: 80px; top: 130.035px;" data-block-id="d43e816cba6354b0016cfeb0a81530ed"><div class="sl-block-content notranslate" data-highlight-theme="a11y-dark" data-code-frame="none" style="z-index: 11; border-style: solid; border-radius: 5px;"><pre class="xml" style="font-size: 18px; line-height: 22px;"><code data-line-numbers="">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;script language="javascript" src="../dist/pins.js"&gt;&lt;/script&gt;
+    &lt;script language="javascript" src="../hosts/pins.browser.js"&gt;&lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body onload="render()"&gt;
+    &lt;div id="result"&gt;&lt;/div&gt;
+    &lt;script&gt;
+      async function render() {
+        // register local board
+        await pins.boardRegister('local', {});
+
+        // pin an object
+        await pins.pin(42, { name: "number" });
+
+        // retrieve a pin
+        var number = await pins.pinGet("number", { board: "local" });
+        document.getElementById("result").innerText = "The pin 'number' has value: " + number;
+      }
+    &lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre></div></div>
+<div class="sl-block" data-block-type="text" style="width: 1029.05px; left: 80px; top: 659.237px; height: auto;" data-name="text-e90f59" data-block-id="1264707c2fa7b2dad0741f8f38b82833">
+    <div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin urna odio, aliquam vulputate faucibus id, elementum lobortis felis. Mauris urna dolor, placerat ac sagittis quis." style="text-align: left; z-index: 12;">
+<p>You can also use pins.js from NodeJS with local, S3 and RStudio Connect boards.</p>
+</div>
+</div></section><section data-id="0c0eb4ec6fe30a15d9b41fe22f6fd0b8"><div class="sl-block" data-block-type="text" style="width: 1142.46px; left: 64px; top: 35px; height: auto;" data-block-id="0b201b16457d4d9a6e51b919be28825a">
+    <div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text" style="text-align: left; z-index: 10;">
+<h2>And pins to pin from Python</h2>
+</div>
+</div>
+
+<div class="sl-block" data-block-type="code" data-name="code-95bb5e" style="width: 1029.05px; height: 39.1579px; left: 80px; top: 206.166px;" data-block-id="fc7ff475988c37cd03d5d8c5a03f466b"><div class="sl-block-content notranslate" data-highlight-theme="a11y-dark" data-code-frame="none" style="z-index: 11; border-style: solid; border-radius: 5px;"><pre class="bash" style="font-size: 18px; line-height: 22px;"><code data-line-numbers="">pip3 install git+https://github.com/mlverse/pins.git@master#subdirectory=python --user</code></pre></div></div>
+<div class="sl-block" data-block-type="code" style="width: 1029.05px; height: 56px; left: 80px; top: 324.614px;" data-block-id="40db5aa3afff3295617ef89f7dcaf467" data-name="code-b0109d"><div class="sl-block-content notranslate fragment" data-highlight-theme="a11y-dark" data-code-frame="none" style="z-index: 12; border-style: solid; border-radius: 5px;" data-fragment-index="0"><pre class="python" style="font-size: 18px; line-height: 22px;"><code data-line-numbers="">import pins
+pins.pin(42, name="number", board = "local")</code></pre></div></div>
+<div class="sl-block" data-block-type="code" style="width: 1029.05px; height: 34.6667px; left: 80px; top: 396.614px;" data-block-id="f9f3d3a1d1f10c5d5043a64f05f902e3" data-name="code-8ef1a5"><div class="sl-block-content notranslate fragment" data-highlight-theme="a11y-dark" data-code-frame="none" style="z-index: 13; border-style: solid; border-radius: 5px;" data-fragment-index="1"><pre class="python" style="font-size: 18px; line-height: 22px;"><code data-line-numbers="">pins.pin_get(name="number", board = "local")</code></pre></div></div>
+<div class="sl-block" data-block-type="code" style="width: 1029.05px; height: 34.6667px; left: 80px; top: 444.772px;" data-block-id="82ce5c7e6d9553a9e820e66f070e1f14" data-name="code-60c70f"><div class="sl-block-content notranslate fragment" data-highlight-theme="a11y-dark" data-code-frame="none" style="z-index: 14; border-style: solid; border-radius: 5px;" data-fragment-index="2"><pre class="python" style="font-size: 18px; line-height: 22px;"><code data-line-numbers="">pins.pin_find(board = "local")</code></pre></div></div>
+<div class="sl-block" data-block-type="code" style="width: 1029.05px; height: 85.1931px; left: 80px; top: 490.807px;" data-block-id="2065bf06375a0ce7628cd30c1f537b65" data-name="code-b21a46"><div class="sl-block-content notranslate fragment" data-highlight-theme="a11y-dark" data-code-frame="none" style="z-index: 15; border-style: solid; border-radius: 5px;" data-fragment-index="2"><pre class="python" style="font-size: 18px; line-height: 22px;"><code data-line-numbers="">   name                                          description type    board
+ 1 number                                        ""          table   local
+ 2 iris                                          ""          table   local</code></pre></div></div>
+<div class="sl-block" data-block-type="text" style="width: 663.579px; left: 80px; top: 144px; height: auto;" data-block-id="5c8e899b74de3b2cd8d875525b21f6f8" data-name="text-918e46">
+    <div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin urna odio, aliquam vulputate faucibus id, elementum lobortis felis. Mauris urna dolor, placerat ac sagittis quis." style="text-align: left; z-index: 16;">
+<p>First, install pins from GitHub:</p>
+</div>
+</div>
+<div class="sl-block" data-block-type="text" style="width: 1029.05px; left: 80px; top: 268.5px; height: auto;" data-block-id="ea0385f2901601b46d87c14f8cd35089" data-name="text-6ca513">
+    <div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin urna odio, aliquam vulputate faucibus id, elementum lobortis felis. Mauris urna dolor, placerat ac sagittis quis." style="text-align: left; z-index: 17;" data-fragment-index="0">
+<p>Followed by registering a board and using pin(), pin_get() and pin_find():</p>
+</div>
+</div>
+<div class="sl-block" data-block-type="text" style="width: 1029.05px; left: 80px; top: 594.114px; height: auto;" data-block-id="22fdb715f8809aebee1dfc3f1b3f3af9" data-name="text-e90f59">
+    <div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin urna odio, aliquam vulputate faucibus id, elementum lobortis felis. Mauris urna dolor, placerat ac sagittis quis." style="text-align: left; z-index: 18;" data-fragment-index="3">
+<p>Currently only local, s3, and RStudio Connect boards are supported.</p>
+</div>
+</div></section></section><section class="stack" data-id="21a4b9817fec2ac1316598f3df4d4c99"><section data-id="e6da5c75578b828e227cc6ee4a0928a1"><div class="sl-block" data-block-type="text" style="width: 1173.33px; left: 80px; top: 35px; height: auto;" data-block-id="52fb4094def0448014db7dcb4a0d712e">
+    <div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text" style="text-align: left; z-index: 10;">
+<h2>What can I do with pins then?</h2>
+</div>
+</div>
+
+<div class="sl-block" data-block-type="text" style="width: 663.579px; left: 80px; top: 144px; height: auto;" data-block-id="551a2d19380016dc9080d7bbd8f3b5da" data-name="text-b255e1">
+    <div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin urna odio, aliquam vulputate faucibus id, elementum lobortis felis. Mauris urna dolor, placerat ac sagittis quis." style="text-align: left; z-index: 11;">
+<p>Let me introduce you to our team:</p>
+
+<ul>
+	<li class="fragment" data-fragment-index="0">Data Scientist Darla</li>
+	<li class="fragment" data-fragment-index="1">Graphics Greg</li>
+	<li class="fragment" data-fragment-index="2">Machine Learning Monica</li>
+</ul>
+</div>
+</div>
+<div class="sl-block" data-block-type="image" data-name="image-499f7c" data-block-id="09ecdcd6b65881270b1bed39a1dd3f1b" style="width: 414.309px; height: 233.011px; left: 512.844px; top: 360px; min-width: 1px; min-height: 1px;"><div class="sl-block-content fragment" style="z-index: 12; border-style: solid; border-radius: 5px;" data-fragment-index="1"><img style="" data-natural-width="681" data-natural-height="383" data-lazy-loaded="" data-src="https://s3.amazonaws.com/media-p.slid.es/uploads/1485002/images/7941667/pasted-from-clipboard.png"></div></div>
+<div class="sl-block" data-block-type="image" data-name="image-7525f9" data-block-id="e4ab4b42de54500d8cac5dae3fb4646b" style="width: 414.242px; height: 233.011px; left: 80px; top: 360px; min-width: 1px; min-height: 1px;"><div class="sl-block-content fragment" style="z-index: 13; border-style: solid; border-radius: 5px;" data-fragment-index="0"><img style="" data-natural-width="1280" data-natural-height="720" data-lazy-loaded="" data-src="https://s3.amazonaws.com/media-p.slid.es/uploads/1485002/images/7941672/pasted-from-clipboard.png"></div></div>
+<div class="sl-block" data-block-type="image" data-name="image-5ede76" data-block-id="f78b5039eb5b8713ace83e401812515a" style="width: 194.176px; height: 233.011px; left: 949.649px; top: 360px; min-width: 1px; min-height: 1px;"><div class="sl-block-content fragment" style="z-index: 14; border-style: solid; border-radius: 5px;" data-fragment-index="2"><img style="" data-natural-width="1125" data-natural-height="1350" data-lazy-loaded="" data-src="https://s3.amazonaws.com/media-p.slid.es/uploads/1485002/images/7941678/pasted-from-clipboard.png"></div></div></section><section data-id="9af5dc1e528ce9f5733f7750b2794972"><div class="sl-block" data-block-type="text" style="width: 1173.33px; left: 80px; top: 35px; height: auto;" data-block-id="d8b67cfab2ba78b8b5219a3e9eb86706">
+    <div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text" style="text-align: left; z-index: 10;">
+        <h2>Data Scientist Darla</h2>
+    </div>
+</div>
+
+<div class="sl-block" data-block-type="text" style="width: 1040px; left: 80px; top: 144px; height: auto;" data-name="text-b255e1" data-block-id="c93041f2d860fe2e75473873ac7d26d6">
+    <div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin urna odio, aliquam vulputate faucibus id, elementum lobortis felis. Mauris urna dolor, placerat ac sagittis quis." style="text-align: left; z-index: 11;">
+        <p>Finds and gets a "Game of Thrones" dataset from Kaggle using R and pins:</p>
+    </div>
+</div>
+<div class="sl-block" data-block-type="code" style="width: 1120px; height: 59.3684px; left: 80px; top: 216px;" data-name="code-b0109d" data-block-id="ce2d7e7f0fc7f793511b2b7f65a6f32a">
+    <div class="sl-block-content notranslate" data-highlight-theme="a11y-dark" data-code-frame="none" style="z-index: 12; border-style: solid; border-radius: 5px;">
+        <pre class="r" style="font-size: 18px; line-height: 22px;"><code data-line-numbers="">board_register("kaggle")
+pin_find("game of thrones", board = "kaggle")</code></pre>
+    </div>
+</div>
+<div class="sl-block fragment" data-block-type="code" style="width: 1120px; height: 124.491px; left: 80px; top: 279.368px;" data-block-id="4f50e9f0bd31141a006a24fed268a663" data-name="code-c11c0c" data-fragment-index="0">
+    <div class="sl-block-content notranslate" data-highlight-theme="a11y-dark" data-code-frame="none" style="z-index: 13; border-style: solid; border-radius: 5px;">
+        <pre class="r" style="font-size: 18px; line-height: 22px;"><code data-line-numbers="">   name                                                          description                                   type  board 
+   &lt;chr&gt;                                                         &lt;chr&gt;                                         &lt;chr&gt; &lt;chr&gt; 
+ 1 albenft/game-of-thrones-script-all-seasons                    "Game of Thrones Script All Seasons"          files kaggle
+ 2 gunnvant/game-of-thrones-srt                                  "Game of Thrones Subtitles"                   files kaggle
+ 3 khulasasndh/game-of-thrones-books                             "Game Of Thrones books"                       files kaggle</code></pre>
+    </div>
+</div>
+<div class="sl-block fragment" data-block-type="code" style="width: 1120px; height: 38.0351px; left: 80px; top: 432px;" data-block-id="06ed83897b6309680d46e4af27ffcfdb" data-name="code-c336c1" data-fragment-index="1">
+    <div class="sl-block-content notranslate" data-highlight-theme="a11y-dark" data-code-frame="none" style="z-index: 14; border-style: solid; border-radius: 5px;">
+        <pre class="r" style="font-size: 18px; line-height: 22px;"><code data-line-numbers="">books &lt;- pin_get("khulasasndh/game-of-thrones-books", board = "kaggle")</code></pre>
+    </div>
+</div>
+<div class="sl-block fragment" data-block-type="code" style="width: 1120px; height: 59.368px; left: 80px; top: 474.035px;" data-name="code-4aede8" data-block-id="25d4de34ed50d1ed2018d5f0da2c6fe9" data-fragment-index="2">
+    <div class="sl-block-content notranslate" data-highlight-theme="a11y-dark" data-code-frame="none" style="z-index: 15; border-style: solid; border-radius: 5px;">
+        <pre class="r" style="font-size: 18px; line-height: 22px;"><code data-line-numbers="">[1] "/Users/javierluraschi/Library/Caches/pins/kaggle/khulasasndh/game-of-thrones-books/001ssb.txt"
+[2] "/Users/javierluraschi/Library/Caches/pins/kaggle/khulasasndh/game-of-thrones-books/002ssb.txt"</code></pre>
+    </div>
+</div>
+<div class="sl-block fragment" data-block-type="code" style="width: 1120px; height: 38.0351px; left: 80px; top: 560.869px;" data-block-id="68bc91f4df07d2e559aeb9ba072637e1" data-name="code-645e6f" data-fragment-index="3">
+    <div class="sl-block-content notranslate" data-highlight-theme="a11y-dark" data-code-frame="none" style="z-index: 16; border-style: solid; border-radius: 5px;">
+        <pre class="r" style="font-size: 18px; line-height: 22px;"><code data-line-numbers="">books[1] %&gt;% readLines() %&gt;% head()</code></pre>
+    </div>
+</div>
+<div class="sl-block fragment" data-block-type="code" style="width: 1120px; height: 124.491px; left: 80px; top: 599.509px;" data-block-id="64208a732ef234e2b2f50d5fd4ac0d03" data-name="code-75a0a6" data-fragment-index="4">
+    <div class="sl-block-content notranslate" data-highlight-theme="a11y-dark" data-code-frame="none" style="z-index: 17; border-style: solid; border-radius: 5px;">
+        <pre class="r" style="font-size: 18px; line-height: 22px;"><code data-line-numbers="">[1] "A Game Of Thrones "                                                                                     
+[2] "Book One of A Song of Ice and Fire "                                                                    
+[3] "By George R. R. Martin "                                                                                
+[4] "PROLOGUE "                                                                                              
+[5] "\"We should start back,\" Gared urged as the woods began to grow dark around them. \"The wildlings are "</code></pre>
+    </div>
+</div>
+<div class="sl-block fragment" data-block-type="text" data-name="text-4d9f57" data-block-id="32748e00aab95db47558c6088e463e10" style="height: auto; width: 600px; left: 600px; top: 691.026px;" data-fragment-index="5">
+    <div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 18;">
+        <p style="text-align: right;"><span style="font-size:0.5em">Inspired  by <a href="https://www.kaggle.com/mmmarchetti/game-of-thrones-network-analysis" target="_blank">kaggle.com/mmmarchetti</a></span></p>
+    </div>
+</div>
+<div class="sl-block" data-block-type="image" data-name="image-7525f9" style="width: 171.914px; height: 96.7018px; left: 666.665px; top: 23.6491px; min-width: 1px; min-height: 1px;" data-block-id="b2d82ca11ff2af911ac70785641e6e90"><div class="sl-block-content" style="z-index: 19; border-style: solid; border-radius: 5px;"><img style="" data-natural-width="1280" data-natural-height="720" data-lazy-loaded="" data-src="https://s3.amazonaws.com/media-p.slid.es/uploads/1485002/images/7941672/pasted-from-clipboard.png"></div></div></section><section data-id="ce05a364519772cae23024296befd18b"><div class="sl-block" data-block-type="text" style="width: 1173.33px; left: 80px; top: 35px; height: auto;" data-block-id="30e280a9956af8471cf64544aa6510ec">
+    <div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text" style="text-align: left; z-index: 10;">
+<h2>             Darla does data magic and shares</h2>
+</div>
+</div>
+
+<div class="sl-block" data-block-type="text" style="width: 1040px; left: 80px; top: 144px; height: auto;" data-name="text-b255e1" data-block-id="bdfe10b112b5020e8304895d32dd90f2">
+    <div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin urna odio, aliquam vulputate faucibus id, elementum lobortis felis. Mauris urna dolor, placerat ac sagittis quis." style="text-align: left; z-index: 11;">
+<p><span style="color:rgb(0, 0, 0)">She finds out how characters are connected in the books:</span></p>
+</div>
+</div>
+<div class="sl-block" data-block-type="text" style="width: 1040px; left: 80px; top: 387.894px; height: auto;" data-block-id="0aca87a40eada104c99728477dee8aac" data-name="text-a048e1">
+    <div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin urna odio, aliquam vulputate faucibus id, elementum lobortis felis. Mauris urna dolor, placerat ac sagittis quis." style="text-align: left; z-index: 12;" data-fragment-index="0">
+<p><span style="color:rgb(0, 0, 0)">And then shares her dataset with Graphics Greg using S3:</span></p>
+</div>
+</div>
+<div class="sl-block" data-block-type="code" style="width: 1120px; height: 158.808px; left: 80px; top: 205.578px;" data-block-id="791cd5646687e2637e9ba3bd5d00712d" data-name="code-668b1e"><div class="sl-block-content notranslate" data-highlight-theme="a11y-dark" data-code-frame="none" style="z-index: 13; border-style: solid; border-radius: 5px;"><pre class="r" style="font-size: 18px; line-height: 22px;"><code data-line-numbers="">                            Source              Target        Type  weight 
+0                   Addam-Marbrand     Jaime-Lannister  Undirected       3   
+1                   Addam-Marbrand     Tywin-Lannister  Undirected       6   
+2                Aegon-I-Targaryen  Daenerys-Targaryen  Undirected       5   
+3                Aegon-I-Targaryen        Eddard-Stark  Undirected       4   
+4  Aemon-Targaryen-(Maester-Aemon)      Alliser-Thorne  Undirected       4 </code></pre></div></div>
+<div class="sl-block" data-block-type="code" style="width: 1120px; height: 59.3684px; left: 80px; top: 455.053px;" data-name="code-b0109d" data-block-id="b4e50ff749ac5fadcb7868973872b7af"><div class="sl-block-content notranslate fragment" data-highlight-theme="a11y-dark" data-code-frame="none" style="z-index: 14; border-style: solid; border-radius: 5px;" data-fragment-index="1"><pre class="r" style="font-size: 18px; line-height: 22px;"><code data-line-numbers="">board_register("s3", bucket = "got-data", key = "thesecretkey")
+pin(got_characters, name = "got-characters", board = "s3")</code></pre></div></div>
+<div class="sl-block" data-block-type="image" data-name="image-7525f9" style="width: 171.914px; height: 96.7018px; left: 80px; top: 23.6491px; min-width: 1px; min-height: 1px;" data-block-id="fa17e0668af8f39a881cbf794b3a2fd6"><div class="sl-block-content" style="z-index: 15; border-style: solid; border-radius: 5px;"><img style="" data-natural-width="1280" data-natural-height="720" data-lazy-loaded="" data-src="https://s3.amazonaws.com/media-p.slid.es/uploads/1485002/images/7941672/pasted-from-clipboard.png"></div></div></section><section data-id="82d30c786b781bceb642ffe46f288d8e"><div class="sl-block" data-block-type="text" style="width: 1173.33px; left: 80px; top: 35px; height: auto;" data-block-id="8adc5f094588d1ea68bfa355a0e0f13a">
+    <div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text" style="text-align: left; z-index: 10;">
+<h2>Graphic Greg                 thinks, whoa Darla!</h2>
+</div>
+</div>
+
+<div class="sl-block" data-block-type="text" style="width: 1077.05px; left: 80px; top: 144px; height: auto;" data-name="text-b255e1" data-block-id="d41ea119116b0d41b5d3745af25a5ddb">
+    <div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin urna odio, aliquam vulputate faucibus id, elementum lobortis felis. Mauris urna dolor, placerat ac sagittis quis." style="text-align: left; z-index: 11;">
+<p>Asks Darla to share her S3 board and uses JavaScript and pins to build a D3 network:</p>
+</div>
+</div>
+<div class="sl-block" data-block-type="code" style="width: 601.967px; height: 184px; left: 80px; top: 257px;" data-name="code-b0109d" data-block-id="ae77610c821fdbf652e6d6e8d9badda0"><div class="sl-block-content notranslate" data-highlight-theme="a11y-dark" data-code-frame="none" style="z-index: 12; border-style: solid; border-radius: 5px;"><pre class="javascript" style="font-size: 18px; line-height: 22px;"><code data-line-numbers="">// register darla's board
+await pins.boardRegister('s3', {
+  bucket: 'got-data', key: ''});
+
+// retrieve darla's pin
+var characters = await pins.pinGet(
+  "got-characters", { board: "s3" });</code></pre></div></div>
+<div class="sl-block" data-block-type="text" style="width: 601.967px; left: 80px; top: 451.105px; height: auto;" data-name="text-a048e1" data-block-id="401ba70a5d54d538621bd97dddc67e2d">
+    <div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin urna odio, aliquam vulputate faucibus id, elementum lobortis felis. Mauris urna dolor, placerat ac sagittis quis." style="text-align: left; z-index: 13;">
+<p>...</p>
+</div>
+</div>
+<div class="sl-block" data-block-type="image" data-name="image-add4d1" data-block-id="873567009f15985931ef002a31f3314e" style="width: 518.033px; height: 438px; left: 754.807px; top: 216px; min-width: 1px; min-height: 1px;"><div class="sl-block-content fragment" style="z-index: 14;" data-fragment-index="0"><img style="" data-natural-width="712" data-natural-height="602" data-lazy-loaded="" data-src="https://s3.amazonaws.com/media-p.slid.es/uploads/1485002/images/7941306/pasted-from-clipboard.png"></div></div>
+<div class="sl-block" data-block-type="image" data-name="image-499f7c" style="width: 208.677px; height: 117.362px; left: 473.29px; top: 13.319px; min-width: 1px; min-height: 1px;" data-block-id="5c81133a179b8ef7540228cc0f145e5a"><div class="sl-block-content" style="z-index: 15; border-style: solid; border-radius: 5px;"><img style="" data-natural-width="681" data-natural-height="383" data-lazy-loaded="" data-src="https://s3.amazonaws.com/media-p.slid.es/uploads/1485002/images/7941667/pasted-from-clipboard.png"></div></div></section><section data-id="d98a7c6fdeb095591d913ad0b8df3f29"><div class="sl-block" data-block-type="text" style="width: 1173.33px; left: 80px; top: 35px; height: auto;" data-block-id="d1048543db6d39b3ca6642ff2782fe26">
+    <div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text" style="text-align: left; z-index: 10;">
+<h2>Machine Learning Monica        is inspired</h2>
+</div>
+</div>
+
+<div class="sl-block" data-block-type="text" style="width: 1077.05px; left: 80px; top: 144px; height: auto;" data-name="text-b255e1" data-block-id="972f13d38ffba4edb31d9e8be8a29037">
+    <div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin urna odio, aliquam vulputate faucibus id, elementum lobortis felis. Mauris urna dolor, placerat ac sagittis quis." style="text-align: left; z-index: 11;">
+<p>She wants to know, who is the most important character? So she gets the dataset using pins: </p>
+</div>
+</div>
+<div class="sl-block" data-block-type="code" style="width: 880px; height: 104.281px; left: 80px; top: 453.895px;" data-name="code-b0109d" data-block-id="98d2ef775ac43bc01f860fafb483f8d3"><div class="sl-block-content notranslate fragment" data-highlight-theme="a11y-dark" data-code-frame="none" style="z-index: 12; border-style: solid; border-radius: 5px;" data-fragment-index="1"><pre class="javascript" style="font-size: 18px; line-height: 22px;"><code data-line-numbers="">import networkx as nx
+
+G_book1 = nx.Graph()
+deg_cen_book1 = nx.degree_centrality(characters)</code></pre></div></div>
+<div class="sl-block" data-block-type="text" style="width: 1040px; left: 80px; top: 549.193px; height: auto;" data-name="text-a048e1" data-block-id="975f74dcf9f8108765f328ca99afd445">
+    <div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin urna odio, aliquam vulputate faucibus id, elementum lobortis felis. Mauris urna dolor, placerat ac sagittis quis." style="text-align: left; z-index: 13;" data-fragment-index="1">
+<p>...</p>
+</div>
+</div>
+<div class="sl-block" data-block-type="code" style="width: 880px; height: 102.035px; left: 80px; top: 236.632px;" data-block-id="47f58858205bc083049ef48097d31b46" data-name="code-491d2b"><div class="sl-block-content notranslate" data-highlight-theme="a11y-dark" data-code-frame="none" style="z-index: 14; border-style: solid; border-radius: 5px;"><pre class="javascript" style="font-size: 18px; line-height: 22px;"><code data-line-numbers="">import pins as pins
+
+pins.board_registere("s3", bucket = "got-data", key = "thesecreetkey")
+characters = pins.pin_get("got-characters", board = "s3")</code></pre></div></div>
+<div class="sl-block" data-block-type="text" style="width: 1120px; left: 80px; top: 360px; height: auto;" data-block-id="8eedbcb118375deec51dfeff1441939f" data-name="text-1f92b7">
+    <div class="sl-block-content fragment" data-placeholder-tag="p" data-placeholder-text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin urna odio, aliquam vulputate faucibus id, elementum lobortis felis. Mauris urna dolor, placerat ac sagittis quis." style="text-align: left; z-index: 15;" data-fragment-index="0">
+<p>And then makes use of the networkx Python package to measure importance using degree centrality:</p>
+</div>
+</div>
+<div class="sl-block" data-block-type="code" style="width: 1200px; height: 108.07px; left: 80px; top: 600.141px;" data-block-id="6ab483ed0f8e75c4cc9cda111efd62eb" data-name="code-6c1eb0"><div class="sl-block-content notranslate fragment" data-highlight-theme="a11y-dark" data-code-frame="none" style="z-index: 16; border-style: solid; border-radius: 5px;" data-fragment-index="2"><pre class="javascript" style="font-size: 18px; line-height: 22px;"><code data-line-numbers="">{
+  book1: [('Eddard-Stark', 0.354), ('Robert-Baratheon', 0.268), ('Tyrion-Lannister', 0.247)]
+  book5: [('Jon-Snow', 0.196), ('Daenerys-Targaryen', 0.183), ('Stannis-Baratheon', 0.148)]
+}</code></pre></div></div>
+<div class="sl-block" data-block-type="image" data-name="image-5ede76" style="width: 90.8333px; height: 109px; left: 826.001px; top: 17.5px; min-width: 1px; min-height: 1px;" data-block-id="1931466aa81bd40f002c0f92b4e9d795"><div class="sl-block-content" style="z-index: 17; border-style: solid; border-radius: 5px;"><img style="" data-natural-width="1125" data-natural-height="1350" data-lazy-loaded="" data-src="https://s3.amazonaws.com/media-p.slid.es/uploads/1485002/images/7941678/pasted-from-clipboard.png"></div></div></section><section data-id="ecac132b1232940d5a60379cbd27aea2"><div class="sl-block" data-block-type="text" style="width: 1173.33px; left: 80px; top: 35px; height: auto;" data-block-id="9789c5925242583a864c61e3afa88a51">
+    <div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text" style="text-align: left; z-index: 10;">
+<h2>So that's what we can to with pins!</h2>
+</div>
+</div>
+
+<div class="sl-block" data-block-type="text" style="width: 1040px; left: 80px; top: 144px; height: auto;" data-name="text-b255e1" data-block-id="342de7a760baf5afdfbe783a9ed7cf59">
+    <div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin urna odio, aliquam vulputate faucibus id, elementum lobortis felis. Mauris urna dolor, placerat ac sagittis quis." style="text-align: left; z-index: 11;" dir="ui">
+<p>Data Scientist Darla, Graphics Greg and Machine Learning Mattie can all easily share and reuse their datasets across R, JavaScript and Python.</p>
+</div>
+</div>
+<div class="sl-block" data-block-type="image" data-name="image-5ede76" style="width: 360px; height: 432px; left: 652.031px; top: 256.561px; min-width: 1px; min-height: 1px;" data-block-id="60d23aa20ba937846baceb37df7ef4f8"><div class="sl-block-content" style="z-index: 12;"><img style="" data-natural-width="1125" data-natural-height="1350" data-lazy-loaded="" data-src="https://s3.amazonaws.com/media-p.slid.es/uploads/1485002/images/7941678/pasted-from-clipboard.png"></div></div>
+<div class="sl-block" data-block-type="image" data-name="image-499f7c" style="width: 384.063px; height: 216px; left: 267.968px; top: 472.561px; min-width: 1px; min-height: 1px;" data-block-id="3c94429648fe814b909344363c4961a5"><div class="sl-block-content" style="z-index: 13;"><img style="" data-natural-width="681" data-natural-height="383" data-lazy-loaded="" data-src="https://s3.amazonaws.com/media-p.slid.es/uploads/1485002/images/7941667/pasted-from-clipboard.png"></div></div>
+<div class="sl-block" data-block-type="image" data-name="image-7525f9" style="width: 384px; height: 216px; left: 267.968px; top: 256.561px; min-width: 1px; min-height: 1px;" data-block-id="d2ad3a354e07cf9546956a515e882f84"><div class="sl-block-content" style="z-index: 14;"><img style="" data-natural-width="1280" data-natural-height="720" data-lazy-loaded="" data-src="https://s3.amazonaws.com/media-p.slid.es/uploads/1485002/images/7941672/pasted-from-clipboard.png"></div></div></section></section><section data-id="423d7fecbb53576e118b2a05de433c61"><div class="sl-block" data-block-type="text" style="width: 1173.33px; left: 80px; top: 35px; height: auto;" data-block-id="3997b4499be51e854f52e319c1dba1ed">
+    <div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text" style="text-align: left; z-index: 10;">
+<h2>Ready to start sharing your data?</h2>
+</div>
+</div>
+
+<div class="sl-block" data-block-type="text" style="width: 1077.05px; left: 90.105px; top: 216px; height: auto;" data-name="text-b255e1" data-block-id="9ed04b7c2601ef1c666f69004949c100">
+    <div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin urna odio, aliquam vulputate faucibus id, elementum lobortis felis. Mauris urna dolor, placerat ac sagittis quis." style="text-align: left; z-index: 11;" dir="ui">
+<p style="text-align:center"><span style="font-size:4.0em"><a href="http://pins.mlverse.org/" target="_blank">pins.mlverse.org</a></span></p>
+</div>
+</div>
+<div class="sl-block" data-block-type="text" data-name="text-dc1506" data-block-id="7dd4331dca13c6d8c511a25d3e9e62c4" style="height: auto; width: 800px; left: 80px; top: 465px;"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 12;">
+<p>Special thanks to the <strong>mlverse/pins</strong> project contributors:</p>
+</div></div>
+<div class="sl-block" data-block-type="text" data-name="text-48a094" data-block-id="d7db87fdf5fac6387cd1c887e6c2934a" style="height: auto; width: 211.298px; left: 90.105px; top: 656.298px;"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 13;">
+<p><span style="font-size:0.7em"><a href="https://github.com/gnykka" target="_blank">Nataliya Stepanova</a></span></p>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 165.263px; left: 320px; top: 656.298px;" data-block-id="316ca1d6420db55da98ec1625420f4c0" data-name="text-3db04f"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 14;">
+<p><span style="font-size:0.7em"><a href="https://about.me/michaelkalygin" target="_blank">Michael Kalygin</a></span></p>
+</div></div>
+<div class="sl-block" data-block-type="image" data-name="image-49d7be" style="width: 111.748px; height: 111.748px; left: 139.88px; top: 540.889px; min-width: 1px; min-height: 1px;" data-block-id="54e3f0b5613153453e7bbf804b53cd55"><div class="sl-block-content" style="z-index: 15; border-style: solid; border-radius: 100px;"><img data-natural-width="460" data-natural-height="460" style="" data-lazy-loaded="" data-src="https://s3.amazonaws.com/media-p.slid.es/uploads/1485002/images/7941559/pasted-from-clipboard.png"></div></div>
+<div class="sl-block" data-block-type="image" data-name="image-4c672c" data-block-id="38cc7984744a35ceeef0a02b1ceae0c1" style="width: 111.748px; height: 111.748px; left: 346.758px; top: 540.889px; min-width: 1px; min-height: 1px;"><div class="sl-block-content" style="z-index: 16; border-style: solid; border-radius: 100px;"><img style="" data-natural-width="460" data-natural-height="460" data-lazy-loaded="" data-src="https://s3.amazonaws.com/media-p.slid.es/uploads/1485002/images/7941560/pasted-from-clipboard.png"></div></div></section>
 			</div>
 		</div>
 
 		
 <script>
-	var SLConfig = {"current_user":{"id":1485002,"username":"javierluraschi","name":"Javier Luraschi","description":null,"thumbnail_url":"https://lh3.googleusercontent.com/a-/AOh14GifIH5tjIvAmGGlQ45AraDyaLOu5ZGbb3RxCQ5xiA=s96-c","account_type":"default","team_id":null,"settings":{"id":6768105,"present_controls":true,"present_upsizing":true,"present_pointer":false,"present_notes":true,"default_deck_tag_id":null,"editor_grid":true,"editor_grid_on_top":false,"editor_snap":true,"editor_fixed_notes":false,"developer_mode":false,"speaker_layout":null,"speaker_theme":null,"phone_number":null,"phone_country_code":null,"media_sources":null,"export_controls":null,"export_slide_number":null,"export_slide_notes":null,"export_separate_fragments":null,"auto_animate_tutorial_completed":null},"email":"jluraschi@gmail.com","notify_on_receipt":true,"billing_address":null,"billing_vat_id":null,"editor_tutorial_completed":true,"manually_upgraded":false,"deck_user_editor_limit":null,"storage_used":0,"storage_limit":262144000,"image_upload_limit":10485760,"video_upload_limit":104857600},"deck":{"id":1974613,"slug":"deck","title":"deck","description":"","width":1280,"height":720,"margin":0.05,"visibility":"all","published_at":"2020-11-16T20:24:50.331Z","sanitize_messages":null,"thumbnail_url":"https://s3.amazonaws.com/media-p.slid.es/thumbnails/618e3dbc833edc5e7b19aeb8df8d52ec/thumb.jpg?1605558426","view_count":0,"user":{"id":1485002,"username":"javierluraschi","name":"Javier Luraschi","description":null,"thumbnail_url":"https://lh3.googleusercontent.com/a-/AOh14GifIH5tjIvAmGGlQ45AraDyaLOu5ZGbb3RxCQ5xiA=s96-c","account_type":"default","team_id":null,"settings":{"id":6768105,"present_controls":true,"present_upsizing":true,"present_pointer":false,"present_notes":true,"default_deck_tag_id":null}},"background_transition":"slide","transition":"slide","theme_id":null,"theme_font":"montserrat","theme_color":"white-blue","auto_slide_interval":0,"comments_enabled":true,"forking_enabled":true,"rolling_links":false,"center":false,"shuffle":false,"should_loop":false,"share_notes":false,"slide_number":false,"slide_count":1,"rtl":false,"version":2,"collaborative":null,"deck_user_editor_limit":null,"data_updated_at":1605558425840,"font_typekit":null,"font_google":null,"time_limit":null,"navigation_mode":"default","upsizing_enabled":true,"notes":{}},"user":{"id":1485002,"username":"javierluraschi","name":"Javier Luraschi","description":null,"thumbnail_url":"https://lh3.googleusercontent.com/a-/AOh14GifIH5tjIvAmGGlQ45AraDyaLOu5ZGbb3RxCQ5xiA=s96-c","account_type":"default","team_id":null,"settings":{"id":6768105,"present_controls":true,"present_upsizing":true,"present_pointer":false,"present_notes":true,"default_deck_tag_id":null}}};
+	var SLConfig = {"current_user":{"id":1485002,"username":"javierluraschi","name":"Javier Luraschi","description":null,"thumbnail_url":"https://lh3.googleusercontent.com/a-/AOh14GifIH5tjIvAmGGlQ45AraDyaLOu5ZGbb3RxCQ5xiA=s96-c","account_type":"default","team_id":null,"settings":{"id":6768105,"present_controls":true,"present_upsizing":true,"present_pointer":false,"present_notes":true,"default_deck_tag_id":null,"editor_grid":true,"editor_grid_on_top":false,"editor_snap":true,"editor_fixed_notes":false,"developer_mode":true,"speaker_layout":null,"speaker_theme":null,"phone_number":"425761 4102","phone_country_code":"1","media_sources":null,"export_controls":null,"export_slide_number":null,"export_slide_notes":null,"export_separate_fragments":null,"auto_animate_tutorial_completed":true},"email":"jluraschi@gmail.com","notify_on_receipt":true,"billing_address":null,"billing_vat_id":null,"editor_tutorial_completed":true,"manually_upgraded":false,"deck_user_editor_limit":null,"storage_used":6264057,"storage_limit":262144000,"image_upload_limit":10485760,"video_upload_limit":104857600},"deck":{"id":1974613,"slug":"deck","title":"deck","description":"","width":1280,"height":720,"margin":0.05,"visibility":"all","published_at":"2020-11-16T20:24:50.331Z","sanitize_messages":null,"thumbnail_url":"https://s3.amazonaws.com/media-p.slid.es/thumbnails/618e3dbc833edc5e7b19aeb8df8d52ec/thumb.jpg?1605559999","view_count":0,"user":{"id":1485002,"username":"javierluraschi","name":"Javier Luraschi","description":null,"thumbnail_url":"https://lh3.googleusercontent.com/a-/AOh14GifIH5tjIvAmGGlQ45AraDyaLOu5ZGbb3RxCQ5xiA=s96-c","account_type":"default","team_id":null,"settings":{"id":6768105,"present_controls":true,"present_upsizing":true,"present_pointer":false,"present_notes":true,"default_deck_tag_id":null}},"background_transition":"slide","transition":"slide","theme_id":null,"theme_font":"opensans","theme_color":"white-blue","auto_slide_interval":0,"comments_enabled":true,"forking_enabled":true,"rolling_links":false,"center":false,"shuffle":false,"should_loop":false,"share_notes":false,"slide_number":false,"slide_count":19,"rtl":false,"version":2,"collaborative":null,"deck_user_editor_limit":null,"data_updated_at":1605588809722,"font_typekit":null,"font_google":null,"time_limit":null,"navigation_mode":"default","upsizing_enabled":true,"notes":{}},"user":{"id":1485002,"username":"javierluraschi","name":"Javier Luraschi","description":null,"thumbnail_url":"https://lh3.googleusercontent.com/a-/AOh14GifIH5tjIvAmGGlQ45AraDyaLOu5ZGbb3RxCQ5xiA=s96-c","account_type":"default","team_id":null,"settings":{"id":6768105,"present_controls":true,"present_upsizing":true,"present_pointer":false,"present_notes":true,"default_deck_tag_id":null}}};
 </script>
 
 		<script>
